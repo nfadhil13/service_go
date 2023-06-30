@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "357524452015",
+    "project_id": "service-go-e302a",
+    "storage_bucket": "service-go-e302a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357524452015:android:3fa8029d25e49cd7c6da5a",
+        "android_client_info": {
+          "package_name": "com.example.service_go"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357524452015-6bapqe2tc9pil6ppn0605m55oifbjp8h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1lp984B8BdmbhenvMvx6dB5XKLpRTOeg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357524452015-6bapqe2tc9pil6ppn0605m55oifbjp8h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "357524452015-bhg7vdds902ropglovj88llr0t4hvar6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.serviceGo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
