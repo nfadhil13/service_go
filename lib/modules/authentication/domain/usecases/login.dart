@@ -5,10 +5,10 @@ import 'package:service_go/modules/authentication/domain/repositories/authentica
 import 'package:service_go/modules/authentication/domain/model/user_session.dart';
 
 class LoginParams {
-  final String username;
+  final String email;
   final String password;
 
-  LoginParams({required this.username, required this.password});
+  LoginParams({required this.email, required this.password});
 }
 
 @injectable
@@ -20,6 +20,6 @@ class Login extends Usecase<LoginParams, UserSession> {
   @override
   Future<Resource<UserSession>> execute(LoginParams params) =>
       _authenticationRepo
-          .login(username: params.username, password: params.password)
+          .login(email: params.email, password: params.password)
           .asResource;
 }

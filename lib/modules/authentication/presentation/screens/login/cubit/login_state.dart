@@ -19,6 +19,7 @@ class LoginSuccess extends LoginState {
 
 class LoginError extends LoginState {
   final String message;
+  final Map<String, dynamic> errors;
 
-  const LoginError(this.message);
+  const LoginError(this.message, {this.errors = const {}});
 }

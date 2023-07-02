@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/types/exceptions/base_exception.dart';
 import 'package:service_go/infrastructure/types/exceptions/session_exception.dart';
+import 'package:service_go/infrastructure/types/nothing.dart';
 import 'package:service_go/infrastructure/types/resource.dart';
 
 ///
@@ -64,5 +65,10 @@ Future<Resource<Result>> _handleError<Result>(
 }
 
 extension DataToResouceExt<T extends dynamic> on Future<T> {
+  Future<Resource<Nothing>> get asResourceOfNothing async {
+    await this;
+    return Resource.success(const Nothing());
+  }
+
   Future<Resource<T>> get asResource async => Resource.success(await this);
 }

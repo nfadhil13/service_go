@@ -9,10 +9,10 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureDependencies();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await configureDependencies();
   ServiceGoGlobalErrorHandler.setUpErrorHandler();
   ENV.setEnv(ENV.dev);
   runApp(ServiceGoApp(

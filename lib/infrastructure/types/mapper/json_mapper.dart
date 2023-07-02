@@ -1,9 +1,5 @@
 abstract class ToJSONMapper<T> {
-  final T data;
-
-  ToJSONMapper(this.data);
-
-  dynamic toJSON();
+  dynamic toJSON(T data);
 }
 
 abstract class FromJSONMapper<T> {

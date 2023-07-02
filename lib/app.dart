@@ -7,6 +7,7 @@ import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/routing/router.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
 import 'package:service_go/infrastructure/styles/color.dart';
+import 'package:service_go/infrastructure/styles/text_theme.dart';
 import 'package:sizer/sizer.dart';
 
 class ServiceGoApp extends StatelessWidget {
@@ -41,8 +42,8 @@ class ServiceGoApp extends StatelessWidget {
           },
           routeInformationParser: appRouter.defaultRouteParser(),
           theme: ThemeData(
-            textTheme: ServiceGoTheme.textTheme,
-            colorScheme: ServiceGoTheme.lightColorScheme,
+            textTheme: ServiceGoTextTheme.textTheme,
+            colorScheme: ServiceGoColorTheme.lightColorScheme,
           ),
         );
       }),

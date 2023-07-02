@@ -1,40 +1,62 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:service_go/infrastructure/client/api_client.dart';
-import 'package:service_go/modules/authentication/data/mapper/remote/request/login_request_mapper.dart';
-import 'package:service_go/modules/authentication/data/mapper/remote/response/user_session_remote_mapper.dart';
-import 'package:service_go/modules/authentication/domain/model/user_session.dart';
+import 'package:service_go/infrastructure/types/exceptions/base_exception.dart';
+import 'package:service_go/infrastructure/types/exceptions/form_exception.dart';
+import 'package:service_go/infrastructure/utils/firebase_exception_handler.dart/firebase_exception_handler.dart';
 
 abstract class AuthenticationRemoteDTS {
-  Future<APIResult<UserSession>> login(
-      {required String username, required String password});
-
-  Future<APIResult<int>> logout(
-      {required String username, required String token});
+  Future<User> login({required String email, required String password});
+  Future<User> register({required String email, required String password});
 }
 
 @Injectable(as: AuthenticationRemoteDTS)
 class AuthenticationRemoteDTSImpl implements AuthenticationRemoteDTS {
-  final APIClient _ServiceGoClient;
+  final FirebaseAuth _auth;
 
-  AuthenticationRemoteDTSImpl(this._ServiceGoClient);
-
-  @override
-  Future<APIResult<UserSession>> login(
-          {required String username, required String password}) =>
-      _ServiceGoClient.post(
-          path: '/Account/Login',
-          shouldPrint: true,
-          body: LoginRemoteReqMapper((password: password, username: username))
-              .toJSON(),
-          mapper: (json) => UserSessionRemoteResMapper().toModel(json["data"]));
+  AuthenticationRemoteDTSImpl(this._auth);
 
   @override
-  Future<APIResult<int>> logout(
-          {required String username, required String token}) =>
-      _ServiceGoClient.post(
-        path: '/logout',
-        token: token,
-        body: {"username": username},
-        mapper: (json) => json["data"]["logoutStatus"],
-      );
+  Future<User> login({required String email, required String password}) async {
+    try {
+      final firebaseUser = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      final user = firebaseUser.user;
+      if (user == null) {
+        throw FormException("Invalid Input",
+            errors: {"email": 'Email belum terdaftar'});
+      }
+      final isVerified = user.emailVerified;
+      if (!isVerified) {
+        await user.sendEmailVerification();
+        await _auth.signOut();
+        throw FormException("Invalid Input", errors: {
+          "email":
+              'Email belum terverifikasi, silahkan cek email anda untuk verifikasi email'
+        });
+      }
+
+      return user;
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseExceptionHandler.handleAuthException(e);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<User> register(
+      {required String email, required String password}) async {
+    try {
+      final registerResult = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      final user = registerResult.user;
+      if (user == null) throw const BaseException("Gagal mendapatkan user");
+      await user.sendEmailVerification();
+      return user;
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseExceptionHandler.handleAuthException(e);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

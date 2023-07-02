@@ -9,8 +9,21 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/landingpage.png
+  AssetGenImage get landingpage =>
+      const AssetGenImage('assets/images/landingpage.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [landingpage];
+}
+
 class Assets {
   Assets._();
+
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_go/infrastructure/utils/value_validator/form_validator.dart';
 import 'package:service_go/infrastructure/widgets/buttons/outlined_button.dart';
 import 'package:service_go/infrastructure/widgets/icons/service_geo.dart';
+import 'package:service_go/modules/authentication/presentation/screens/register/cubit/register_cubit.dart';
 import 'package:sizer/sizer.dart';
 import 'package:service_go/infrastructure/architecutre/cubits/messenger/messenger_cubit.dart';
 import 'package:service_go/infrastructure/architecutre/cubits/session/session_cubit.dart';
@@ -21,41 +22,26 @@ import 'package:service_go/modules/authentication/presentation/screens/login/cub
 part 'widgets/form.dart';
 
 @RoutePage()
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<LoginCubit>(),
+      create: (context) => getIt<RegisterCubit>(),
       child: Scaffold(
         body: SafeArea(
           child: Center(
-            child: BlocListener<LoginCubit, LoginState>(
+            child: BlocListener<RegisterCubit, RegisterState>(
               listener: (context, state) async {
-                if (state is LoginSuccess) {
-                  context.read<SessionCubit>().setCurrenetUser(state.session);
-                  context.router.replaceAll([const HomeRoute()]);
+                if (state is RegisterSuccess) {
+                  // context.router.replaceAll([const HomeRoute()]);
                 }
               },
               child: Stack(
                 children: [
                   const Align(alignment: Alignment.center, child: _LoginForm()),
-                  BlocConsumer<LoginCubit, LoginState>(
-                    listener: (context, state) {
-                      if (state is LoginError) {
-                        if (state.errors.isNotEmpty) {
-                          final cubit = context.read<LoginCubit>();
-                          cubit.formKey.currentState?.validate();
-                          SchedulerBinding.instance
-                              .addPostFrameCallback((timeStamp) {
-                            cubit.idle();
-                          });
-                          return;
-                        }
-                        context.messenger.showErrorSnackbar(state.message);
-                      }
-                    },
+                  BlocBuilder<RegisterCubit, RegisterState>(
                     builder: (context, state) {
                       if (state is! LoginLoading) {
                         return const SizedBox();

@@ -27,16 +27,7 @@ class _GlobalErrorCatcherState extends State<GlobalErrorCatcher> {
   @override
   void initState() {
     super.initState();
-    print("Current User : ${FirebaseAuth.instance.currentUser}");
-    FirebaseFirestore.instance
-        .collection("example")
-        .snapshots()
-        .map((event) => event.docs)
-        .listen((event) {
-      event.forEach((element) {
-        print("Data : ${element.data()}");
-      });
-    });
+
     IsolateNameServer.registerPortWithName(
         _port.sendPort, ServiceGoGlobalErrorHandler.sessionTimeoutPortName);
     _port.listen((message) {

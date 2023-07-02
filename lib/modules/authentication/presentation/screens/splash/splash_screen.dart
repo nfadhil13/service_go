@@ -6,7 +6,9 @@ import 'package:service_go/infrastructure/architecutre/cubits/session/session_cu
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/routing/router.gr.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
+import 'package:service_go/infrastructure/widgets/icons/service_geo.dart';
 import 'package:service_go/modules/authentication/presentation/screens/splash/cubit/splash_cubit.dart';
+import 'package:sizer/sizer.dart';
 
 @RoutePage()
 class SplashScreen extends StatelessWidget {
@@ -31,29 +33,12 @@ class SplashScreen extends StatelessWidget {
             width: double.infinity,
             alignment: Alignment.center,
             height: double.infinity,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: Assets.images.landingpage.provider(),
-                    fit: BoxFit.cover)),
-            child: const _ServiceGoIcon(),
+            child: ServiceGoIcon(
+              size: 55.w,
+            ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class _ServiceGoIcon extends StatelessWidget {
-  const _ServiceGoIcon({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 200,
-      color: context.color.primary,
     );
   }
 }

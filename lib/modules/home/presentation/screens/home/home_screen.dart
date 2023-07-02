@@ -1,5 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
@@ -27,7 +27,7 @@ class _HomeScreenContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
-          Text("Current user name : ${context.userSession.user.userName}"),
+          Text("Current user name : ${context.userSession.username}"),
           ServiceGoElevatedButton(
               label: "Logout",
               onPressed: () {
