@@ -38,7 +38,7 @@ class _LoginForm extends StatelessWidget {
                 label: "Email",
               ),
               3.h.verticalSpace,
-              ServiceGoTextField(
+              ServiceGoPasswordField(
                 validator: ValueValidatorBuilder.create("Password")
                     .password()
                     .custom((_) => cubit.errors["password"])
@@ -47,12 +47,27 @@ class _LoginForm extends StatelessWidget {
                 label: "Password",
               ),
               3.h.verticalSpace,
-              ServiceGoTextField(
+              ServiceGoPasswordField(
                 validator: ValueValidatorBuilder.create("Konfirmasi Password")
+                    .notEmpty()
+                    .notNull()
                     .custom((_) => cubit.errors["confirmPassword"])
                     .build,
                 controller: cubit.confirmPassword,
                 label: "Konfirmasi Password",
+              ),
+              3.h.verticalSpace,
+              ServiceGoDropdown(
+                validator: ValueValidatorBuilder.create("Tipe AKun")
+                    .notNull()
+                    .notEmpty()
+                    .build,
+                choices: const <(String name, bool isBengkel)>[
+                  ("Bengkel", true),
+                  ("Pelanggan", false)
+                ],
+                label: "Konfirmasi Password",
+                controller: cubit.isBengkel,
               ),
               6.h.verticalSpace,
               ServiceGoElevatedButton(

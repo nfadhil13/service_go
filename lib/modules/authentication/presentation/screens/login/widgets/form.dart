@@ -28,7 +28,7 @@ class _LoginForm extends StatelessWidget {
                 label: "Email",
               ),
               3.h.verticalSpace,
-              ServiceGoTextField(
+              ServiceGoPasswordField(
                 validator: ValueValidatorBuilder.create("Password")
                     .notNull()
                     .notEmpty()

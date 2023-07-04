@@ -4,10 +4,14 @@ import 'package:sizer/sizer.dart';
 class ServiceGoTextTheme {
   static String get fontFamily => "Poppins";
 
-  static TextStyle buildTextStyle(double fontSize, double height) => TextStyle(
-      fontFamily: fontFamily,
-      fontSize: fontSize.sp,
-      height: height.sp.toFigmaHeight(fontSize.sp));
+  static TextStyle buildTextStyle(double fontSize, double height) {
+    final finalFontSize = fontSize * 13 / 16;
+    final finalHeight = height * 13 / 16;
+    return TextStyle(
+        fontFamily: fontFamily,
+        fontSize: finalFontSize.sp,
+        height: finalHeight.sp.toFigmaHeight(finalFontSize.sp));
+  }
 
   static TextTheme get textTheme => TextTheme(
       displayLarge: buildTextStyle(57, 64),
@@ -19,7 +23,7 @@ class ServiceGoTextTheme {
       titleLarge: buildTextStyle(22, 28),
       titleMedium: buildTextStyle(16, 24),
       titleSmall: buildTextStyle(14, 20),
-      bodyLarge: buildTextStyle(14, 22),
+      bodyLarge: buildTextStyle(16, 24),
       bodyMedium: buildTextStyle(14, 20),
       bodySmall: buildTextStyle(12, 16),
       labelLarge: buildTextStyle(14, 20),

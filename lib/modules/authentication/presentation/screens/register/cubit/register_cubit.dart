@@ -6,6 +6,7 @@ import 'package:service_go/infrastructure/architecutre/cubits/messenger/messenge
 import 'package:service_go/infrastructure/types/exceptions/base_exception.dart';
 import 'package:service_go/infrastructure/types/exceptions/form_exception.dart';
 import 'package:service_go/infrastructure/types/resource.dart';
+import 'package:service_go/infrastructure/widgets/form/dropdown.dart';
 import 'package:service_go/modules/authentication/domain/model/user_register_data.dart';
 import 'package:service_go/modules/authentication/domain/usecases/register.dart';
 
@@ -19,6 +20,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
+  final ServiceGODropdownController<bool?> isBengkel =
+      ServiceGODropdownController();
   final GlobalKey<FormState> formKey = GlobalKey();
   Map<String, dynamic> errors = {};
 
@@ -55,12 +58,22 @@ class RegisterCubit extends Cubit<RegisterState> {
         username: username.text,
         email: email.text,
         password: password.text,
-        isBengkel: true);
+        isBengkel: isBengkel.value!);
   }
 
   void _addErrorAndValidate(Map<String, dynamic> newErrors) {
     errors = newErrors;
     formKey.currentState?.validate();
     errors = {};
+  }
+
+  @override
+  Future<void> close() {
+    username.dispose();
+    email.dispose();
+    password.dispose();
+    confirmPassword.dispose();
+    isBengkel.dispose();
+    return super.close();
   }
 }

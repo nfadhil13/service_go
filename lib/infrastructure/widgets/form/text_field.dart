@@ -8,7 +8,7 @@ class ServiceGoTextField extends StatelessWidget {
   final String? hintText;
   final String? desc;
   final bool? obscureText;
-  final Widget? sServiceGofixIcon;
+  final Widget? suffixIcon;
   final Widget? prefixIcon;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
@@ -40,7 +40,7 @@ class ServiceGoTextField extends StatelessWidget {
     this.maxLine = 1,
     this.label = '',
     this.enabled,
-    this.sServiceGofixIcon,
+    this.suffixIcon,
     this.obscureText,
     this.validator,
     this.prefixIcon,
@@ -80,9 +80,10 @@ class ServiceGoTextField extends StatelessWidget {
           textInputAction: textInputAction,
           inputFormatters: inputFormatters,
           decoration: InputDecoration(
-            suffix: sServiceGofixIcon,
+            suffixIcon: suffixIcon,
             prefixIcon: prefixIcon,
             labelText: label,
+            suffixIconColor: context.color.outline,
             errorStyle: context.text.bodySmall
                 ?.copyWith(color: color.error, fontSize: 10.sp),
             labelStyle: text.bodySmall,
