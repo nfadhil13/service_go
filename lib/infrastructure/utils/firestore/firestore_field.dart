@@ -4,5 +4,7 @@ class FireStoreField<Entity, T> {
 
   FireStoreField(this.key, this.data);
 
-  T parse(Map<String, dynamic> firestoreData) => firestoreData[key];
+  dynamic toField(T data) => data;
+
+  T parseJSON(Map<String, dynamic> firestoreData) => firestoreData[key];
 }

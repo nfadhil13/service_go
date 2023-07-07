@@ -1,6 +1,8 @@
 // Enum untuk melist collection dari firestore
 
-enum ServiceGOFirestoreCollections {
+enum FirestoreCollections {
+  bengeklProfile("bengkel"),
+
   /// User data collection berisi list data user dengan properties
   /// seperti dibawah berikut
   ///
@@ -15,5 +17,5 @@ enum ServiceGOFirestoreCollections {
 
   final String collectionName;
 
-  const ServiceGOFirestoreCollections(this.collectionName);
+  const FirestoreCollections(this.collectionName);
 }

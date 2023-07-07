@@ -1,16 +1,16 @@
 import 'package:service_go/infrastructure/utils/firestore/firestore_field.dart';
 
 abstract class FireStoreMapper<Domain> {
-  final List<FireStoreField<Domain, dynamic>> fields;
+  List<FireStoreField<Domain, dynamic>> get fields;
 
   Domain toDomain(Map<String, dynamic> firestoreData, String id);
 
-  FireStoreMapper(this.fields);
+  FireStoreMapper();
 
-  Map<String, dynamic> toFirestoreObject(Domain data) {
+  Map<String, dynamic> toFirestoreObject(Domain domain) {
     final result = <String, dynamic>{};
     for (final field in fields) {
-      result[field.key] = field.data(data);
+      result[field.key] = field.toField(field.data(domain));
     }
     return result;
   }

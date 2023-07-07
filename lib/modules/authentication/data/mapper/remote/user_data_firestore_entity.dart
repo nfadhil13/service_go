@@ -11,7 +11,7 @@ class UserDataFiresotreEntity extends FireStoreMapper<UserData> {
   final FireStoreField<UserData, bool> isBengkelField;
 
   UserDataFiresotreEntity._(
-      this.usernameField, this.isBengkelField, this.emailField, super.fields);
+      this.usernameField, this.isBengkelField, this.emailField);
 
   factory UserDataFiresotreEntity.build() {
     // Build username field
@@ -26,16 +26,19 @@ class UserDataFiresotreEntity extends FireStoreMapper<UserData> {
     final FireStoreField<UserData, String> emailField =
         FireStoreField("email", (entity) => entity.email);
 
-    return UserDataFiresotreEntity._(usernameField, isBengkelField, emailField,
-        [usernameField, emailField, isBengkelField]);
+    return UserDataFiresotreEntity._(usernameField, isBengkelField, emailField);
   }
 
   @override
   UserData toDomain(firestoreData, String id) {
     return UserData(
         id: id,
-        username: usernameField.parse(firestoreData),
-        email: emailField.parse(firestoreData),
-        isBengkel: isBengkelField.parse(firestoreData));
+        username: usernameField.parseJSON(firestoreData),
+        email: emailField.parseJSON(firestoreData),
+        isBengkel: isBengkelField.parseJSON(firestoreData));
   }
+
+  @override
+  List<FireStoreField<UserData, dynamic>> get fields =>
+      [usernameField, emailField, isBengkelField];
 }

@@ -26,20 +26,22 @@ import '../../modules/authentication/data/repositories/authentication_repo_impl.
 import '../../modules/authentication/domain/repositories/authentication_repo.dart'
     as _i11;
 import '../../modules/authentication/domain/usecases/get_current_session.dart'
-    as _i13;
-import '../../modules/authentication/domain/usecases/login.dart' as _i14;
-import '../../modules/authentication/domain/usecases/logout.dart' as _i16;
-import '../../modules/authentication/domain/usecases/register.dart' as _i17;
+    as _i14;
+import '../../modules/authentication/domain/usecases/login.dart' as _i15;
+import '../../modules/authentication/domain/usecases/logout.dart' as _i17;
+import '../../modules/authentication/domain/usecases/register.dart' as _i18;
 import '../../modules/authentication/presentation/screens/login/cubit/login_cubit.dart'
-    as _i15;
+    as _i16;
 import '../../modules/authentication/presentation/screens/register/cubit/register_cubit.dart'
-    as _i20;
+    as _i21;
 import '../../modules/authentication/presentation/screens/splash/cubit/splash_cubit.dart'
-    as _i19;
+    as _i20;
+import '../../modules/bengkel/data/datasource/remote/bengkel_profile_remote_dts.dart'
+    as _i13;
 import '../architecutre/cubits/messenger/messenger_cubit.dart' as _i6;
-import '../architecutre/cubits/session/session_cubit.dart' as _i18;
+import '../architecutre/cubits/session/session_cubit.dart' as _i19;
 import '../local_storage/secure_storage/secure_storage.dart' as _i7;
-import 'modules/core_module.dart' as _i21;
+import 'modules/core_module.dart' as _i22;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -73,23 +75,25 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i9.AuthenticationLocalDTS>(),
           gh<_i8.UserDataRemoteDTS>(),
         ));
-    gh.factory<_i13.GetCurrentSession>(
-        () => _i13.GetCurrentSession(gh<_i11.AuthenticationRepo>()));
-    gh.factory<_i14.Login>(() => _i14.Login(gh<_i11.AuthenticationRepo>()));
-    gh.factory<_i15.LoginCubit>(() => _i15.LoginCubit(gh<_i14.Login>()));
-    gh.factory<_i16.Logout>(() => _i16.Logout(gh<_i11.AuthenticationRepo>()));
-    gh.factory<_i17.RegisterUserAccount>(
-        () => _i17.RegisterUserAccount(gh<_i11.AuthenticationRepo>()));
-    gh.lazySingleton<_i18.SessionCubit>(
-        () => _i18.SessionCubit(gh<_i16.Logout>()));
-    gh.factory<_i19.SplashCubit>(
-        () => _i19.SplashCubit(gh<_i13.GetCurrentSession>()));
-    gh.factory<_i20.RegisterCubit>(() => _i20.RegisterCubit(
+    gh.factory<_i13.BengkelProfileRemoteDTS>(
+        () => _i13.BengkelProfileRemoteDTSImpl(gh<_i4.FirebaseFirestore>()));
+    gh.factory<_i14.GetCurrentSession>(
+        () => _i14.GetCurrentSession(gh<_i11.AuthenticationRepo>()));
+    gh.factory<_i15.Login>(() => _i15.Login(gh<_i11.AuthenticationRepo>()));
+    gh.factory<_i16.LoginCubit>(() => _i16.LoginCubit(gh<_i15.Login>()));
+    gh.factory<_i17.Logout>(() => _i17.Logout(gh<_i11.AuthenticationRepo>()));
+    gh.factory<_i18.RegisterUserAccount>(
+        () => _i18.RegisterUserAccount(gh<_i11.AuthenticationRepo>()));
+    gh.lazySingleton<_i19.SessionCubit>(
+        () => _i19.SessionCubit(gh<_i17.Logout>()));
+    gh.factory<_i20.SplashCubit>(
+        () => _i20.SplashCubit(gh<_i14.GetCurrentSession>()));
+    gh.factory<_i21.RegisterCubit>(() => _i21.RegisterCubit(
           gh<_i6.MessengerCubit>(),
-          gh<_i17.RegisterUserAccount>(),
+          gh<_i18.RegisterUserAccount>(),
         ));
     return this;
   }
 }
 
-class _$CoreModules extends _i21.CoreModules {}
+class _$CoreModules extends _i22.CoreModules {}
