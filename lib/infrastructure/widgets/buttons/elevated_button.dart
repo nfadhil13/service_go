@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/widgets/buttons/base_button.dart';
 import 'package:service_go/infrastructure/widgets/buttons/button_icon_type.dart';
 
-class ServiceGoElevatedButton extends StatelessWidget {
+class SGElevatedButton extends StatelessWidget {
   final String label;
   final bool fillParent;
   final VoidCallback? onPressed;
   final Widget? prefixIcon;
-  final Widget? sServiceGofixIcon;
+  final Widget? suffixIcon;
   final Color? backgroundColor;
   final Color? foregroundColor;
   final ButtonIconType buttonIconType;
   final bool keepBalance;
   final TextStyle? textStyle;
   final EdgeInsets padding;
-  const ServiceGoElevatedButton({
+  const SGElevatedButton({
     super.key,
     required this.label,
     this.onPressed,
     this.fillParent = false,
     this.prefixIcon,
-    this.sServiceGofixIcon,
+    this.suffixIcon,
     this.backgroundColor,
     this.buttonIconType = ButtonIconType.far,
     this.keepBalance = false,
@@ -42,12 +42,12 @@ class ServiceGoElevatedButton extends StatelessWidget {
             padding: MaterialStateProperty.all(padding),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(200)))),
-        child: ServiceGoButtonContent(
+        child: SGButtonContent(
             fillParent: fillParent,
             buttonIconType: buttonIconType,
             prefixIcon: prefixIcon,
             keepBalance: keepBalance,
-            sServiceGofixIcon: sServiceGofixIcon,
+            suffixIcon: suffixIcon,
             label: label,
             textStyle: textStyle));
   }

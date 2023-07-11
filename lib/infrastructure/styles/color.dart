@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
-import 'package:sizer/sizer.dart';
 
 const _primaryColor = Color(0xff4169E1);
 
@@ -12,7 +11,7 @@ final _lightScheme = ColorScheme.fromSeed(
 
 final _palette = CorePalette.of(_primaryColor.value);
 
-class ServiceGoColorTheme {
+class SGColorTheme {
   static Color get primaryColor => _primaryColor;
 
   // static ColorScheme get darkScheme => _darkScheme;

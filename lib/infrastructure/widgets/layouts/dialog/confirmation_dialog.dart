@@ -58,7 +58,7 @@ part of 'dialog_container.dart';
 //                   mainAxisAlignment: MainAxisAlignment.center,
 //                   children: [
 //                     Expanded(
-//                       child: ServiceGoOutlinedButton(
+//                       child: SGOutlinedButton(
 //                           color: context.colorTheme.primaryColor,
 //                           onPressed: () {
 //                             if (onCancel != null) {

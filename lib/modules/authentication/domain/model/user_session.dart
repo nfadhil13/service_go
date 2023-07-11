@@ -14,6 +14,8 @@ class UserSession extends Equatable {
 
   bool get isBengkel => userData.isBengkel;
 
+  String get userId => user.uid;
+
   @override
   List<Object?> get props => [userData, user];
 }

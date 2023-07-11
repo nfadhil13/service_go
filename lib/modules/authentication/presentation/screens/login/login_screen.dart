@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -36,7 +35,9 @@ class LoginScreen extends StatelessWidget {
               listener: (context, state) async {
                 if (state is LoginSuccess) {
                   context.read<SessionCubit>().setCurrenetUser(state.session);
-                  context.router.replaceAll([const HomeRoute()]);
+                  if (state.session.isBengkel) {
+                    context.router.replaceAll([const BengkelRouter()]);
+                  }
                 }
               },
               child: Stack(
@@ -61,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                       if (state is! LoginLoading) {
                         return const SizedBox();
                       }
-                      return const ServiceGoLoadingOverlay();
+                      return const SGLoadingOverlay();
                     },
                   )
                 ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class ServiceGoHideWidget extends StatelessWidget {
+class SGHideWidget extends StatelessWidget {
   final Widget child;
-  const ServiceGoHideWidget({super.key, required this.child});
+  const SGHideWidget({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

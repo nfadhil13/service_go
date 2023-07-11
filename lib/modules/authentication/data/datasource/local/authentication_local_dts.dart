@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:injectable/injectable.dart';
 import 'package:service_go/infrastructure/local_storage/secure_storage/secure_storage.dart';
 import 'package:service_go/modules/authentication/data/mapper/local/user_data_local_mapper.dart';
@@ -19,7 +18,7 @@ class AuthLocalDTSImpl implements AuthenticationLocalDTS {
   final SessionLocalMapper _sessionLocalMapper = SessionLocalMapper();
 
   final _userSessionKey =
-      "ServiceGo.profielder.mobile.lib.modules.authentication.data.datasource.local.authentication_local_dts.dart";
+      "SG.profielder.mobile.lib.modules.authentication.data.datasource.local.authentication_local_dts.dart";
 
   AuthLocalDTSImpl(this._secureStorage, this._firebaseAuth);
 

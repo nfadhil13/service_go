@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:service_go/infrastructure/types/exceptions/base_exception.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_collections.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_datasource.dart';
 import 'package:service_go/modules/authentication/data/mapper/remote/user_data_firestore_entity.dart';

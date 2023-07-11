@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/widgets/loading/circular.dart';
 
-class ServiceGoLoadingOverlay extends StatelessWidget {
+class SGLoadingOverlay extends StatelessWidget {
   final Color? circularColor;
   final double? radius;
   final bool isInitialyLoading;
   final Duration? loadingDuration;
   final int numberOfDots;
   final double textToCircularSpacing;
-  const ServiceGoLoadingOverlay(
+  const SGLoadingOverlay(
       {super.key,
       this.circularColor,
       this.radius,
@@ -25,7 +25,7 @@ class ServiceGoLoadingOverlay extends StatelessWidget {
       height: double.infinity,
       color: Colors.black.withOpacity(0.5),
       alignment: Alignment.center,
-      child: ServiceGoCircularLoading(
+      child: SGCircularLoading(
         color: circularColor ?? context.color.primary,
         radius: radius ?? 24,
       ),

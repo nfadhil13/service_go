@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_field.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_mapper.dart';
 import 'package:service_go/modules/authentication/domain/model/user_data.dart';

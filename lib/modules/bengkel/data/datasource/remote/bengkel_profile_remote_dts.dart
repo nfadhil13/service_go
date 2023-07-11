@@ -7,6 +7,7 @@ import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
 
 abstract class BengkelProfileRemoteDTS {
   Future<BengkelProfile?> fetchByUser(String userId);
+  Future<BengkelProfile> put(BengkelProfile bengkelProfile);
 }
 
 @Injectable(as: BengkelProfileRemoteDTS)
@@ -22,5 +23,11 @@ class BengkelProfileRemoteDTSImpl
   @override
   Future<BengkelProfile?> fetchByUser(String userId) {
     return collectionRef.doc(userId).get().then((value) => value.data());
+  }
+
+  @override
+  Future<BengkelProfile> put(BengkelProfile bengkelProfile) async {
+    await collectionRef.doc(bengkelProfile.id).set(bengkelProfile);
+    return bengkelProfile;
   }
 }

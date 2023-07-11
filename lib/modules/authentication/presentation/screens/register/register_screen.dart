@@ -15,7 +15,6 @@ import 'package:service_go/infrastructure/service_locator/service_locator.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
 import 'package:service_go/infrastructure/widgets/form/text_field.dart';
 import 'package:service_go/infrastructure/widgets/loading/overlay.dart';
-import 'package:service_go/modules/authentication/presentation/screens/login/cubit/login_cubit.dart';
 
 part 'widgets/form.dart';
 part 'widgets/verif_email_sent.dart';
@@ -53,7 +52,7 @@ class RegisterScreen extends StatelessWidget {
                       if (state is! RegisterLoading) {
                         return const SizedBox();
                       }
-                      return const ServiceGoLoadingOverlay();
+                      return const SGLoadingOverlay();
                     },
                   )
                 ],

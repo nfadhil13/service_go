@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/utils/value_validator/form_validator.dart';
 import 'package:service_go/infrastructure/widgets/form/text_field.dart';
 
-class ServiceGoPasswordField extends StatefulWidget {
+class SGPasswordField extends StatefulWidget {
   final ValueValidator<String?> validator;
   final String label;
   final TextEditingController controller;
-  const ServiceGoPasswordField(
+  const SGPasswordField(
       {super.key,
       required this.validator,
       required this.label,
       required this.controller});
 
   @override
-  State<ServiceGoPasswordField> createState() => _ServiceGoPasswordFieldState();
+  State<SGPasswordField> createState() => _SGPasswordFieldState();
 }
 
-class _ServiceGoPasswordFieldState extends State<ServiceGoPasswordField> {
+class _SGPasswordFieldState extends State<SGPasswordField> {
   bool _isPasswordHidden = true;
 
   @override
   Widget build(BuildContext context) {
-    return ServiceGoTextField(
+    return SGTextField(
       obscureText: _isPasswordHidden,
       suffixIcon: InkWell(
         onTap: () => setState(() {

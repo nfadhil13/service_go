@@ -1,7 +1,7 @@
 part of '../register_screen.dart';
 
 class _LoginForm extends StatelessWidget {
-  const _LoginForm({super.key});
+  const _LoginForm();
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,11 @@ class _LoginForm extends StatelessWidget {
           child: Column(
             children: [
               14.verticalSpace,
-              ServiceGoIcon(
+              SGIcon(
                 size: 30.w,
               ),
               6.h.verticalSpace,
-              ServiceGoTextField(
+              SGTextField(
                 validator: ValueValidatorBuilder.create("Username")
                     .notNull()
                     .notEmpty()
@@ -29,7 +29,7 @@ class _LoginForm extends StatelessWidget {
                 label: "Username",
               ),
               3.h.verticalSpace,
-              ServiceGoTextField(
+              SGTextField(
                 controller: cubit.email,
                 validator: ValueValidatorBuilder.create("Email")
                     .email()
@@ -38,7 +38,7 @@ class _LoginForm extends StatelessWidget {
                 label: "Email",
               ),
               3.h.verticalSpace,
-              ServiceGoPasswordField(
+              SGPasswordField(
                 validator: ValueValidatorBuilder.create("Password")
                     .password()
                     .custom((_) => cubit.errors["password"])
@@ -47,7 +47,7 @@ class _LoginForm extends StatelessWidget {
                 label: "Password",
               ),
               3.h.verticalSpace,
-              ServiceGoPasswordField(
+              SGPasswordField(
                 validator: ValueValidatorBuilder.create("Konfirmasi Password")
                     .notEmpty()
                     .notNull()
@@ -57,7 +57,7 @@ class _LoginForm extends StatelessWidget {
                 label: "Konfirmasi Password",
               ),
               3.h.verticalSpace,
-              ServiceGoDropdown(
+              SGDropdown(
                 validator: ValueValidatorBuilder.create("Tipe AKun")
                     .notNull()
                     .notEmpty()
@@ -66,11 +66,11 @@ class _LoginForm extends StatelessWidget {
                   ("Bengkel", true),
                   ("Pelanggan", false)
                 ],
-                label: "Konfirmasi Password",
+                label: "Tipe Akun",
                 controller: cubit.isBengkel,
               ),
               6.h.verticalSpace,
-              ServiceGoElevatedButton(
+              SGElevatedButton(
                 label: "Daftar",
                 fillParent: true,
                 onPressed: () {
@@ -88,7 +88,7 @@ class _LoginForm extends StatelessWidget {
 }
 
 class _NoAccountSection extends StatelessWidget {
-  const _NoAccountSection({super.key});
+  const _NoAccountSection();
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@ part of '../register_screen.dart';
 
 class _VerificationEmailSent extends StatelessWidget {
   final String email;
-  const _VerificationEmailSent({super.key, required this.email});
+  const _VerificationEmailSent({required this.email});
 
   @override
   Widget build(BuildContext context) {

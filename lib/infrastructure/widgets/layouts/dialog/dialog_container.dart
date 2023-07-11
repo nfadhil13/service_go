@@ -2,15 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/double_ext.dart';
-import 'package:service_go/infrastructure/widgets/buttons/outlined_button.dart';
 
 part 'confirmation_dialog.dart';
 part 'information_dialog.dart';
 
-class DialogContainer extends StatelessWidget {
+class SGDialogContainer extends StatelessWidget {
   final double maxHeightPercentage;
   final Widget child;
-  const DialogContainer(
+  const SGDialogContainer(
       {super.key, required this.maxHeightPercentage, required this.child});
 
   @override

@@ -20,8 +20,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
-  final ServiceGODropdownController<bool?> isBengkel =
-      ServiceGODropdownController();
+  final SGDropdownController<bool?> isBengkel = SGDropdownController();
   final GlobalKey<FormState> formKey = GlobalKey();
   Map<String, dynamic> errors = {};
 

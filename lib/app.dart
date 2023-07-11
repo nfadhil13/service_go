@@ -42,8 +42,8 @@ class ServiceGoApp extends StatelessWidget {
           },
           routeInformationParser: appRouter.defaultRouteParser(),
           theme: ThemeData(
-            textTheme: ServiceGoTextTheme.textTheme,
-            colorScheme: ServiceGoColorTheme.lightColorScheme,
+            textTheme: SGTextTheme.textTheme,
+            colorScheme: SGColorTheme.lightColorScheme,
           ),
         );
       }),

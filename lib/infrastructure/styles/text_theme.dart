@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class ServiceGoTextTheme {
+class SGTextTheme {
   static String get fontFamily => "Poppins";
 
   static TextStyle buildTextStyle(double fontSize, double height) {

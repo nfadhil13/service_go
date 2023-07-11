@@ -1,7 +1,7 @@
 part of '../login_screen.dart';
 
 class _LoginForm extends StatelessWidget {
-  const _LoginForm({super.key});
+  const _LoginForm();
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +14,11 @@ class _LoginForm extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Column(
             children: [
-              ServiceGoIcon(
+              SGIcon(
                 size: 30.w,
               ),
               6.h.verticalSpace,
-              ServiceGoTextField(
+              SGTextField(
                 controller: cubit.email,
                 validator: ValueValidatorBuilder.create("Email")
                     .notEmpty()
@@ -28,7 +28,7 @@ class _LoginForm extends StatelessWidget {
                 label: "Email",
               ),
               3.h.verticalSpace,
-              ServiceGoPasswordField(
+              SGPasswordField(
                 validator: ValueValidatorBuilder.create("Password")
                     .notNull()
                     .notEmpty()
@@ -38,7 +38,7 @@ class _LoginForm extends StatelessWidget {
                 label: "Password",
               ),
               6.h.verticalSpace,
-              ServiceGoElevatedButton(
+              SGElevatedButton(
                 label: "Masuk",
                 fillParent: true,
                 onPressed: () {
@@ -46,7 +46,7 @@ class _LoginForm extends StatelessWidget {
                 },
               ),
               1.5.h.verticalSpace,
-              ServiceGoOutlinedButton(
+              SGOutlinedButton(
                 label: "Lupa Password",
                 fillParent: true,
                 onPressed: () {
@@ -64,7 +64,7 @@ class _LoginForm extends StatelessWidget {
 }
 
 class _NoAccountSection extends StatelessWidget {
-  const _NoAccountSection({super.key});
+  const _NoAccountSection();
 
   @override
   Widget build(BuildContext context) {

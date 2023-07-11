@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/types/exceptions/session_exception.dart';
 
-class ServiceGoGlobalErrorHandler {
+class SGGlobalErrorHandler {
   static const sessionTimeoutPortName = "session_port";
 
   static void _handleSessionTimeOut() {

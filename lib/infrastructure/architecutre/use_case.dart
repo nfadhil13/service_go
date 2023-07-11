@@ -70,5 +70,10 @@ extension DataToResouceExt<T extends dynamic> on Future<T> {
     return Resource.success(const Nothing());
   }
 
+  Future<Y> map<Y>(Y Function(T value) mapper) async => mapper(await this);
+
+  Future<Resource<Y>> mapAsResource<Y>(Y Function(T value) mapper) async =>
+      Resource.success(await map(mapper));
+
   Future<Resource<T>> get asResource async => Resource.success(await this);
 }

@@ -1,5 +1,4 @@
 import 'package:service_go/infrastructure/architecutre/local_mapper.dart';
-import 'package:service_go/modules/authentication/domain/model/user_session.dart';
 import 'package:service_go/modules/authentication/domain/model/user_data.dart';
 
 class SessionLocalMapper extends LocalMapper<UserData, dynamic> {

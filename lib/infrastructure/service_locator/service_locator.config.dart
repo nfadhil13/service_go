@@ -26,22 +26,28 @@ import '../../modules/authentication/data/repositories/authentication_repo_impl.
 import '../../modules/authentication/domain/repositories/authentication_repo.dart'
     as _i11;
 import '../../modules/authentication/domain/usecases/get_current_session.dart'
-    as _i14;
-import '../../modules/authentication/domain/usecases/login.dart' as _i15;
-import '../../modules/authentication/domain/usecases/logout.dart' as _i17;
-import '../../modules/authentication/domain/usecases/register.dart' as _i18;
+    as _i17;
+import '../../modules/authentication/domain/usecases/login.dart' as _i18;
+import '../../modules/authentication/domain/usecases/logout.dart' as _i20;
+import '../../modules/authentication/domain/usecases/register.dart' as _i21;
 import '../../modules/authentication/presentation/screens/login/cubit/login_cubit.dart'
-    as _i16;
+    as _i19;
 import '../../modules/authentication/presentation/screens/register/cubit/register_cubit.dart'
-    as _i21;
+    as _i24;
 import '../../modules/authentication/presentation/screens/splash/cubit/splash_cubit.dart'
-    as _i20;
+    as _i23;
 import '../../modules/bengkel/data/datasource/remote/bengkel_profile_remote_dts.dart'
     as _i13;
+import '../../modules/bengkel/data/repositories/bengkel_profile_repository_impl.dart'
+    as _i15;
+import '../../modules/bengkel/domain/repositories/bengkel_profile_repository.dart'
+    as _i14;
+import '../../modules/profile/domain/usecase/check_is_bengkel_has_profile.dart'
+    as _i16;
 import '../architecutre/cubits/messenger/messenger_cubit.dart' as _i6;
-import '../architecutre/cubits/session/session_cubit.dart' as _i19;
+import '../architecutre/cubits/session/session_cubit.dart' as _i22;
 import '../local_storage/secure_storage/secure_storage.dart' as _i7;
-import 'modules/core_module.dart' as _i22;
+import 'modules/core_module.dart' as _i25;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -77,23 +83,30 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i13.BengkelProfileRemoteDTS>(
         () => _i13.BengkelProfileRemoteDTSImpl(gh<_i4.FirebaseFirestore>()));
-    gh.factory<_i14.GetCurrentSession>(
-        () => _i14.GetCurrentSession(gh<_i11.AuthenticationRepo>()));
-    gh.factory<_i15.Login>(() => _i15.Login(gh<_i11.AuthenticationRepo>()));
-    gh.factory<_i16.LoginCubit>(() => _i16.LoginCubit(gh<_i15.Login>()));
-    gh.factory<_i17.Logout>(() => _i17.Logout(gh<_i11.AuthenticationRepo>()));
-    gh.factory<_i18.RegisterUserAccount>(
-        () => _i18.RegisterUserAccount(gh<_i11.AuthenticationRepo>()));
-    gh.lazySingleton<_i19.SessionCubit>(
-        () => _i19.SessionCubit(gh<_i17.Logout>()));
-    gh.factory<_i20.SplashCubit>(
-        () => _i20.SplashCubit(gh<_i14.GetCurrentSession>()));
-    gh.factory<_i21.RegisterCubit>(() => _i21.RegisterCubit(
+    gh.factory<_i14.BengkelProfileRepository>(() =>
+        _i15.BengkelProfileRepositoryImpl(gh<_i13.BengkelProfileRemoteDTS>()));
+    gh.factory<_i16.CheckIfBengkelHasProfile>(
+        () => _i16.CheckIfBengkelHasProfile(
+              gh<_i14.BengkelProfileRepository>(),
+              gh<_i11.AuthenticationRepo>(),
+            ));
+    gh.factory<_i17.GetCurrentSession>(
+        () => _i17.GetCurrentSession(gh<_i11.AuthenticationRepo>()));
+    gh.factory<_i18.Login>(() => _i18.Login(gh<_i11.AuthenticationRepo>()));
+    gh.factory<_i19.LoginCubit>(() => _i19.LoginCubit(gh<_i18.Login>()));
+    gh.factory<_i20.Logout>(() => _i20.Logout(gh<_i11.AuthenticationRepo>()));
+    gh.factory<_i21.RegisterUserAccount>(
+        () => _i21.RegisterUserAccount(gh<_i11.AuthenticationRepo>()));
+    gh.lazySingleton<_i22.SessionCubit>(
+        () => _i22.SessionCubit(gh<_i20.Logout>()));
+    gh.factory<_i23.SplashCubit>(
+        () => _i23.SplashCubit(gh<_i17.GetCurrentSession>()));
+    gh.factory<_i24.RegisterCubit>(() => _i24.RegisterCubit(
           gh<_i6.MessengerCubit>(),
-          gh<_i18.RegisterUserAccount>(),
+          gh<_i21.RegisterUserAccount>(),
         ));
     return this;
   }
 }
 
-class _$CoreModules extends _i22.CoreModules {}
+class _$CoreModules extends _i25.CoreModules {}

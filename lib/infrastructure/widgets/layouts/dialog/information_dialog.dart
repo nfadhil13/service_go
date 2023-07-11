@@ -33,7 +33,7 @@ class InformationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DialogContainer(
+    return SGDialogContainer(
         maxHeightPercentage: maxHeightPercentage ?? .5,
         child: SingleChildScrollView(
           child: Padding(

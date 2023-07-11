@@ -13,7 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await configureDependencies();
-  ServiceGoGlobalErrorHandler.setUpErrorHandler();
+  SGGlobalErrorHandler.setUpErrorHandler();
   ENV.setEnv(ENV.dev);
   runApp(ServiceGoApp(
     appRouter: AppRouter(),

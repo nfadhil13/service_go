@@ -3,18 +3,18 @@ import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/widgets/buttons/base_button.dart';
 import 'package:service_go/infrastructure/widgets/buttons/button_icon_type.dart';
 
-class ServiceGoOutlinedButton extends StatelessWidget {
+class SGOutlinedButton extends StatelessWidget {
   final String label;
   final bool fillParent;
   final VoidCallback? onPressed;
   final Widget? prefixIcon;
-  final Widget? sServiceGofixIcon;
+  final Widget? suffixIcon;
   final Color? outlinedColor;
   final ButtonIconType buttonIconType;
   final bool keepBalance;
   final TextStyle? textStyle;
   final EdgeInsets padding;
-  const ServiceGoOutlinedButton(
+  const SGOutlinedButton(
       {super.key,
       required this.label,
       this.onPressed,
@@ -24,7 +24,7 @@ class ServiceGoOutlinedButton extends StatelessWidget {
       this.buttonIconType = ButtonIconType.far,
       this.outlinedColor,
       this.keepBalance = false,
-      this.sServiceGofixIcon,
+      this.suffixIcon,
       this.textStyle});
 
   Widget buildButton(BuildContext context) {
@@ -40,12 +40,12 @@ class ServiceGoOutlinedButton extends StatelessWidget {
             padding: MaterialStateProperty.all(padding),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(200)))),
-        child: ServiceGoButtonContent(
+        child: SGButtonContent(
             fillParent: fillParent,
             buttonIconType: buttonIconType,
             prefixIcon: prefixIcon,
             keepBalance: keepBalance,
-            sServiceGofixIcon: sServiceGofixIcon,
+            suffixIcon: suffixIcon,
             label: label,
             textStyle: textStyle));
   }

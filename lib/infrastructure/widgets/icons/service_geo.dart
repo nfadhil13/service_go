@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
-import 'package:service_go/infrastructure/styles/color.dart';
 
-class ServiceGoIcon extends StatelessWidget {
+class SGIcon extends StatelessWidget {
   final double size;
-  const ServiceGoIcon({super.key, this.size = 200});
+  const SGIcon({super.key, this.size = 200});
 
   @override
   Widget build(BuildContext context) {

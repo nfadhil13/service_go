@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/widgets/icons/service_geo.dart';
 
-class ServiceGoIconLoading extends StatefulWidget {
+class SGIconLoading extends StatefulWidget {
   final double size;
-  const ServiceGoIconLoading({super.key, required this.size});
+  const SGIconLoading({super.key, required this.size});
 
   @override
-  State<ServiceGoIconLoading> createState() => _ServiceGoIconLoadingState();
+  State<SGIconLoading> createState() => _SGIconLoadingState();
 }
 
-class _ServiceGoIconLoadingState extends State<ServiceGoIconLoading>
+class _SGIconLoadingState extends State<SGIconLoading>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -33,7 +33,7 @@ class _ServiceGoIconLoadingState extends State<ServiceGoIconLoading>
   Widget build(BuildContext context) {
     return RotationTransition(
       turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
-      child: ServiceGoIcon(size: widget.size),
+      child: SGIcon(size: widget.size),
     );
   }
 }

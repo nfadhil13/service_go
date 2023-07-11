@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:sizer/sizer.dart';
 
-class ServiceGoDropdown<T> extends StatefulWidget {
+class SGDropdown<T> extends StatefulWidget {
   final List<(String label, T data)> choices;
   final T? initialValue;
-  final ServiceGODropdownController? controller;
+  final SGDropdownController? controller;
   final String label;
   final String? hintText;
   final String? desc;
@@ -27,7 +27,7 @@ class ServiceGoDropdown<T> extends StatefulWidget {
   final bool? autofocus;
   final BorderRadius borderRadius;
 
-  ServiceGoDropdown({
+  SGDropdown({
     super.key,
     required this.choices,
     this.controller,
@@ -54,14 +54,14 @@ class ServiceGoDropdown<T> extends StatefulWidget {
   }) : borderRadius = BorderRadius.circular(8);
 
   @override
-  State<ServiceGoDropdown<T>> createState() => _ServiceGoDropdownState<T>();
+  State<SGDropdown<T>> createState() => _SGDropdownState<T>();
 }
 
-class ServiceGODropdownController<T> {
-  _ServiceGoDropdownState<T>? _state;
-  ServiceGODropdownController();
+class SGDropdownController<T> {
+  _SGDropdownState<T>? _state;
+  SGDropdownController();
 
-  _init(_ServiceGoDropdownState<T>? state) {
+  _init(_SGDropdownState<T>? state) {
     _state = state;
   }
 
@@ -72,7 +72,7 @@ class ServiceGODropdownController<T> {
   T? get value => _state?._value;
 }
 
-class _ServiceGoDropdownState<T> extends State<ServiceGoDropdown<T>> {
+class _SGDropdownState<T> extends State<SGDropdown<T>> {
   T? _value;
 
   @override

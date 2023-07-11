@@ -16,9 +16,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _HomeScreenContent extends StatelessWidget {
-  const _HomeScreenContent({
-    super.key,
-  });
+  const _HomeScreenContent();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class _HomeScreenContent extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Text("Current user name : ${context.userSession.username}"),
-          ServiceGoElevatedButton(
+          SGElevatedButton(
               label: "Logout",
               onPressed: () {
                 context.logout();

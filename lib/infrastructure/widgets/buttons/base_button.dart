@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/widgets/buttons/button_icon_type.dart';
 import 'package:service_go/infrastructure/widgets/hide_widget.dart';
 
-class ServiceGoButtonContent extends StatelessWidget {
-  const ServiceGoButtonContent({
+class SGButtonContent extends StatelessWidget {
+  const SGButtonContent({
     super.key,
     required this.fillParent,
     required this.buttonIconType,
     required this.prefixIcon,
     required this.keepBalance,
-    required this.sServiceGofixIcon,
+    required this.suffixIcon,
     required this.label,
     required this.textStyle,
   });
@@ -18,7 +18,7 @@ class ServiceGoButtonContent extends StatelessWidget {
   final ButtonIconType buttonIconType;
   final Widget? prefixIcon;
   final bool keepBalance;
-  final Widget? sServiceGofixIcon;
+  final Widget? suffixIcon;
   final String label;
   final TextStyle? textStyle;
 
@@ -29,16 +29,16 @@ class ServiceGoButtonContent extends StatelessWidget {
       mainAxisAlignment: buttonIconType.mainAxisAlignment,
       children: [
         if (prefixIcon != null) prefixIcon!,
-        if (keepBalance && prefixIcon == null && sServiceGofixIcon != null)
-          ServiceGoHideWidget(child: sServiceGofixIcon!),
+        if (keepBalance && prefixIcon == null && suffixIcon != null)
+          SGHideWidget(child: suffixIcon!),
         Text(
           label,
           style: textStyle,
           textAlign: TextAlign.center,
         ),
-        if (sServiceGofixIcon != null) sServiceGofixIcon!,
-        if (keepBalance && sServiceGofixIcon == null && prefixIcon != null)
-          ServiceGoHideWidget(child: prefixIcon!)
+        if (suffixIcon != null) suffixIcon!,
+        if (keepBalance && suffixIcon == null && prefixIcon != null)
+          SGHideWidget(child: prefixIcon!)
       ],
     );
   }

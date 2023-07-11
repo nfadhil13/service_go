@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:sizer/sizer.dart';
 
-class ServiceGoTextField extends StatelessWidget {
+class SGTextField extends StatelessWidget {
   final String label;
   final String? hintText;
   final String? desc;
@@ -30,7 +30,7 @@ class ServiceGoTextField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Function()? onTap;
 
-  ServiceGoTextField({
+  SGTextField({
     Key? key,
     this.controller,
     this.hintText,
@@ -66,6 +66,8 @@ class ServiceGoTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          textAlignVertical: TextAlignVertical.top,
+          textAlign: TextAlign.start,
           autofocus: autofocus ?? false,
           focusNode: focusNode,
           enabled: enabled ?? true,

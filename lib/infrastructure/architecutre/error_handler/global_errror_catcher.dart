@@ -1,12 +1,8 @@
 import 'dart:isolate';
 import 'dart:ui';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:service_go/infrastructure/architecutre/cubits/messenger/messenger_cubit.dart';
 import 'package:service_go/infrastructure/architecutre/error_handler/global_error_handler.dart';
-import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 
 class GlobalErrorCatcher extends StatefulWidget {
   final Widget? child;
@@ -29,7 +25,7 @@ class _GlobalErrorCatcherState extends State<GlobalErrorCatcher> {
     super.initState();
 
     IsolateNameServer.registerPortWithName(
-        _port.sendPort, ServiceGoGlobalErrorHandler.sessionTimeoutPortName);
+        _port.sendPort, SGGlobalErrorHandler.sessionTimeoutPortName);
     _port.listen((message) {
       if (message) widget.onSessionExpire?.call();
     });
@@ -38,7 +34,7 @@ class _GlobalErrorCatcherState extends State<GlobalErrorCatcher> {
   @override
   void dispose() {
     IsolateNameServer.removePortNameMapping(
-        ServiceGoGlobalErrorHandler.sessionTimeoutPortName);
+        SGGlobalErrorHandler.sessionTimeoutPortName);
     super.dispose();
   }
 
