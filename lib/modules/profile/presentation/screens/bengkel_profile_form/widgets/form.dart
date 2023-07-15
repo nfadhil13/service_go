@@ -23,11 +23,7 @@ class _Form extends StatelessWidget {
             label: "Nomor Telepon Bengkel",
           ),
           3.h.verticalSpace,
-          SGTextField(
-            label: "Alamat Bengkel",
-            minLine: 3,
-            maxLine: 3,
-          ),
+          SGMapPickerField(),
         ],
       ),
     )));

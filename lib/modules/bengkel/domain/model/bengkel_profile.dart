@@ -6,7 +6,7 @@ class BengkelProfile {
   final String alamant;
   final String nama;
   final String nomorTelepon;
-  final LatLgn lokasi;
+  final SGLocation lokasi;
   final JadwalBengkel jadwalBengkel;
   final bool isCurrentlyOpen;
 

@@ -4,6 +4,7 @@ import 'package:phone_number/phone_number.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/double_ext.dart';
 import 'package:service_go/infrastructure/widgets/form/image/image_picker.dart';
+import 'package:service_go/infrastructure/widgets/form/map_field.dart';
 import 'package:service_go/infrastructure/widgets/form/text_field.dart';
 import 'package:service_go/infrastructure/widgets/layouts/appbar/appbar.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';

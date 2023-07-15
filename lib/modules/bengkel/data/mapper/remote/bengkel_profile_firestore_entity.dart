@@ -38,7 +38,7 @@ class BengkelProfileFirestoreEntity extends FireStoreMapper<BengkelProfile> {
         jadwalBengkel: jadwalBengkel.parseJSON(firestoreData),
         nomorTelepon: nomorTelepon.parseJSON(firestoreData),
         lokasi: lokasi.parseJSON(firestoreData).let(
-            (value) => LatLgn(lat: value.latitude, long: value.longitude)));
+            (value) => SGLocation(lat: value.latitude, long: value.longitude)));
   }
 
   @override
