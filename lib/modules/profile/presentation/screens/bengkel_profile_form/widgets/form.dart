@@ -23,7 +23,9 @@ class _Form extends StatelessWidget {
             label: "Nomor Telepon Bengkel",
           ),
           3.h.verticalSpace,
-          SGMapPickerField(),
+          SGMapPickerField(
+            label: "Lokasi Bengkel",
+          ),
         ],
       ),
     )));

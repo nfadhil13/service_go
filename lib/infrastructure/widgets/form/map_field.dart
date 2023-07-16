@@ -9,6 +9,7 @@ import 'package:service_go/infrastructure/types/lat_lgn.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
 import 'package:service_go/infrastructure/widgets/buttons/outlined_button.dart';
 import 'package:service_go/infrastructure/widgets/map/map_picker.dart';
+import 'package:sizer/sizer.dart';
 
 class SGMapPickerField extends StatefulWidget {
   final double height;
@@ -64,70 +65,82 @@ class _SGMapPickerFieldState extends State<SGMapPickerField> {
   Widget build(BuildContext context) {
     final color = context.color;
     final value = _value;
-    return Container(
-      height: widget.height,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: _borderRadius, topRight: _borderRadius)),
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(child: _Map(location: _value?.location)),
-              Container(
-                alignment: Alignment.center,
-                decoration:
-                    BoxDecoration(color: color.background, boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1), //(x,y)
-                    blurRadius: 1.0,
-                  ),
-                ]),
-                width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                height: widget.height * .25,
-                child: AutoSizeText(
-                    _value?.address ?? "Anda belum memilih lokasi",
-                    textAlign: TextAlign.start),
-              ),
-            ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        if (widget.label != null)
+          Padding(
+            padding: EdgeInsets.only(bottom: 1.5.h),
+            child: Text(widget.label!),
           ),
-          if (value == null)
-            Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(color: Colors.black.withOpacity(.3)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+        Container(
+          height: widget.height,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: _borderRadius, topRight: _borderRadius)),
+          child: Stack(
+            children: [
+              Column(
                 children: [
-                  SGElevatedButton(
-                    label: "Pilih Lokasi",
-                    fillParent: false,
-                    onPressed: _changeLocation,
+                  Expanded(child: _Map(location: _value?.location)),
+                  Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: color.background,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 1), //(x,y)
+                            blurRadius: 1.0,
+                          ),
+                        ]),
+                    width: double.infinity,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    height: widget.height * .25,
+                    child: AutoSizeText(
+                        _value?.address ?? "Anda belum memilih lokasi",
+                        textAlign: TextAlign.start),
                   ),
                 ],
               ),
-            ),
-          if (value != null)
-            Positioned(
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SGElevatedButton(
-                  label: "Ganti Lokasi",
-                  fillParent: false,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-                  onPressed: _changeLocation,
+              if (value == null)
+                Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration:
+                      BoxDecoration(color: Colors.black.withOpacity(.3)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SGElevatedButton(
+                        label: "Pilih Lokasi",
+                        fillParent: false,
+                        onPressed: _changeLocation,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            )
-        ],
-      ),
+              if (value != null)
+                Positioned(
+                  right: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SGElevatedButton(
+                      label: "Ganti Lokasi",
+                      fillParent: false,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 12),
+                      onPressed: _changeLocation,
+                    ),
+                  ),
+                )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

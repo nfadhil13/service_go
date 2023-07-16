@@ -3,6 +3,8 @@
 enum FirestoreCollections {
   bengeklProfile("bengkel"),
 
+  jenisLayanan("jenisLayanan"),
+
   /// User data collection berisi list data user dengan properties
   /// seperti dibawah berikut
   ///
