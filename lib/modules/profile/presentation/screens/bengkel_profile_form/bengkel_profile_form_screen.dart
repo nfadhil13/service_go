@@ -6,11 +6,16 @@ import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/double_ext.dart';
 import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
+import 'package:service_go/infrastructure/types/image.dart';
+import 'package:service_go/infrastructure/utils/value_validator/form_validator.dart';
+import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
 import 'package:service_go/infrastructure/widgets/error.dart';
 import 'package:service_go/infrastructure/widgets/form/image/image_picker.dart';
 import 'package:service_go/infrastructure/widgets/form/map_field.dart';
 import 'package:service_go/infrastructure/widgets/form/multi_select.dart';
+import 'package:service_go/infrastructure/widgets/form/sg_time_range_picker.dart';
 import 'package:service_go/infrastructure/widgets/form/text_field.dart';
+import 'package:service_go/infrastructure/widgets/form/time_picker.dart';
 import 'package:service_go/infrastructure/widgets/layouts/appbar/appbar.dart';
 import 'package:service_go/infrastructure/widgets/loading/overlay.dart';
 import 'package:service_go/infrastructure/widgets/map/map_picker.dart';
@@ -32,24 +37,37 @@ class BengkelProfileFormScreen extends StatelessWidget {
       create: (context) =>
           getIt<BengkelProfileFormCubit>(param1: context.userSession.userId)
             ..prepareForm(),
-      child: Scaffold(
-        backgroundColor: context.color.background,
-        appBar: const SGAppBar(
-          pageTitle: "Profile",
-        ),
-        body: BlocBuilder<BengkelProfileFormCubit, BengkelProfileFormState>(
-          builder: (context, state) {
-            return switch (state) {
-              BengkelProfileFormPrepareLoading() => const SGLoadingOverlay(),
-              BengkelProfileFormPrepareError() =>
-                SGError(message: state.message, retry: state.retry),
-              BengkelProfileFormReady() => _Form(
-                  bengkelProfile: state.bengkelProfile,
-                  jenisLayananList: state.jenisLayanan,
-                )
-            };
-          },
-        ),
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: context.color.background,
+            appBar: const SGAppBar(
+              pageTitle: "Profile",
+            ),
+            body: BlocBuilder<BengkelProfileFormCubit, BengkelProfileFormState>(
+              builder: (context, state) {
+                return switch (state) {
+                  BengkelProfileFormPrepareLoading() =>
+                    const SGLoadingOverlay(),
+                  BengkelProfileFormPrepareError() =>
+                    SGError(message: state.message, retry: state.retry),
+                  BengkelProfileFormReady() => _Form(
+                      bengkelProfile: state.bengkelProfile,
+                      jenisLayananList: state.jenisLayanan,
+                    )
+                };
+              },
+            ),
+          ),
+          BlocBuilder<BengkelProfileFormCubit, BengkelProfileFormState>(
+            builder: (context, state) {
+              if (state is! BengkelProfileFormSubmitLoading) {
+                return const SizedBox();
+              }
+              return const SGLoadingOverlay();
+            },
+          )
+        ],
       ),
     );
   }

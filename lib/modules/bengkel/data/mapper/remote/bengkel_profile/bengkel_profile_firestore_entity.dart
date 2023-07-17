@@ -4,36 +4,43 @@ import 'package:service_go/infrastructure/ext/list_ext.dart';
 import 'package:service_go/infrastructure/types/lat_lgn.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_field.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_mapper.dart';
-import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
+import 'package:service_go/modules/bengkel/data/mapper/remote/bengkel_profile/bengkel_profile_dto.dart';
 import 'package:service_go/modules/bengkel/domain/model/jadwal_bengkel.dart';
 
-class BengkelProfileFirestoreEntity extends FireStoreMapper<BengkelProfile> {
-  final FireStoreField<BengkelProfile, String> alamatLengkap =
-      FireStoreField("alamatLengkap", (entity) => entity.alamant);
+class BengkelProfileFirestoreEntity extends FireStoreMapper<BengkelProfileDTO> {
+  final FireStoreField<BengkelProfileDTO, String> image =
+      FireStoreField("profileURL", (entity) => entity.imageURL);
 
-  final FireStoreField<BengkelProfile, String> nama =
+  final FireStoreField<BengkelProfileDTO, String> alamatLengkap =
+      FireStoreField("alamatLengkap", (entity) => entity.alamat);
+
+  final FireStoreField<BengkelProfileDTO, String> nama =
       FireStoreField("nama", (entity) => entity.nama);
 
-  final FireStoreField<BengkelProfile, String> nomorTelepon =
+  final FireStoreField<BengkelProfileDTO, String> nomorTelepon =
       FireStoreField("nomorTelepon", (entity) => entity.nomorTelepon);
 
-  final LatLgnFirestoreField<BengkelProfile> lokasi =
+  final LatLgnFirestoreField<BengkelProfileDTO> lokasi =
       LatLgnFirestoreField("lokasi", (entity) => entity.lokasi);
 
-  final FireStoreField<BengkelProfile, bool> isOpen =
+  final FireStoreField<BengkelProfileDTO, bool> isOpen =
       FireStoreField("isOpen", (entity) => entity.isCurrentlyOpen);
 
   final JadwalBengkelFirestoreField jadwalBengkel =
       JadwalBengkelFirestoreField("waktuOperasional");
 
+  final FirestoreReferenceField<BengkelProfileDTO> layananIds =
+      FirestoreReferenceField("layananIds", (entity) => entity.layananIds);
   BengkelProfileFirestoreEntity();
 
   @override
-  BengkelProfile toDomain(Map<String, dynamic> firestoreData, String id) {
-    return BengkelProfile(
-        alamant: alamatLengkap.parseJSON(firestoreData),
+  BengkelProfileDTO toResult(Map<String, dynamic> firestoreData, String id) {
+    return BengkelProfileDTO(
+        imageURL: image.parseJSON(firestoreData),
+        alamat: alamatLengkap.parseJSON(firestoreData),
         nama: nama.parseJSON(firestoreData),
         id: id,
+        layananIds: layananIds.parseJSON(firestoreData),
         isCurrentlyOpen: isOpen.parseJSON(firestoreData),
         jadwalBengkel: jadwalBengkel.parseJSON(firestoreData),
         nomorTelepon: nomorTelepon.parseJSON(firestoreData),
@@ -42,12 +49,20 @@ class BengkelProfileFirestoreEntity extends FireStoreMapper<BengkelProfile> {
   }
 
   @override
-  List<FireStoreField<BengkelProfile, dynamic>> get fields =>
-      [alamatLengkap, isOpen, nama, lokasi, nomorTelepon, jadwalBengkel];
+  List<FireStoreField<BengkelProfileDTO, dynamic>> get fields => [
+        alamatLengkap,
+        isOpen,
+        nama,
+        lokasi,
+        nomorTelepon,
+        jadwalBengkel,
+        layananIds,
+        image
+      ];
 }
 
 class JadwalBengkelFirestoreField
-    extends FireStoreField<BengkelProfile, JadwalBengkel> {
+    extends FireStoreField<BengkelProfileDTO, JadwalBengkel> {
   JadwalBengkelFirestoreField(String key)
       : super(key, (entity) => entity.jadwalBengkel);
 

@@ -14,6 +14,7 @@ class SGElevatedButton extends StatelessWidget {
   final bool keepBalance;
   final TextStyle? textStyle;
   final EdgeInsets padding;
+  final double? elevation;
   const SGElevatedButton({
     super.key,
     required this.label,
@@ -27,6 +28,7 @@ class SGElevatedButton extends StatelessWidget {
     this.textStyle,
     this.padding = const EdgeInsets.all(12),
     this.foregroundColor,
+    this.elevation,
   });
 
   Widget buildButton(BuildContext context) {
@@ -36,6 +38,7 @@ class SGElevatedButton extends StatelessWidget {
     return ElevatedButton(
         onPressed: onPressed,
         style: style.copyWith(
+            elevation: MaterialStatePropertyAll(elevation),
             foregroundColor: MaterialStatePropertyAll(foregroundColor),
             backgroundColor: MaterialStatePropertyAll(backgroundColor),
             textStyle: const MaterialStatePropertyAll(TextStyle(fontSize: 18)),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:service_go/infrastructure/local_storage/secure_storage/secure_storage.dart';
@@ -14,4 +15,7 @@ abstract class CoreModules {
 
   @singleton
   FirebaseFirestore getFirebaseFirestore() => FirebaseFirestore.instance;
+
+  @singleton
+  FirebaseStorage getFirebaseStorage() => FirebaseStorage.instance;
 }

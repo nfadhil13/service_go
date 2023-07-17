@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_field.dart';
 
@@ -23,7 +24,7 @@ class LatLgnFirestoreField<Entity>
 
   @override
   GeoFirePoint parseJSON(Map<String, dynamic> firestoreData) {
-    final geoPoint = firestoreData["geopoint"];
-    return GeoFirePoint(geoPoint["latitude"], geoPoint["longitude"]);
+    final geoPoint = firestoreData[key]["geopoint"] as GeoPoint;
+    return GeoFirePoint(geoPoint.latitude, geoPoint.longitude);
   }
 }

@@ -52,4 +52,14 @@ extension ListExtension<E> on List<E> {
     }
     return result;
   }
+
+  Iterable<List<E>> mapTo2D(int lengt) {
+    List<List<E>> outputList = [];
+
+    for (var i = 0; i < length; i += 10) {
+      outputList.add(sublist(i, i + 10 > length ? length : i + 10));
+    }
+
+    return outputList;
+  }
 }

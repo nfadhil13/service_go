@@ -10,7 +10,7 @@ class JenisLayananFirestoreEntity extends FireStoreMapper<JenisLayanan> {
   List<FireStoreField<JenisLayanan, dynamic>> get fields => [name];
 
   @override
-  JenisLayanan toDomain(Map<String, dynamic> firestoreData, String id) {
+  JenisLayanan toResult(Map<String, dynamic> firestoreData, String id) {
     return JenisLayanan(id: id, name: name.parseJSON(firestoreData));
   }
 }

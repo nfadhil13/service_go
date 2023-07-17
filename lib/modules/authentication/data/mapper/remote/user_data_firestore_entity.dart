@@ -29,7 +29,7 @@ class UserDataFiresotreEntity extends FireStoreMapper<UserData> {
   }
 
   @override
-  UserData toDomain(firestoreData, String id) {
+  UserData toResult(firestoreData, String id) {
     return UserData(
         id: id,
         username: usernameField.parseJSON(firestoreData),

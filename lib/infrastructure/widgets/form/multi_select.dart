@@ -110,6 +110,7 @@ class _SGMultiSelectFieldState<T> extends State<SGMultiSelectField<T>> {
                                 child: SGElevatedButton(
                                   onPressed: () {},
                                   label: e.name,
+                                  elevation: 0,
                                   suffixIcon: InkWell(
                                     onTap: () {
                                       setState(() {

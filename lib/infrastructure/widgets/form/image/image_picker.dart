@@ -96,8 +96,11 @@ class _SGImagePickerFieldState extends State<SGImagePickerField> {
     final decoration =
         BoxDecoration(shape: widget.shape, color: color.outlineVariant);
     return FormField<SGImage>(
-      validator: widget.validator,
+      validator: (_) {
+        return widget.validator?.call(image);
+      },
       builder: (field) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
             onTap: _onClick,

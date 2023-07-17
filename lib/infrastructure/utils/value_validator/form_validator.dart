@@ -35,10 +35,14 @@ class ValueValidatorBuilder<Value extends dynamic> {
         }
       ]);
 
-  ValueValidatorBuilder<Value> notNull() => ValueValidatorBuilder._(fieldName, [
+  ValueValidatorBuilder<Value> notNull(
+          {String Function(String fieldname)? error}) =>
+      ValueValidatorBuilder._(fieldName, [
         ...validatorList,
         (value) {
-          return value == null ? "$fieldName tidak boleh kosong" : null;
+          return value == null
+              ? error?.call(fieldName) ?? "$fieldName tidak boleh kosong"
+              : null;
         }
       ]);
 

@@ -5,7 +5,7 @@ import 'package:service_go/infrastructure/widgets/form/decoration.dart';
 import 'package:sizer/sizer.dart';
 
 class SGTextField extends StatelessWidget {
-  final String label;
+  final String? label;
   final String? hintText;
   final String? desc;
   final bool? obscureText;

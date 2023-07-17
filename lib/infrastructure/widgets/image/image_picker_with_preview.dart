@@ -14,7 +14,7 @@ import 'package:service_go/infrastructure/widgets/image/image_carousel.dart';
 import 'package:service_go/infrastructure/widgets/image/image_picker.dart';
 
 class SGImagePickerWithPreview extends StatefulWidget {
-  const SGImagePickerWithPreview._({super.key});
+  const SGImagePickerWithPreview._();
 
   static Future<List<XFile>> pickImages(BuildContext context) async {
     final result = await context.router.pushNativeRoute(MaterialPageRoute(
