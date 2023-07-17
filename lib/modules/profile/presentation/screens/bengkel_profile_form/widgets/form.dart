@@ -1,10 +1,13 @@
 part of '../bengkel_profile_form_screen.dart';
 
 class _Form extends StatelessWidget {
-  const _Form({super.key});
+  final List<JenisLayanan> jenisLayananList;
+  final BengkelProfile? bengkelProfile;
+  const _Form({super.key, required this.jenisLayananList, this.bengkelProfile});
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<BengkelProfileFormCubit>();
     return SingleChildScrollView(
         child: Form(
             child: Padding(
@@ -16,15 +19,28 @@ class _Form extends StatelessWidget {
           5.h.verticalSpace,
           SGTextField(
             label: "Nama Bengkel",
+            controller: cubit.namaBengkel,
+            initialValue: bengkelProfile?.nama,
           ),
           3.h.verticalSpace,
           SGTextField(
             inputType: TextInputType.phone,
             label: "Nomor Telepon Bengkel",
+            controller: cubit.nomorTelepon,
+            initialValue: bengkelProfile?.nomorTelepon,
           ),
           3.h.verticalSpace,
+          SGMultiSelectField(
+              label: "Layanan Bengkel",
+              items: jenisLayananList
+                  .map((e) => SGMultiSelectItem(e.name, e))
+                  .toList()),
+          3.h.verticalSpace,
           SGMapPickerField(
+            controller: cubit.lokasiBengkel,
             label: "Lokasi Bengkel",
+            initialValue: bengkelProfile?.let((value) => SGMapPickerResult(
+                location: value.lokasi, address: value.alamant)),
           ),
         ],
       ),
@@ -33,9 +49,7 @@ class _Form extends StatelessWidget {
 }
 
 class _ImagePicker extends StatelessWidget {
-  const _ImagePicker({
-    super.key,
-  });
+  const _ImagePicker();
 
   @override
   Widget build(BuildContext context) {

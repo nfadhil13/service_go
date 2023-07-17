@@ -1,32 +1,56 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:phone_number/phone_number.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/double_ext.dart';
+import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
+import 'package:service_go/infrastructure/service_locator/service_locator.dart';
+import 'package:service_go/infrastructure/widgets/error.dart';
 import 'package:service_go/infrastructure/widgets/form/image/image_picker.dart';
 import 'package:service_go/infrastructure/widgets/form/map_field.dart';
+import 'package:service_go/infrastructure/widgets/form/multi_select.dart';
 import 'package:service_go/infrastructure/widgets/form/text_field.dart';
 import 'package:service_go/infrastructure/widgets/layouts/appbar/appbar.dart';
+import 'package:service_go/infrastructure/widgets/loading/overlay.dart';
+import 'package:service_go/infrastructure/widgets/map/map_picker.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
+import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
+import 'package:service_go/modules/profile/presentation/screens/bengkel_profile_form/cubit/form/bengkel_profile_form_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 part 'widgets/form.dart';
 
 @RoutePage()
 class BengkelProfileFormScreen extends StatelessWidget {
-  final BengkelProfile? initial;
   final VoidCallback? onBengkelProfileCreated;
-  const BengkelProfileFormScreen(
-      {super.key, this.initial, this.onBengkelProfileCreated});
+  const BengkelProfileFormScreen({super.key, this.onBengkelProfileCreated});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: context.color.background,
-      appBar: const SGAppBar(
-        pageTitle: "Profile",
+    return BlocProvider(
+      create: (context) =>
+          getIt<BengkelProfileFormCubit>(param1: context.userSession.userId)
+            ..prepareForm(),
+      child: Scaffold(
+        backgroundColor: context.color.background,
+        appBar: const SGAppBar(
+          pageTitle: "Profile",
+        ),
+        body: BlocBuilder<BengkelProfileFormCubit, BengkelProfileFormState>(
+          builder: (context, state) {
+            return switch (state) {
+              BengkelProfileFormPrepareLoading() => const SGLoadingOverlay(),
+              BengkelProfileFormPrepareError() =>
+                SGError(message: state.message, retry: state.retry),
+              BengkelProfileFormReady() => _Form(
+                  bengkelProfile: state.bengkelProfile,
+                  jenisLayananList: state.jenisLayanan,
+                )
+            };
+          },
+        ),
       ),
-      body: const _Form(),
     );
   }
 }

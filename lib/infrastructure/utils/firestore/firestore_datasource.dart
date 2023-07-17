@@ -16,6 +16,7 @@ abstract class FirestoreDatasource<Entity,
   CollectionReference<Entity> get collectionRef =>
       firestore.collection(collection.collectionName).withConverter(
         fromFirestore: (model, _) {
+          print("Data : ${model.data()}");
           return mapper.toDomain(model.data()!, model.id);
         },
         toFirestore: (value, options) {

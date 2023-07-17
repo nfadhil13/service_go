@@ -7,20 +7,19 @@ import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/types/lat_lgn.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
-import 'package:service_go/infrastructure/widgets/buttons/outlined_button.dart';
 import 'package:service_go/infrastructure/widgets/map/map_picker.dart';
 import 'package:sizer/sizer.dart';
 
 class SGMapPickerField extends StatefulWidget {
   final double height;
   final String? label;
-  final SGMapPickerResult? initialResult;
+  final SGMapPickerResult? initialValue;
   final SGMapPickerFieldController? controller;
   const SGMapPickerField(
       {super.key,
       this.height = 240,
       this.label,
-      this.initialResult,
+      this.initialValue,
       this.controller});
 
   @override

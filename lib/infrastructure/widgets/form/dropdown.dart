@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
+import 'package:service_go/infrastructure/widgets/form/decoration.dart';
 import 'package:sizer/sizer.dart';
 
 class SGDropdown<T> extends StatefulWidget {
@@ -25,7 +26,7 @@ class SGDropdown<T> extends StatefulWidget {
   final bool? enabled;
   final FocusNode? focusNode;
   final bool? autofocus;
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
 
   SGDropdown({
     super.key,
@@ -84,8 +85,6 @@ class _SGDropdownState<T> extends State<SGDropdown<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final color = context.color;
-    final text = context.text;
     return DropdownButtonFormField<T>(
         items: widget.choices
             .map((e) => DropdownMenuItem(
@@ -99,31 +98,13 @@ class _SGDropdownState<T> extends State<SGDropdown<T>> {
         isExpanded: true,
         value: _value,
         validator: widget.validator,
-        decoration: InputDecoration(
-          prefixIcon: widget.prefixIcon,
-          labelText: widget.label,
-          suffixIconColor: context.color.outline,
-          errorStyle: context.text.bodySmall
-              ?.copyWith(color: color.error, fontSize: 10.sp),
-          labelStyle: text.bodySmall,
-          alignLabelWithHint: false,
-          errorMaxLines: 3,
-          errorBorder: OutlineInputBorder(
-              borderRadius: widget.borderRadius,
-              borderSide: BorderSide(color: color.error)),
-          focusedErrorBorder: OutlineInputBorder(
-              borderRadius: widget.borderRadius,
-              borderSide: BorderSide(color: color.error)),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: widget.borderRadius,
-              borderSide: BorderSide(color: color.primary)),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: widget.borderRadius,
-              borderSide: BorderSide(color: color.outline)),
-          hintText: widget.hintText,
-          contentPadding: widget.contentPadding ??
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 17),
-        ),
+        decoration: SGInputDecoration.inputDecoration(context,
+            borderRadius: widget.borderRadius ?? BorderRadius.circular(8),
+            contentPadding: widget.contentPadding,
+            hintText: widget.hintText,
+            suffixIcon: widget.suffixIcon,
+            label: widget.label,
+            prefixIcon: widget.prefixIcon),
         onChanged: (value) {
           setState(() {
             _value = value;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
+import 'package:service_go/infrastructure/widgets/form/decoration.dart';
 import 'package:sizer/sizer.dart';
 
 class SGTextField extends StatelessWidget {
@@ -81,32 +82,13 @@ class SGTextField extends StatelessWidget {
           style: text.bodyLarge?.copyWith(fontWeight: FontWeight.normal),
           textInputAction: textInputAction,
           inputFormatters: inputFormatters,
-          decoration: InputDecoration(
-            suffixIcon: suffixIcon,
-            prefixIcon: prefixIcon,
-            labelText: label,
-            suffixIconColor: context.color.outline,
-            errorStyle: context.text.bodySmall
-                ?.copyWith(color: color.error, fontSize: 10.sp),
-            labelStyle: text.bodySmall,
-            alignLabelWithHint: false,
-            errorMaxLines: 3,
-            errorBorder: OutlineInputBorder(
-                borderRadius: borderRadius,
-                borderSide: BorderSide(color: color.error)),
-            focusedErrorBorder: OutlineInputBorder(
-                borderRadius: borderRadius,
-                borderSide: BorderSide(color: color.error)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: borderRadius,
-                borderSide: BorderSide(color: color.primary)),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: borderRadius,
-                borderSide: BorderSide(color: color.outline)),
-            hintText: hintText,
-            contentPadding: contentPadding ??
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 17),
-          ),
+          decoration: SGInputDecoration.inputDecoration(context,
+              contentPadding: contentPadding,
+              hintText: hintText,
+              label: label,
+              prefixIcon: prefixIcon,
+              suffixIcon: suffixIcon,
+              borderRadius: borderRadius),
           onFieldSubmitted: onFieldSubmitted,
           keyboardType: inputType,
           onTap: onTap,
