@@ -27,16 +27,16 @@ import '../../modules/authentication/data/repositories/authentication_repo_impl.
 import '../../modules/authentication/domain/repositories/authentication_repo.dart'
     as _i17;
 import '../../modules/authentication/domain/usecases/get_current_session.dart'
-    as _i26;
-import '../../modules/authentication/domain/usecases/login.dart' as _i27;
-import '../../modules/authentication/domain/usecases/logout.dart' as _i29;
-import '../../modules/authentication/domain/usecases/register.dart' as _i31;
+    as _i30;
+import '../../modules/authentication/domain/usecases/login.dart' as _i31;
+import '../../modules/authentication/domain/usecases/logout.dart' as _i33;
+import '../../modules/authentication/domain/usecases/register.dart' as _i36;
 import '../../modules/authentication/presentation/screens/login/cubit/login_cubit.dart'
-    as _i28;
+    as _i32;
 import '../../modules/authentication/presentation/screens/register/cubit/register_cubit.dart'
-    as _i35;
+    as _i43;
 import '../../modules/authentication/presentation/screens/splash/cubit/splash_cubit.dart'
-    as _i33;
+    as _i38;
 import '../../modules/bengkel/data/datasource/firestore/bengkel_firestore_dts.dart'
     as _i19;
 import '../../modules/bengkel/data/datasource/firestore/jenis_layanan_firestore_dts.dart'
@@ -54,20 +54,36 @@ import '../../modules/bengkel/domain/repositories/bengkel_profile_repository.dar
 import '../../modules/bengkel/domain/repositories/jenis_layanan_repository.dart'
     as _i9;
 import '../../modules/bengkel/domain/usecase/get_all_jenis_layanan.dart'
+    as _i29;
+import '../../modules/customer/data/datasource/firestore/customer_profile_firestore_dts.dart'
     as _i25;
-import '../../modules/profile/domain/usecase/check_is_bengkel_has_profile.dart'
+import '../../modules/customer/data/datasource/remote/customer_profile_remote_dts.dart'
+    as _i26;
+import '../../modules/customer/data/repositories/customer_profile_repo_impl.dart'
+    as _i28;
+import '../../modules/customer/domain/repositories/customer_profile_repo.dart'
+    as _i27;
+import '../../modules/profile/domain/usecase/bengkel/check_is_bengkel_has_profile.dart'
     as _i23;
-import '../../modules/profile/domain/usecase/create_bengkel_profile.dart'
+import '../../modules/profile/domain/usecase/bengkel/create_bengkel_profile.dart'
     as _i24;
-import '../../modules/profile/domain/usecase/prepare_bengkel_profile_form.dart'
-    as _i30;
-import '../../modules/profile/presentation/screens/bengkel_profile_form/cubit/form/bengkel_profile_form_cubit.dart'
+import '../../modules/profile/domain/usecase/bengkel/prepare_bengkel_profile_form.dart'
     as _i34;
+import '../../modules/profile/domain/usecase/customer/check_if_customer_has_profile.dart'
+    as _i40;
+import '../../modules/profile/domain/usecase/customer/craete_or_update_customer.dart'
+    as _i41;
+import '../../modules/profile/domain/usecase/customer/prepare_customer_form.dart'
+    as _i35;
+import '../../modules/profile/presentation/screens/bengkel_profile_form/cubit/form/bengkel_profile_form_cubit.dart'
+    as _i39;
+import '../../modules/profile/presentation/screens/customer_profile_form/cubit/customer_profile_form_cubit.dart'
+    as _i42;
 import '../architecutre/cubits/messenger/messenger_cubit.dart' as _i11;
-import '../architecutre/cubits/session/session_cubit.dart' as _i32;
+import '../architecutre/cubits/session/session_cubit.dart' as _i37;
 import '../local_storage/secure_storage/secure_storage.dart' as _i13;
 import '../utils/storage/sg_storage_helper.dart' as _i12;
-import 'modules/core_module.dart' as _i36;
+import 'modules/core_module.dart' as _i44;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -130,39 +146,67 @@ extension GetItInjectableX on _i1.GetIt {
             ));
     gh.factory<_i24.CreateBengkelProfile>(
         () => _i24.CreateBengkelProfile(gh<_i21.BengkelProfileRepository>()));
-    gh.factory<_i25.GetAllJenisLayanan>(
-        () => _i25.GetAllJenisLayanan(gh<_i9.JenisLayananRepository>()));
-    gh.factory<_i26.GetCurrentSession>(
-        () => _i26.GetCurrentSession(gh<_i17.AuthenticationRepo>()));
-    gh.factory<_i27.Login>(() => _i27.Login(gh<_i17.AuthenticationRepo>()));
-    gh.factory<_i28.LoginCubit>(() => _i28.LoginCubit(gh<_i27.Login>()));
-    gh.factory<_i29.Logout>(() => _i29.Logout(gh<_i17.AuthenticationRepo>()));
-    gh.factory<_i30.PrepareBengkelProfileForm>(
-        () => _i30.PrepareBengkelProfileForm(
+    gh.factory<_i25.CustomProfileFirestoreDTS>(
+        () => _i25.CustomProfileFirestoreDTS(
+              gh<_i4.FirebaseFirestore>(),
+              gh<_i5.FirebaseStorage>(),
+            ));
+    gh.factory<_i26.CustomerProfileRemoteDTS>(() =>
+        _i26.CustomerProfileRemoteDTSImpl(
+            gh<_i25.CustomProfileFirestoreDTS>()));
+    gh.factory<_i27.CustomerProfileRepo>(() =>
+        _i28.CustomerProfileRepoImpl(gh<_i26.CustomerProfileRemoteDTS>()));
+    gh.factory<_i29.GetAllJenisLayanan>(
+        () => _i29.GetAllJenisLayanan(gh<_i9.JenisLayananRepository>()));
+    gh.factory<_i30.GetCurrentSession>(
+        () => _i30.GetCurrentSession(gh<_i17.AuthenticationRepo>()));
+    gh.factory<_i31.Login>(() => _i31.Login(gh<_i17.AuthenticationRepo>()));
+    gh.factory<_i32.LoginCubit>(() => _i32.LoginCubit(gh<_i31.Login>()));
+    gh.factory<_i33.Logout>(() => _i33.Logout(gh<_i17.AuthenticationRepo>()));
+    gh.factory<_i34.PrepareBengkelProfileForm>(
+        () => _i34.PrepareBengkelProfileForm(
               gh<_i9.JenisLayananRepository>(),
               gh<_i21.BengkelProfileRepository>(),
             ));
-    gh.factory<_i31.RegisterUserAccount>(
-        () => _i31.RegisterUserAccount(gh<_i17.AuthenticationRepo>()));
-    gh.lazySingleton<_i32.SessionCubit>(
-        () => _i32.SessionCubit(gh<_i29.Logout>()));
-    gh.factory<_i33.SplashCubit>(
-        () => _i33.SplashCubit(gh<_i26.GetCurrentSession>()));
-    gh.factoryParam<_i34.BengkelProfileFormCubit, String, dynamic>((
+    gh.factory<_i35.PrepareCustomerForm>(
+        () => _i35.PrepareCustomerForm(gh<_i27.CustomerProfileRepo>()));
+    gh.factory<_i36.RegisterUserAccount>(
+        () => _i36.RegisterUserAccount(gh<_i17.AuthenticationRepo>()));
+    gh.lazySingleton<_i37.SessionCubit>(
+        () => _i37.SessionCubit(gh<_i33.Logout>()));
+    gh.factory<_i38.SplashCubit>(
+        () => _i38.SplashCubit(gh<_i30.GetCurrentSession>()));
+    gh.factoryParam<_i39.BengkelProfileFormCubit, String, dynamic>((
       userId,
       _,
     ) =>
-        _i34.BengkelProfileFormCubit(
-          gh<_i30.PrepareBengkelProfileForm>(),
+        _i39.BengkelProfileFormCubit(
+          gh<_i34.PrepareBengkelProfileForm>(),
           userId,
           gh<_i24.CreateBengkelProfile>(),
         ));
-    gh.factory<_i35.RegisterCubit>(() => _i35.RegisterCubit(
+    gh.factory<_i40.CheckIfCustomerHasProfile>(
+        () => _i40.CheckIfCustomerHasProfile(
+              gh<_i27.CustomerProfileRepo>(),
+              gh<_i17.AuthenticationRepo>(),
+            ));
+    gh.factory<_i41.CraeteOrUpdateCustomer>(
+        () => _i41.CraeteOrUpdateCustomer(gh<_i27.CustomerProfileRepo>()));
+    gh.factoryParam<_i42.CustomerProfileFormCubit, String, dynamic>((
+      userId,
+      _,
+    ) =>
+        _i42.CustomerProfileFormCubit(
+          gh<_i35.PrepareCustomerForm>(),
+          userId,
+          gh<_i41.CraeteOrUpdateCustomer>(),
+        ));
+    gh.factory<_i43.RegisterCubit>(() => _i43.RegisterCubit(
           gh<_i11.MessengerCubit>(),
-          gh<_i31.RegisterUserAccount>(),
+          gh<_i36.RegisterUserAccount>(),
         ));
     return this;
   }
 }
 
-class _$CoreModules extends _i36.CoreModules {}
+class _$CoreModules extends _i44.CoreModules {}

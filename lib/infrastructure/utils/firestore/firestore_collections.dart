@@ -1,6 +1,7 @@
 // Enum untuk melist collection dari firestore
 
 enum FirestoreCollections {
+  customerProfile("customer"),
   bengeklProfile("bengkel"),
 
   jenisLayanan("jenisLayanan"),

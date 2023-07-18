@@ -2,20 +2,21 @@ import 'package:auto_route/auto_route.dart';
 import 'package:service_go/infrastructure/routing/router.gr.dart';
 import 'package:service_go/infrastructure/types/resource.dart';
 import 'package:service_go/modules/profile/domain/usecase/bengkel/check_is_bengkel_has_profile.dart';
+import 'package:service_go/modules/profile/domain/usecase/customer/check_if_customer_has_profile.dart';
 
-@RoutePage(name: 'BengkelRouter')
-class BengkelRouterScreen extends AutoRouter {
+@RoutePage(name: 'CustomerRouter')
+class CustomerRouterScreen extends AutoRouter {
   static List<AutoRoute> get routes => [
-        AutoRoute(page: HomeRoute.page, path: 'home'),
+        AutoRoute(page: CustomerHomeRoute.page, path: 'home'),
       ];
 
-  const BengkelRouterScreen({super.key});
+  const CustomerRouterScreen({super.key});
 }
 
-class BengkelProfileGuard extends AutoRouteGuard {
-  final CheckIfBengkelHasProfile _checkIfBengkelHasProfile;
+class CustomerProfileGuard extends AutoRouteGuard {
+  final CheckIfCustomerHasProfile _checkIfBengkelHasProfile;
 
-  BengkelProfileGuard(this._checkIfBengkelHasProfile);
+  CustomerProfileGuard(this._checkIfBengkelHasProfile);
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
@@ -30,7 +31,7 @@ class BengkelProfileGuard extends AutoRouteGuard {
           resolver.next();
         } else {
           resolver
-              .redirect(BengkelProfileFormRoute(onBengkelProfileCreated: () {
+              .redirect(CustomProfileFormRoute(onCustomerProfileCreated: () {
             resolver.next();
           }));
         }

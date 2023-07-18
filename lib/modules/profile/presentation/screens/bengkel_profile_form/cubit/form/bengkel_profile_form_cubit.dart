@@ -9,8 +9,8 @@ import 'package:service_go/infrastructure/widgets/form/multi_select.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
 import 'package:service_go/modules/bengkel/domain/model/jadwal_bengkel.dart';
 import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
-import 'package:service_go/modules/profile/domain/usecase/create_bengkel_profile.dart';
-import 'package:service_go/modules/profile/domain/usecase/prepare_bengkel_profile_form.dart';
+import 'package:service_go/modules/profile/domain/usecase/bengkel/create_bengkel_profile.dart';
+import 'package:service_go/modules/profile/domain/usecase/bengkel/prepare_bengkel_profile_form.dart';
 
 part 'bengkel_profile_form_state.dart';
 
@@ -77,5 +77,21 @@ class BengkelProfileFormCubit extends Cubit<BengkelProfileFormState> {
         jadwalBengkel: const JadwalBengkel(),
         nomorTelepon: nomorTelepon.text,
         lokasi: lokasiBengkel.value!.location);
+  }
+
+  // final SGImagePickerController profilePict = SGImagePickerController();
+  // final TextEditingController namaBengkel = TextEditingController();
+  // final TextEditingController nomorTelepon = TextEditingController();
+  // final SGMultiSelectFieldController<JenisLayanan> jenisLayanan =
+  //     SGMultiSelectFieldController();
+  // final SGMapPickerFieldController lokasiBengkel = SGMapPickerFieldController();
+
+  @override
+  Future<void> close() {
+    namaBengkel.dispose();
+    nomorTelepon.dispose();
+    jenisLayanan.dispose();
+    lokasiBengkel.dispose();
+    return super.close();
   }
 }

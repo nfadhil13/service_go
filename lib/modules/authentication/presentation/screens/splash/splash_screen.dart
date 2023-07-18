@@ -21,9 +21,13 @@ class SplashScreen extends StatelessWidget {
           listener: (context, state) {
             if (state is SplashSuccess) {
               context.read<SessionCubit>().setCurrenetUser(state.userSession);
-              final route = state.userSession != null
-                  ? const HomeRoute()
-                  : const LoginRoute();
+              PageRouteInfo route = const LoginRoute();
+              final session = state.userSession;
+              if (session != null) {
+                route = session.isBengkel
+                    ? const BengkelRouter()
+                    : const CustomerRouter();
+              }
               context.router.replace(route);
             }
           },

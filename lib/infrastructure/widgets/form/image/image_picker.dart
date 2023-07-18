@@ -39,6 +39,10 @@ class SGImagePickerController {
   }
 
   SGImage? get value => _state?.image;
+
+  void dispose() {
+    _state = null;
+  }
 }
 
 class _SGImagePickerFieldState extends State<SGImagePickerField> {

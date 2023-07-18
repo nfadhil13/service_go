@@ -63,6 +63,10 @@ class SGMultiSelectFieldController<T> {
   }
 
   List<T> get value => _state?._value.map((e) => e.data).toList() ?? [];
+
+  void dispose() {
+    _state = null;
+  }
 }
 
 class _SGMultiSelectFieldState<T> extends State<SGMultiSelectField<T>> {

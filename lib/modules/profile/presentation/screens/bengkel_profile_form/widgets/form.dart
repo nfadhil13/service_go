@@ -96,7 +96,6 @@ class _ImagePicker extends StatelessWidget {
               child: SGImagePickerField(
                 validator: ValueValidatorBuilder.create("Foto Bengkel")
                     .custom((value) {
-                      print(value);
                       return null;
                     })
                     .notNull()
