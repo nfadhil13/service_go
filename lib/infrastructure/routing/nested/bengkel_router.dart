@@ -1,15 +1,27 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_go/infrastructure/routing/router.gr.dart';
 import 'package:service_go/infrastructure/types/resource.dart';
+import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
+import 'package:service_go/modules/bengkel/presentation/cubits/bengkel_profile/bengkel_profile_cubit.dart';
 import 'package:service_go/modules/profile/domain/usecase/bengkel/check_is_bengkel_has_profile.dart';
 
 @RoutePage(name: 'BengkelRouter')
-class BengkelRouterScreen extends AutoRouter {
+class BengkelRouterScreen extends AutoRouter implements AutoRouteWrapper {
   static List<AutoRoute> get routes => [
         AutoRoute(page: HomeRoute.page, path: 'home'),
       ];
 
-  const BengkelRouterScreen({super.key});
+  final BengkelProfile? bengkelProfile;
+
+  const BengkelRouterScreen({super.key, this.bengkelProfile});
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+        create: (_) => BengkelProfileCubit(bengkelProfile!), child: this);
+  }
 }
 
 class BengkelProfileGuard extends AutoRouteGuard {
@@ -26,12 +38,13 @@ class BengkelProfileGuard extends AutoRouteGuard {
         if (data.isSessionExpired) {
           router.replaceAll([const LoginRoute()]);
         }
-        if (data.hasProfile) {
-          resolver.next();
+        final profile = data.profile;
+        if (profile != null) {
+          router.replaceAll([BengkelRouter(bengkelProfile: profile)]);
         } else {
-          resolver
-              .redirect(BengkelProfileFormRoute(onBengkelProfileCreated: () {
-            resolver.next();
+          resolver.redirect(
+              BengkelProfileFormRoute(onBengkelProfileCreated: (profile) {
+            router.replaceAll([BengkelRouter(bengkelProfile: profile)]);
           }));
         }
       case Error():

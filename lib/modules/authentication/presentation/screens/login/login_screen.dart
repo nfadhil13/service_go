@@ -36,9 +36,9 @@ class LoginScreen extends StatelessWidget {
                 if (state is LoginSuccess) {
                   context.read<SessionCubit>().setCurrenetUser(state.session);
                   if (state.session.isBengkel) {
-                    context.router.replaceAll([const BengkelRouter()]);
+                    context.router.replaceAll([BengkelRouter()]);
                   } else {
-                    context.router.replaceAll([const CustomerRouter()]);
+                    context.router.replaceAll([CustomerRouter()]);
                   }
                 }
               },

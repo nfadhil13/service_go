@@ -9,7 +9,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i10;
-import 'package:flutter/material.dart' as _i11;
+import 'package:flutter/material.dart' as _i13;
+import 'package:flutter/src/widgets/framework.dart' as _i11;
 import 'package:service_go/infrastructure/routing/nested/bengkel_router.dart'
     as _i1;
 import 'package:service_go/infrastructure/routing/nested/customer_router.dart'
@@ -20,6 +21,10 @@ import 'package:service_go/modules/authentication/presentation/screens/register/
     as _i5;
 import 'package:service_go/modules/authentication/presentation/screens/splash/splash_screen.dart'
     as _i4;
+import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart'
+    as _i12;
+import 'package:service_go/modules/customer/domain/model/customer_profile.dart'
+    as _i14;
 import 'package:service_go/modules/home/presentation/screens/customer/customer_home_screen.dart'
     as _i9;
 import 'package:service_go/modules/home/presentation/screens/home/home_screen.dart'
@@ -35,9 +40,15 @@ abstract class $AppRouter extends _i10.RootStackRouter {
   @override
   final Map<String, _i10.PageFactory> pagesMap = {
     BengkelRouter.name: (routeData) {
+      final args = routeData.argsAs<BengkelRouterArgs>(
+          orElse: () => const BengkelRouterArgs());
       return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.BengkelRouterScreen(),
+        child: _i10.WrappedRoute(
+            child: _i1.BengkelRouterScreen(
+          key: args.key,
+          bengkelProfile: args.bengkelProfile,
+        )),
       );
     },
     HomeRoute.name: (routeData) {
@@ -87,9 +98,15 @@ abstract class $AppRouter extends _i10.RootStackRouter {
       );
     },
     CustomerRouter.name: (routeData) {
+      final args = routeData.argsAs<CustomerRouterArgs>(
+          orElse: () => const CustomerRouterArgs());
       return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.CustomerRouterScreen(),
+        child: _i10.WrappedRoute(
+            child: _i8.CustomerRouterScreen(
+          key: args.key,
+          profile: args.profile,
+        )),
       );
     },
     CustomerHomeRoute.name: (routeData) {
@@ -103,16 +120,40 @@ abstract class $AppRouter extends _i10.RootStackRouter {
 
 /// generated route for
 /// [_i1.BengkelRouterScreen]
-class BengkelRouter extends _i10.PageRouteInfo<void> {
-  const BengkelRouter({List<_i10.PageRouteInfo>? children})
-      : super(
+class BengkelRouter extends _i10.PageRouteInfo<BengkelRouterArgs> {
+  BengkelRouter({
+    _i11.Key? key,
+    _i12.BengkelProfile? bengkelProfile,
+    List<_i10.PageRouteInfo>? children,
+  }) : super(
           BengkelRouter.name,
+          args: BengkelRouterArgs(
+            key: key,
+            bengkelProfile: bengkelProfile,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'BengkelRouter';
 
-  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+  static const _i10.PageInfo<BengkelRouterArgs> page =
+      _i10.PageInfo<BengkelRouterArgs>(name);
+}
+
+class BengkelRouterArgs {
+  const BengkelRouterArgs({
+    this.key,
+    this.bengkelProfile,
+  });
+
+  final _i11.Key? key;
+
+  final _i12.BengkelProfile? bengkelProfile;
+
+  @override
+  String toString() {
+    return 'BengkelRouterArgs{key: $key, bengkelProfile: $bengkelProfile}';
+  }
 }
 
 /// generated route for
@@ -134,8 +175,8 @@ class HomeRoute extends _i10.PageRouteInfo<void> {
 class BengkelProfileFormRoute
     extends _i10.PageRouteInfo<BengkelProfileFormRouteArgs> {
   BengkelProfileFormRoute({
-    _i11.Key? key,
-    void Function()? onBengkelProfileCreated,
+    _i13.Key? key,
+    void Function(_i12.BengkelProfile)? onBengkelProfileCreated,
     List<_i10.PageRouteInfo>? children,
   }) : super(
           BengkelProfileFormRoute.name,
@@ -158,9 +199,9 @@ class BengkelProfileFormRouteArgs {
     this.onBengkelProfileCreated,
   });
 
-  final _i11.Key? key;
+  final _i13.Key? key;
 
-  final void Function()? onBengkelProfileCreated;
+  final void Function(_i12.BengkelProfile)? onBengkelProfileCreated;
 
   @override
   String toString() {
@@ -215,8 +256,8 @@ class LoginRoute extends _i10.PageRouteInfo<void> {
 class CustomProfileFormRoute
     extends _i10.PageRouteInfo<CustomProfileFormRouteArgs> {
   CustomProfileFormRoute({
-    _i11.Key? key,
-    void Function()? onCustomerProfileCreated,
+    _i13.Key? key,
+    void Function(_i14.CustomerProfile)? onCustomerProfileCreated,
     List<_i10.PageRouteInfo>? children,
   }) : super(
           CustomProfileFormRoute.name,
@@ -239,9 +280,9 @@ class CustomProfileFormRouteArgs {
     this.onCustomerProfileCreated,
   });
 
-  final _i11.Key? key;
+  final _i13.Key? key;
 
-  final void Function()? onCustomerProfileCreated;
+  final void Function(_i14.CustomerProfile)? onCustomerProfileCreated;
 
   @override
   String toString() {
@@ -251,16 +292,40 @@ class CustomProfileFormRouteArgs {
 
 /// generated route for
 /// [_i8.CustomerRouterScreen]
-class CustomerRouter extends _i10.PageRouteInfo<void> {
-  const CustomerRouter({List<_i10.PageRouteInfo>? children})
-      : super(
+class CustomerRouter extends _i10.PageRouteInfo<CustomerRouterArgs> {
+  CustomerRouter({
+    _i11.Key? key,
+    _i14.CustomerProfile? profile,
+    List<_i10.PageRouteInfo>? children,
+  }) : super(
           CustomerRouter.name,
+          args: CustomerRouterArgs(
+            key: key,
+            profile: profile,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'CustomerRouter';
 
-  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+  static const _i10.PageInfo<CustomerRouterArgs> page =
+      _i10.PageInfo<CustomerRouterArgs>(name);
+}
+
+class CustomerRouterArgs {
+  const CustomerRouterArgs({
+    this.key,
+    this.profile,
+  });
+
+  final _i11.Key? key;
+
+  final _i14.CustomerProfile? profile;
+
+  @override
+  String toString() {
+    return 'CustomerRouterArgs{key: $key, profile: $profile}';
+  }
 }
 
 /// generated route for

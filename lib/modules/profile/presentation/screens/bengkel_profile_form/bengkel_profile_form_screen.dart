@@ -24,7 +24,7 @@ part 'widgets/form.dart';
 
 @RoutePage()
 class BengkelProfileFormScreen extends StatelessWidget {
-  final VoidCallback? onBengkelProfileCreated;
+  final void Function(BengkelProfile profile)? onBengkelProfileCreated;
   const BengkelProfileFormScreen({super.key, this.onBengkelProfileCreated});
 
   @override

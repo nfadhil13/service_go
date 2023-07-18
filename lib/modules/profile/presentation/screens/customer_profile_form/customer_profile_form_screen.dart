@@ -18,7 +18,7 @@ part 'widgets/form.dart';
 
 @RoutePage()
 class CustomProfileFormScreen extends StatelessWidget {
-  final VoidCallback? onCustomerProfileCreated;
+  final void Function(CustomerProfile profile)? onCustomerProfileCreated;
   const CustomProfileFormScreen({super.key, this.onCustomerProfileCreated});
 
   @override
@@ -38,7 +38,7 @@ class CustomProfileFormScreen extends StatelessWidget {
                 CustomerProfileFormState>(
               listener: (context, state) {
                 if (state is CustomerProfileFormSubmitSuccess) {
-                  onCustomerProfileCreated?.call();
+                  onCustomerProfileCreated?.call(state.newProfile);
                 }
               },
               builder: (context, state) {

@@ -45,7 +45,7 @@ class CustomerProfileFormCubit extends Cubit<CustomerProfileFormState> {
     final result = await _craeteOrUpdateCustomer(value);
     switch (result) {
       case Success():
-        emit(CustomerProfileFormSubmitSuccess(state.customerProfile));
+        emit(CustomerProfileFormSubmitSuccess(state.customerProfile, value));
       case Error():
         emit(CustomerProfileFormSubmitError(state.customerProfile));
     }

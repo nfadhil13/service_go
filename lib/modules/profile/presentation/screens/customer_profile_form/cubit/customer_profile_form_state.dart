@@ -31,7 +31,9 @@ class CustomerProfileFormSubmitLoading extends CustomerProfileFormReady {
 }
 
 class CustomerProfileFormSubmitSuccess extends CustomerProfileFormReady {
-  const CustomerProfileFormSubmitSuccess(super.customerProfile);
+  final CustomerProfile newProfile;
+  const CustomerProfileFormSubmitSuccess(
+      super.customerProfile, this.newProfile);
 }
 
 class CustomerProfileFormSubmitError extends CustomerProfileFormReady {
