@@ -31,10 +31,11 @@ class CustomerProfileGuard extends AutoRouteGuard {
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    print("Navigaitng to");
-    print(
-        "args : ${router.routeData.argsAs<CustomerRouterArgs>(orElse: () => const CustomerRouterArgs())}");
-
+    final args = resolver.route.args;
+    if (args is CustomerRouterArgs && args.profile != null) {
+      resolver.next();
+      return;
+    }
     final usecase = await _checkIfBengkelHasProfile();
     switch (usecase) {
       case Success():
@@ -44,10 +45,7 @@ class CustomerProfileGuard extends AutoRouteGuard {
         }
         final profile = data.profile;
         if (profile != null) {
-          print("Profile sudah ada $profile");
-
           router.replaceAll([CustomerRouter(profile: profile)]);
-          resolver.resolveNext(false);
         } else {
           resolver.redirect(
               CustomProfileFormRoute(onCustomerProfileCreated: (profile) {

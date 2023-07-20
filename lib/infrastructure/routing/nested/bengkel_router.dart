@@ -31,6 +31,11 @@ class BengkelProfileGuard extends AutoRouteGuard {
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
+    final args = resolver.route.args;
+    if (args is BengkelRouterArgs && args.bengkelProfile != null) {
+      resolver.next();
+      return;
+    }
     final usecase = await _checkIfBengkelHasProfile();
     switch (usecase) {
       case Success():

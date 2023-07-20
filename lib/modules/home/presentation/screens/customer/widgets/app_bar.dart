@@ -28,7 +28,7 @@ class _HomeAppBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Selamat datang, Daniel",
+                  "Halo, ${context.read<CustomerProfileCubit>().state.nama}",
                   style: text.bodySmall?.copyWith(fontSize: 11.5.sp),
                 ),
                 .7.h.verticalSpace,
