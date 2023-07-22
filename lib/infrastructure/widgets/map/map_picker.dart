@@ -12,7 +12,8 @@ import 'package:service_go/infrastructure/env/network_constants.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/double_ext.dart';
 import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
-import 'package:service_go/infrastructure/types/lat_lgn.dart';
+import 'package:service_go/infrastructure/ext/placemark_ext.dart';
+import 'package:service_go/infrastructure/types/gis/lat_lgn.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
 import 'package:service_go/infrastructure/widgets/hide_widget.dart';
 import 'package:service_go/infrastructure/widgets/layouts/bottomsheet/bottom_sheet_container.dart';
@@ -21,22 +22,21 @@ import 'package:service_go/infrastructure/widgets/loading/overlay.dart';
 import 'package:sizer/sizer.dart';
 
 part 'permission_guard.dart';
-part 'map_picker_result.dart';
 part 'search_location.dart';
 
 class SGMapPicker extends StatefulWidget {
   final String? title;
-  final SGMapPickerResult? initialValue;
+  final SGLocation? initialValue;
   const SGMapPicker({super.key, required this.title, this.initialValue});
 
-  static Future<SGMapPickerResult?> pickLocation(BuildContext context,
-      {String? title, SGMapPickerResult? initialValue}) async {
+  static Future<SGLocation?> pickLocation(BuildContext context,
+      {String? title, SGLocation? initialValue}) async {
     final result = await context.router.pushNativeRoute(MaterialPageRoute(
       builder: (context) {
         return SGMapPicker(title: title, initialValue: initialValue);
       },
     ));
-    if (result is SGMapPickerResult) return result;
+    if (result is SGLocation) return result;
     return null;
   }
 
@@ -53,7 +53,7 @@ class _SGMapPickerState extends State<SGMapPicker> {
 
   final ValueNotifier<bool> _isMoving = ValueNotifier(false);
 
-  final ValueNotifier<({SGLocation location, Placemark placemark})?> _location =
+  final ValueNotifier<({SGLatLong location, Placemark placemark})?> _location =
       ValueNotifier(null);
 
   late CameraPosition _cameraPosition;
@@ -62,10 +62,10 @@ class _SGMapPickerState extends State<SGMapPicker> {
     final location = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     _animateToLocation(
-        SGLocation(lat: location.latitude, long: location.longitude));
+        SGLatLong(lat: location.latitude, long: location.longitude));
   }
 
-  void _animateToLocation(SGLocation location) async {
+  void _animateToLocation(SGLatLong location) async {
     final controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -87,7 +87,7 @@ class _SGMapPickerState extends State<SGMapPicker> {
     if (placeMark.isEmpty) return;
     _location.value = (
       placemark: placeMark[0],
-      location: SGLocation(lat: target.latitude, long: target.longitude)
+      location: SGLatLong(lat: target.latitude, long: target.longitude)
     );
   }
 
@@ -102,9 +102,9 @@ class _SGMapPickerState extends State<SGMapPicker> {
       _cameraPosition = _defaultCameraPosition;
       _getCurrentLocation();
     } else {
-      _cameraPosition = initialLocation.location.let(
+      _cameraPosition = initialLocation.latLgn.let(
           (value) => CameraPosition(target: LatLng(value.lat, value.long)));
-      _animateToLocation(initialLocation.location);
+      _animateToLocation(initialLocation.latLgn);
     }
   }
 
@@ -114,8 +114,8 @@ class _SGMapPickerState extends State<SGMapPicker> {
     print("Location $location");
     if (location.isEmpty) return;
 
-    _animateToLocation(location.first.let(
-        (value) => SGLocation(lat: value.latitude, long: value.longitude)));
+    _animateToLocation(location.first
+        .let((value) => SGLatLong(lat: value.latitude, long: value.longitude)));
   }
 
   @override
@@ -136,7 +136,7 @@ class _SGMapPickerState extends State<SGMapPicker> {
     final color = context.color;
     return Scaffold(
       body: SafeArea(
-        child: MapPermissionGuard(builder: (context) {
+        child: SGLocationPermissionGuard(builder: (context) {
           return Column(
             children: [
               Expanded(
@@ -206,7 +206,7 @@ class _SGMapPickerState extends State<SGMapPicker> {
 class _Location extends StatelessWidget {
   final String title;
   final VoidCallback onCurrentLocationTap;
-  final ValueNotifier<({SGLocation location, Placemark placemark})?> location;
+  final ValueNotifier<({SGLatLong location, Placemark placemark})?> location;
   const _Location({
     super.key,
     required this.title,
@@ -303,12 +303,11 @@ class _Location extends StatelessWidget {
                               onPressed: value == null
                                   ? null
                                   : () {
-                                      context.router.pop(SGMapPickerResult(
-                                          location: SGLocation(
+                                      context.router.pop(SGLocation(
+                                          SGLatLong(
                                               lat: value.location.lat,
                                               long: value.location.long),
-                                          address:
-                                              locationString(value.placemark)));
+                                          value.placemark.toSGPlaceMark()));
                                     },
                               padding: EdgeInsets.symmetric(vertical: 1.25.h),
                             )

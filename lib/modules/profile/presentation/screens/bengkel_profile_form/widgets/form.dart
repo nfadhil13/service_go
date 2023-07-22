@@ -40,6 +40,7 @@ class _Form extends StatelessWidget {
                   ),
                   3.h.verticalSpace,
                   SGMultiSelectField(
+                      controller: cubit.jenisLayanan,
                       label: "Layanan Bengkel",
                       hintText: "Pilih Layanan bengkel",
                       validator: ValueValidatorBuilder.create("Layanan Bengkel")
@@ -58,9 +59,8 @@ class _Form extends StatelessWidget {
                         .build,
                     controller: cubit.lokasiBengkel,
                     label: "Lokasi Bengkel",
-                    initialValue: bengkelProfile?.let((value) =>
-                        SGMapPickerResult(
-                            location: value.lokasi, address: value.alamant)),
+                    initialValue: bengkelProfile?.let(
+                        (value) => SGLocation(value.lokasi, value.alamat)),
                   ),
                   5.h.verticalSpace,
                   SGElevatedButton(

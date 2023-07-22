@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/ext/list_ext.dart';
-import 'package:service_go/infrastructure/types/lat_lgn.dart';
+import 'package:service_go/infrastructure/types/gis/lat_lgn.dart';
+import 'package:service_go/infrastructure/types/gis/placemark.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_field.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_mapper.dart';
 import 'package:service_go/modules/bengkel/data/mapper/remote/bengkel_profile/bengkel_profile_dto.dart';
@@ -11,8 +12,8 @@ class BengkelProfileFirestoreEntity extends FireStoreMapper<BengkelProfileDTO> {
   final FireStoreField<BengkelProfileDTO, String> image =
       FireStoreField("profileURL", (entity) => entity.imageURL);
 
-  final FireStoreField<BengkelProfileDTO, String> alamatLengkap =
-      FireStoreField("alamatLengkap", (entity) => entity.alamat);
+  final AddressFirestoreField<BengkelProfileDTO> alamatLengkap =
+      AddressFirestoreField("alamatLengkap", (entity) => entity.alamat);
 
   final FireStoreField<BengkelProfileDTO, String> nama =
       FireStoreField("nama", (entity) => entity.nama);
@@ -45,7 +46,7 @@ class BengkelProfileFirestoreEntity extends FireStoreMapper<BengkelProfileDTO> {
         jadwalBengkel: jadwalBengkel.parseJSON(firestoreData),
         nomorTelepon: nomorTelepon.parseJSON(firestoreData),
         lokasi: lokasi.parseJSON(firestoreData).let(
-            (value) => SGLocation(lat: value.latitude, long: value.longitude)));
+            (value) => SGLatLong(lat: value.latitude, long: value.longitude)));
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
-import 'package:service_go/infrastructure/types/lat_lgn.dart';
+import 'package:service_go/infrastructure/types/gis/lat_lgn.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
 import 'package:service_go/infrastructure/widgets/map/map_picker.dart';
 import 'package:sizer/sizer.dart';
@@ -13,8 +13,8 @@ import 'package:sizer/sizer.dart';
 class SGMapPickerField extends StatefulWidget {
   final double height;
   final String? label;
-  final SGMapPickerResult? initialValue;
-  final String? Function(SGMapPickerResult? result)? validator;
+  final SGLocation? initialValue;
+  final String? Function(SGLocation? result)? validator;
   final SGMapPickerFieldController? controller;
   const SGMapPickerField(
       {super.key,
@@ -39,13 +39,13 @@ class SGMapPickerFieldController {
     _state = null;
   }
 
-  SGMapPickerResult? get value => _state?._value;
+  SGLocation? get value => _state?._value;
 }
 
 class _SGMapPickerFieldState extends State<SGMapPickerField> {
   Radius get _borderRadius => const Radius.circular(8);
 
-  SGMapPickerResult? _value;
+  SGLocation? _value;
 
   @override
   void initState() {
@@ -90,7 +90,7 @@ class _SGMapPickerFieldState extends State<SGMapPickerField> {
               children: [
                 Column(
                   children: [
-                    Expanded(child: _Map(location: _value?.location)),
+                    Expanded(child: _Map(location: _value?.latLgn)),
                     Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -107,7 +107,7 @@ class _SGMapPickerFieldState extends State<SGMapPickerField> {
                           vertical: 8, horizontal: 12),
                       height: widget.height * .25,
                       child: AutoSizeText(
-                          _value?.address ?? "Anda belum memilih lokasi",
+                          _value?.addressString ?? "Anda belum memilih lokasi",
                           textAlign: TextAlign.start),
                     ),
                   ],
@@ -161,7 +161,7 @@ class _SGMapPickerFieldState extends State<SGMapPickerField> {
 }
 
 class _Map extends StatefulWidget {
-  final SGLocation? location;
+  final SGLatLong? location;
   const _Map({required this.location});
 
   @override
@@ -175,7 +175,7 @@ class _MapState extends State<_Map> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-  void _cameraToLocation(SGLocation location) async {
+  void _cameraToLocation(SGLatLong location) async {
     final controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng(location.lat, location.long),

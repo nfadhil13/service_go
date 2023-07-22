@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:service_go/infrastructure/types/query.dart';
 import 'package:service_go/modules/bengkel/data/datasource/remote/bengkel_profile_remote_dts.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
 import 'package:service_go/modules/bengkel/domain/repositories/bengkel_profile_repository.dart';
@@ -16,4 +17,9 @@ class BengkelProfileRepositoryImpl implements BengkelProfileRepository {
   @override
   Future<BengkelProfile> createOrUpdateProfile(BengkelProfile bengkelProfile) =>
       _remoteDTS.put(bengkelProfile);
+
+  @override
+  Future<List<BengkelProfileWithDistance>> getBengkelList(
+          {SGDataQuery? queryData}) =>
+      _remoteDTS.getBengkelList(dataQuery: queryData);
 }

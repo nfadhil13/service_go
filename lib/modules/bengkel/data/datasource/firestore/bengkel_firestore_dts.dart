@@ -17,5 +17,6 @@ class BengkelProfileFirestoreDTS extends FirestoreDatasource<BengkelProfileDTO,
       : super(
             collection: FirestoreCollections.bengeklProfile,
             firestore: firebaseFirestore,
+            locationMapper: (entity) => entity.lokasi,
             mapper: BengkelProfileFirestoreEntity());
 }

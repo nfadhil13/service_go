@@ -181,26 +181,26 @@ packages:
     dependency: "direct main"
     description:
       name: cloud_firestore
-      sha256: "5bbc1f5bffa79af54ca035b92b57f81c6fb35ee5471ead67e29c8e12de8432f8"
+      sha256: "035b91f66b60dab5eefcc217accc734020234f79d963b075699920b95334a755"
       url: "https://pub.dev"
     source: hosted
-    version: "4.8.2"
+    version: "4.8.3"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
       name: cloud_firestore_platform_interface
-      sha256: "8e0aafeb727087f84710275d59a101b2acf2290ffbb3b111aab70423f8350d5d"
+      sha256: "86bd1865abbeb09a7d09da3e70364a09f894937270651fc611a1c6d6a9f7b02c"
       url: "https://pub.dev"
     source: hosted
-    version: "5.15.2"
+    version: "5.15.3"
   cloud_firestore_web:
     dependency: transitive
     description:
       name: cloud_firestore_web
-      sha256: bbf0ebb9d1e9251caa00e8727389313c64cb4240c1c31f895971c52d0c782316
+      sha256: ac2eeb2a7ab1928c3aacc30eed750fa839d6f620e112a5459e321df217be2f47
       url: "https://pub.dev"
     source: hosted
-    version: "3.6.2"
+    version: "3.6.3"
   code_builder:
     dependency: transitive
     description:
@@ -568,14 +568,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  geoflutterfire2:
+  geoflutterfire_plus:
     dependency: "direct main"
     description:
-      name: geoflutterfire2
-      sha256: "343a3ef87f81f39e64a2b82ee392efa93fa646475564853daca565afc38096bb"
+      name: geoflutterfire_plus
+      sha256: c3444c1e8aa44b193484c514dcc3f73b5b513906b3b30b8abdd68659ebd629d4
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.15"
+    version: "0.0.15"
   geolocator:
     dependency: "direct main"
     description:

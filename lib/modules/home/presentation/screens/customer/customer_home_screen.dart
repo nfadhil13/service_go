@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/double_ext.dart';
+import 'package:service_go/infrastructure/types/query.dart';
 import 'package:service_go/infrastructure/widgets/icons/text.dart';
-import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
+import 'package:service_go/modules/bengkel/presentation/widgets/bengkel_list/bengkel_list_widget.dart';
 import 'package:service_go/modules/customer/presentation/cubits/cubit/customer_profile_cubit.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,7 +21,18 @@ class CustomerHomeScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children: [_HomeAppBar()],
+          children: [
+            const _HomeAppBar(),
+            5.h.verticalSpace,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 5.w,
+              ),
+              child: const Column(
+                children: [_BengkelTerdekatSection()],
+              ),
+            )
+          ],
         ),
       ),
     );

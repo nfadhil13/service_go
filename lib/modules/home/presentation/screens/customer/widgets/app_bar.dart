@@ -35,7 +35,9 @@ class _HomeAppBar extends StatelessWidget {
                 const SGIconText()
               ],
             ),
-            const Icon(Icons.notifications)
+            InkWell(
+                onTap: () => context.logout(),
+                child: const Icon(Icons.notifications))
           ],
         ),
       ),

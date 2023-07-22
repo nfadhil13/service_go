@@ -1,5 +1,6 @@
+import 'package:service_go/infrastructure/types/gis/placemark.dart';
 import 'package:service_go/infrastructure/types/image.dart';
-import 'package:service_go/infrastructure/types/lat_lgn.dart';
+import 'package:service_go/infrastructure/types/gis/lat_lgn.dart';
 import 'package:service_go/infrastructure/types/mapper/dto.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
 import 'package:service_go/modules/bengkel/domain/model/jadwal_bengkel.dart';
@@ -7,10 +8,10 @@ import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
 
 class BengkelProfileDTO implements DTO<BengkelProfile, List<JenisLayanan>> {
   final String id;
-  final String alamat;
+  final SGAddress alamat;
   final String nama;
   final String nomorTelepon;
-  final SGLocation lokasi;
+  final SGLatLong lokasi;
   final List<String> layananIds;
   final JadwalBengkel jadwalBengkel;
   final bool isCurrentlyOpen;
@@ -21,7 +22,7 @@ class BengkelProfileDTO implements DTO<BengkelProfile, List<JenisLayanan>> {
     return BengkelProfileDTO(
         imageURL: imageURL,
         id: profile.id,
-        alamat: profile.alamant,
+        alamat: profile.alamat,
         nama: profile.nama,
         nomorTelepon: profile.nomorTelepon,
         lokasi: profile.lokasi,
@@ -45,7 +46,7 @@ class BengkelProfileDTO implements DTO<BengkelProfile, List<JenisLayanan>> {
   BengkelProfile toDomain(List<JenisLayanan> params) {
     return BengkelProfile(
         profile: SGNetworkImage(imageURL),
-        alamant: alamat,
+        alamat: alamat,
         nama: nama,
         id: id,
         jenisLayanan: params,

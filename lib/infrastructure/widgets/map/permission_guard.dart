@@ -1,14 +1,15 @@
 part of 'map_picker.dart';
 
-class MapPermissionGuard extends StatefulWidget {
+class SGLocationPermissionGuard extends StatefulWidget {
   final Widget Function(BuildContext context) builder;
-  const MapPermissionGuard({super.key, required this.builder});
+  const SGLocationPermissionGuard({super.key, required this.builder});
 
   @override
-  State<MapPermissionGuard> createState() => _MapPermissionGuardState();
+  State<SGLocationPermissionGuard> createState() =>
+      _SGLocationPermissionGuardState();
 }
 
-class _MapPermissionGuardState extends State<MapPermissionGuard> {
+class _SGLocationPermissionGuardState extends State<SGLocationPermissionGuard> {
   bool? _isPermissionGranted;
 
   @override

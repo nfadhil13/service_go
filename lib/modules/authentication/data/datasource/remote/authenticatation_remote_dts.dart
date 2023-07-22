@@ -25,15 +25,15 @@ class AuthenticationRemoteDTSImpl implements AuthenticationRemoteDTS {
         throw FormException("Invalid Input",
             errors: {"email": 'Email belum terdaftar'});
       }
-      final isVerified = user.emailVerified;
-      if (!isVerified) {
-        await user.sendEmailVerification();
-        await _auth.signOut();
-        throw FormException("Invalid Input", errors: {
-          "email":
-              'Email belum terverifikasi, silahkan cek email anda untuk verifikasi email'
-        });
-      }
+      // final isVerified = user.emailVerified;
+      // if (!isVerified) {
+      //   await user.sendEmailVerification();
+      //   await _auth.signOut();
+      //   throw FormException("Invalid Input", errors: {
+      //     "email":
+      //         'Email belum terverifikasi, silahkan cek email anda untuk verifikasi email'
+      //   });
+      // }
 
       return user;
     } on FirebaseAuthException catch (e) {

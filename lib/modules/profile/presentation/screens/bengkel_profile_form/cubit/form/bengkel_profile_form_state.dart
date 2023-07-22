@@ -33,8 +33,9 @@ class BengkelProfileFormSubmitLoading extends BengkelProfileFormReady {
 }
 
 class BengkelProfileFormSubmitSuccess extends BengkelProfileFormReady {
+  final BengkelProfile profile;
   const BengkelProfileFormSubmitSuccess(
-      super.jenisLayanan, super.bengkelProfile);
+      super.jenisLayanan, super.bengkelProfile, this.profile);
 }
 
 class BengkelProfileFormSubmitError extends BengkelProfileFormReady {

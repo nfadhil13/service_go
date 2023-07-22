@@ -50,14 +50,16 @@ class BengkelProfileFormCubit extends Cubit<BengkelProfileFormState> {
 
   void submit() async {
     final state = this.state;
-    if (state is! BengkelProfileFormIdle) return;
+    if (state is! BengkelProfileFormReady) return;
     final value = this.value;
     if (value == null) return;
+    emit(BengkelProfileFormSubmitLoading(
+        state.jenisLayanan, state.bengkelProfile));
     final result = await _createBengkelProfile(value);
     switch (result) {
       case Success():
         emit(BengkelProfileFormSubmitSuccess(
-            state.jenisLayanan, state.bengkelProfile));
+            state.jenisLayanan, state.bengkelProfile, result.data));
       case Error():
         emit(BengkelProfileFormSubmitError(
             state.jenisLayanan, state.bengkelProfile));
@@ -69,14 +71,14 @@ class BengkelProfileFormCubit extends Cubit<BengkelProfileFormState> {
     if (isValid != true) return null;
     return BengkelProfile(
         profile: profilePict.value!,
-        alamant: lokasiBengkel.value!.address,
+        alamat: lokasiBengkel.value!.placemark,
         nama: namaBengkel.text,
         id: userId,
         jenisLayanan: jenisLayanan.value,
         isCurrentlyOpen: false,
         jadwalBengkel: const JadwalBengkel(),
         nomorTelepon: nomorTelepon.text,
-        lokasi: lokasiBengkel.value!.location);
+        lokasi: lokasiBengkel.value!.latLgn);
   }
 
   // final SGImagePickerController profilePict = SGImagePickerController();

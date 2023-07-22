@@ -40,8 +40,7 @@ class RegisterScreen extends StatelessWidget {
                     context.router.replaceAll([const LoginRoute()]);
                   },
                       title: "Berhasil daftar",
-                      descWidget: const _VerificationEmailSent(
-                          email: "bengkeldani@gmail.com"));
+                      descWidget: _VerificationEmailSent(email: state.email));
                 }
               },
               child: Stack(

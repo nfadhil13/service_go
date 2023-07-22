@@ -1,8 +1,13 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:service_go/infrastructure/architecutre/cubits/location/location_cubit.dart';
 import 'package:service_go/infrastructure/routing/router.gr.dart';
+import 'package:service_go/infrastructure/service_locator/service_locator.dart';
 import 'package:service_go/infrastructure/types/resource.dart';
+import 'package:service_go/infrastructure/widgets/loading/overlay.dart';
+import 'package:service_go/infrastructure/widgets/map/map_picker.dart';
 import 'package:service_go/modules/customer/domain/model/customer_profile.dart';
 import 'package:service_go/modules/customer/presentation/cubits/cubit/customer_profile_cubit.dart';
 import 'package:service_go/modules/profile/domain/usecase/customer/check_if_customer_has_profile.dart';
@@ -19,8 +24,30 @@ class CustomerRouterScreen extends AutoRouter implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider(
-        create: (_) => CustomerProfileCubit(profile!), child: this);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => CustomerProfileCubit(profile!)),
+        BlocProvider(
+          create: (context) => getIt<LocationCubit>()..getLocation(),
+        ),
+      ],
+      child: SGLocationPermissionGuard(
+        builder: (context) {
+          return BlocBuilder<LocationCubit, LocationState>(
+            builder: (context, state) {
+              return switch (state) {
+                LocationLoading() => const Scaffold(
+                    body: SGLoadingOverlay(),
+                  ),
+                LocationSuccess() => BlocProvider(
+                    create: (context) => LocationForceCubit(state.location),
+                    child: this)
+              };
+            },
+          );
+        },
+      ),
+    );
   }
 }
 

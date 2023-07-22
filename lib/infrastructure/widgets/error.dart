@@ -16,6 +16,8 @@ class SGError extends StatelessWidget {
         SGElevatedButton(
             onPressed: retry,
             label: "Coba Lagi",
+            textStyle:
+                context.text.bodySmall?.copyWith(color: context.color.onError),
             backgroundColor: context.color.error)
       ],
     );

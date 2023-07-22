@@ -27,6 +27,7 @@ class SGAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(actions);
     return AppBar(
       title: widgetTitle ?? _buildTitle(pageTitle, context),
       backgroundColor: context.color.background,

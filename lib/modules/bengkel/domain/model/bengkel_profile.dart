@@ -1,21 +1,23 @@
+import 'package:service_go/infrastructure/types/gis/distance.dart';
+import 'package:service_go/infrastructure/types/gis/placemark.dart';
 import 'package:service_go/infrastructure/types/image.dart';
-import 'package:service_go/infrastructure/types/lat_lgn.dart';
+import 'package:service_go/infrastructure/types/gis/lat_lgn.dart';
 import 'package:service_go/modules/bengkel/domain/model/jadwal_bengkel.dart';
 import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
 
 class BengkelProfile {
   final String id;
   final SGImage profile;
-  final String alamant;
+  final SGAddress alamat;
   final String nama;
   final String nomorTelepon;
-  final SGLocation lokasi;
+  final SGLatLong lokasi;
   final List<JenisLayanan> jenisLayanan;
   final JadwalBengkel jadwalBengkel;
   final bool isCurrentlyOpen;
 
   const BengkelProfile(
-      {required this.alamant,
+      {required this.alamat,
       required this.nama,
       required this.profile,
       required this.id,
@@ -25,3 +27,5 @@ class BengkelProfile {
       required this.nomorTelepon,
       required this.lokasi});
 }
+
+typedef BengkelProfileWithDistance = SGDistance<BengkelProfile>;

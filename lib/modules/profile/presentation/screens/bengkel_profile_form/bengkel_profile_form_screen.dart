@@ -5,6 +5,7 @@ import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/double_ext.dart';
 import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
+import 'package:service_go/infrastructure/types/gis/lat_lgn.dart';
 import 'package:service_go/infrastructure/utils/value_validator/form_validator.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
 import 'package:service_go/infrastructure/widgets/error.dart';
@@ -37,8 +38,15 @@ class BengkelProfileFormScreen extends StatelessWidget {
         children: [
           Scaffold(
             backgroundColor: context.color.background,
-            appBar: const SGAppBar(
+            appBar: SGAppBar(
               pageTitle: "Profile",
+              actions: [
+                SGAppBarItemAction.icon(
+                    icon: Icons.logout,
+                    onTap: () {
+                      context.logout();
+                    }),
+              ],
             ),
             body: BlocBuilder<BengkelProfileFormCubit, BengkelProfileFormState>(
               builder: (context, state) {
@@ -55,7 +63,12 @@ class BengkelProfileFormScreen extends StatelessWidget {
               },
             ),
           ),
-          BlocBuilder<BengkelProfileFormCubit, BengkelProfileFormState>(
+          BlocConsumer<BengkelProfileFormCubit, BengkelProfileFormState>(
+            listener: (context, state) {
+              if (state is BengkelProfileFormSubmitSuccess) {
+                onBengkelProfileCreated?.call(state.profile);
+              }
+            },
             builder: (context, state) {
               if (state is! BengkelProfileFormSubmitLoading) {
                 return const SizedBox();
