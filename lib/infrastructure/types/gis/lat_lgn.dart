@@ -42,6 +42,17 @@ class SGLocation extends Equatable {
 
   const SGLocation(this.latLgn, this.placemark);
 
+  String get shortAddress {
+    String address = '';
+    if (placemark.thoroughfare != null) {
+      address += '${placemark.thoroughfare}, ';
+    }
+    if (placemark.subThoroughfare != null) {
+      address += '${placemark.subThoroughfare}.';
+    }
+    return address;
+  }
+
   String get addressString {
     String address = '';
     if (placemark.name != null) {
@@ -70,5 +81,5 @@ class SGLocation extends Equatable {
   }
 
   @override
-  List<Object?> get props => [latLgn, addressString];
+  List<Object?> get props => [latLgn, placemark];
 }

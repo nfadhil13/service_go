@@ -7,6 +7,7 @@ class _BengkelTerdekatSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = context.text;
     final color = context.color;
+    final location = context.currentLocation;
     return Column(
       children: [
         Row(
@@ -26,12 +27,10 @@ class _BengkelTerdekatSection extends StatelessWidget {
         3.h.verticalSpace,
         BengkelListWidget(
           query: SGDataQuery(
-              limit: 4,
+              limit: 2,
               query: [SGQueryField("isOpen", isEqual: true)],
               locationQuery: SGLocationQuery(
-                  field: "lokasi",
-                  radius: 20,
-                  center: context.currentLocation.latLgn)),
+                  field: "lokasi", radius: 20, center: location.latLgn)),
         )
       ],
     );

@@ -13,4 +13,7 @@ class LocationSuccess extends LocationState {
   final SGLocation location;
 
   const LocationSuccess(this.location);
+
+  @override
+  List<Object> get props => [location];
 }

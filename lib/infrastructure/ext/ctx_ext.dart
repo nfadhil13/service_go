@@ -9,6 +9,8 @@ extension CtxExt on BuildContext {
   ColorScheme get color => Theme.of(this).colorScheme;
   TextTheme get text => Theme.of(this).textTheme;
   UserSession get userSession => read<SessionCubit>().state.session!;
-  SGLocation get currentLocation => read<LocationForceCubit>().state;
+  SGLocation get currentLocation => LocationScope.of(this).location;
+  void setLocation(SGLocation location) =>
+      LocationScope.of(this).changeLocation;
   void logout() => read<SessionCubit>().logOut();
 }

@@ -173,8 +173,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i33.GetAllJenisLayanan(gh<_i11.JenisLayananRepository>()));
     gh.factory<_i34.GetCurrentSession>(
         () => _i34.GetCurrentSession(gh<_i20.AuthenticationRepo>()));
-    gh.factory<_i35.LocationCubit>(
-        () => _i35.LocationCubit(gh<_i13.LocationUtil>()));
+    gh.factory<_i35.InitialLocationCubit>(
+        () => _i35.InitialLocationCubit(gh<_i13.LocationUtil>()));
     gh.factory<_i36.Login>(() => _i36.Login(gh<_i20.AuthenticationRepo>()));
     gh.factory<_i37.LoginCubit>(() => _i37.LoginCubit(gh<_i36.Login>()));
     gh.factory<_i38.Logout>(() => _i38.Logout(gh<_i20.AuthenticationRepo>()));

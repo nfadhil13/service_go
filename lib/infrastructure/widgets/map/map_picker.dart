@@ -111,7 +111,6 @@ class _SGMapPickerState extends State<SGMapPicker> {
   void _onAddressSelected(String address) async {
     _location.value = null;
     final location = await locationFromAddress(address);
-    print("Location $location");
     if (location.isEmpty) return;
 
     _animateToLocation(location.first

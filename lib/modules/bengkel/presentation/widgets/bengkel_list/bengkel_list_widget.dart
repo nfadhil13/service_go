@@ -12,27 +12,65 @@ import 'package:service_go/modules/bengkel/presentation/cubits/bengkel_list/beng
 
 class BengkelListWidget extends StatelessWidget {
   final SGDataQuery? query;
-  const BengkelListWidget({super.key, this.query});
+  final BengkelListCubit? cubit;
+  const BengkelListWidget({super.key, this.query, this.cubit});
+  @override
+  Widget build(BuildContext context) {
+    final cubit = this.cubit;
+    return MultiBlocProvider(
+      providers: [
+        if (cubit == null)
+          BlocProvider(
+            create: (context) =>
+                getIt<BengkelListCubit>()..getBengkelList(query: query),
+          ),
+        if (cubit != null) BlocProvider.value(value: cubit)
+      ],
+      child: _BengkelListWidget(
+        query: query,
+        isInnerCubit: cubit == null,
+      ),
+    );
+  }
+}
+
+class _BengkelListWidget extends StatefulWidget {
+  final SGDataQuery? query;
+  final bool isInnerCubit;
+  const _BengkelListWidget({super.key, this.query, required this.isInnerCubit});
+
+  @override
+  State<_BengkelListWidget> createState() => _BengkelListWidgetState();
+}
+
+class _BengkelListWidgetState extends State<_BengkelListWidget> {
+  @override
+  void didUpdateWidget(covariant _BengkelListWidget oldWidget) {
+    if (widget.isInnerCubit) {
+      if (oldWidget.query != widget.query) {
+        context.read<BengkelListCubit>().getBengkelList(query: widget.query);
+      }
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          getIt<BengkelListCubit>()..getBengkelList(query: query),
-      child: BlocBuilder<BengkelListCubit, BengkelListState>(
-        builder: (context, state) {
-          return switch (state) {
-            BengkelListSuccess() =>
-              BengkelProfileListWidget(profileList: state.bengkelList),
-            BengkelListError() => SGError(
-                message: state.exception.message,
-                retry: () {
-                  context.read<BengkelListCubit>().getBengkelList(query: query);
-                }),
-            BengkelListLoading() => const SGCircularLoading()
-          };
-        },
-      ),
+    return BlocBuilder<BengkelListCubit, BengkelListState>(
+      builder: (context, state) {
+        return switch (state) {
+          BengkelListSuccess() =>
+            BengkelProfileListWidget(profileList: state.bengkelList),
+          BengkelListError() => SGError(
+              message: state.exception.message,
+              retry: () {
+                context
+                    .read<BengkelListCubit>()
+                    .getBengkelList(query: widget.query);
+              }),
+          BengkelListLoading() => const SGCircularLoading()
+        };
+      },
     );
   }
 }

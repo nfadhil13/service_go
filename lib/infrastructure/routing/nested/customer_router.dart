@@ -28,20 +28,19 @@ class CustomerRouterScreen extends AutoRouter implements AutoRouteWrapper {
       providers: [
         BlocProvider(create: (_) => CustomerProfileCubit(profile!)),
         BlocProvider(
-          create: (context) => getIt<LocationCubit>()..getLocation(),
+          create: (context) => getIt<InitialLocationCubit>()..getLocation(),
         ),
       ],
       child: SGLocationPermissionGuard(
         builder: (context) {
-          return BlocBuilder<LocationCubit, LocationState>(
+          return BlocBuilder<InitialLocationCubit, LocationState>(
             builder: (context, state) {
               return switch (state) {
                 LocationLoading() => const Scaffold(
                     body: SGLoadingOverlay(),
                   ),
-                LocationSuccess() => BlocProvider(
-                    create: (context) => LocationForceCubit(state.location),
-                    child: this)
+                LocationSuccess() =>
+                  LocationProvider(location: state.location, child: this)
               };
             },
           );
