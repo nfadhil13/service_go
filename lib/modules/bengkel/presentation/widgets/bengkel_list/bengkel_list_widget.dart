@@ -14,8 +14,9 @@ class BengkelListWidget extends StatelessWidget {
   final SGDataQuery? query;
   final ScrollController? scrollController;
   final BengkelListCubit? cubit;
+  final void Function(BengkelProfile profile, int index)? onTap;
   const BengkelListWidget(
-      {super.key, this.query, this.cubit, this.scrollController});
+      {super.key, this.query, this.cubit, this.scrollController, this.onTap});
   @override
   Widget build(BuildContext context) {
     final cubit = this.cubit;
@@ -30,6 +31,7 @@ class BengkelListWidget extends StatelessWidget {
       ],
       child: _BengkelListWidget(
         query: query,
+        onTap: onTap,
         scrollController: scrollController,
         isInnerCubit: cubit == null,
       ),
@@ -39,14 +41,15 @@ class BengkelListWidget extends StatelessWidget {
 
 class _BengkelListWidget extends StatefulWidget {
   final SGDataQuery? query;
-
+  final void Function(BengkelProfile profile, int index)? onTap;
   final ScrollController? scrollController;
   final bool isInnerCubit;
   const _BengkelListWidget(
       {super.key,
       this.query,
       required this.isInnerCubit,
-      this.scrollController});
+      this.scrollController,
+      this.onTap});
 
   @override
   State<_BengkelListWidget> createState() => _BengkelListWidgetState();
@@ -70,6 +73,7 @@ class _BengkelListWidgetState extends State<_BengkelListWidget> {
         return switch (state) {
           BengkelListSuccess() => BengkelProfileListWidget(
               profileList: state.bengkelList,
+              onTap: widget.onTap,
               scrollController: widget.scrollController),
           BengkelListError() => SGError(
               message: state.exception.message,
@@ -87,10 +91,13 @@ class _BengkelListWidgetState extends State<_BengkelListWidget> {
 
 class BengkelProfileListWidget extends StatelessWidget {
   final List<BengkelProfileWithDistance> profileList;
-
+  final void Function(BengkelProfile profile, int index)? onTap;
   final ScrollController? scrollController;
   const BengkelProfileListWidget(
-      {super.key, required this.profileList, this.scrollController});
+      {super.key,
+      required this.profileList,
+      this.scrollController,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +109,10 @@ class BengkelProfileListWidget extends StatelessWidget {
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: BengkelProfileWidget(bengkelProfile: profileList[index]),
+              child: InkWell(
+                  onTap: () => onTap?.call(profileList[index].data, index),
+                  child:
+                      BengkelProfileWidget(bengkelProfile: profileList[index])),
             ));
   }
 }
