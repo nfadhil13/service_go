@@ -48,6 +48,44 @@ class SGAddress {
   /// Additional street address information for the placemark.
   final String? subThoroughfare;
 
+  String get shortAddress {
+    String address = '';
+    if (thoroughfare != null) {
+      address += '$thoroughfare, ';
+    }
+    if (subThoroughfare != null) {
+      address += '$subThoroughfare';
+    }
+    return address;
+  }
+
+  String get addressString {
+    String address = '';
+    if (name != null) {
+      address += '$name, ';
+    }
+    if (thoroughfare != null) {
+      address += '$thoroughfare, ';
+    }
+    if (subThoroughfare != null) {
+      address += '$subThoroughfare, ';
+    }
+    if (locality != null) {
+      address += '$locality, ';
+    }
+    if (administrativeArea != null) {
+      address += '$administrativeArea, ';
+    }
+    if (postalCode != null) {
+      address += '$postalCode, ';
+    }
+    if (country != null) {
+      address += country!;
+    }
+
+    return address;
+  }
+
   @override
   bool operator ==(dynamic other) =>
       other is SGAddress &&
