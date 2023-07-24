@@ -12,8 +12,10 @@ import 'package:service_go/modules/bengkel/presentation/cubits/bengkel_list/beng
 
 class BengkelListWidget extends StatelessWidget {
   final SGDataQuery? query;
+  final ScrollController? scrollController;
   final BengkelListCubit? cubit;
-  const BengkelListWidget({super.key, this.query, this.cubit});
+  const BengkelListWidget(
+      {super.key, this.query, this.cubit, this.scrollController});
   @override
   Widget build(BuildContext context) {
     final cubit = this.cubit;
@@ -28,6 +30,7 @@ class BengkelListWidget extends StatelessWidget {
       ],
       child: _BengkelListWidget(
         query: query,
+        scrollController: scrollController,
         isInnerCubit: cubit == null,
       ),
     );
@@ -36,8 +39,14 @@ class BengkelListWidget extends StatelessWidget {
 
 class _BengkelListWidget extends StatefulWidget {
   final SGDataQuery? query;
+
+  final ScrollController? scrollController;
   final bool isInnerCubit;
-  const _BengkelListWidget({super.key, this.query, required this.isInnerCubit});
+  const _BengkelListWidget(
+      {super.key,
+      this.query,
+      required this.isInnerCubit,
+      this.scrollController});
 
   @override
   State<_BengkelListWidget> createState() => _BengkelListWidgetState();
@@ -59,8 +68,9 @@ class _BengkelListWidgetState extends State<_BengkelListWidget> {
     return BlocBuilder<BengkelListCubit, BengkelListState>(
       builder: (context, state) {
         return switch (state) {
-          BengkelListSuccess() =>
-            BengkelProfileListWidget(profileList: state.bengkelList),
+          BengkelListSuccess() => BengkelProfileListWidget(
+              profileList: state.bengkelList,
+              scrollController: widget.scrollController),
           BengkelListError() => SGError(
               message: state.exception.message,
               retry: () {
@@ -77,12 +87,16 @@ class _BengkelListWidgetState extends State<_BengkelListWidget> {
 
 class BengkelProfileListWidget extends StatelessWidget {
   final List<BengkelProfileWithDistance> profileList;
-  const BengkelProfileListWidget({super.key, required this.profileList});
+
+  final ScrollController? scrollController;
+  const BengkelProfileListWidget(
+      {super.key, required this.profileList, this.scrollController});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         itemCount: profileList.length,
+        controller: scrollController,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         padding: EdgeInsets.zero,

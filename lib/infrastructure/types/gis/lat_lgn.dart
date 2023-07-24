@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geoflutterfire_plus/geoflutterfire_plus.dart';
-import 'package:service_go/infrastructure/ext/placemark_ext.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:service_go/infrastructure/types/gis/placemark.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_field.dart';
 
@@ -14,6 +13,9 @@ class SGLatLong extends Equatable {
 
   @override
   List<Object?> get props => [lat, long];
+
+  CameraPosition get cameraPostion =>
+      CameraPosition(target: LatLng(lat, long), zoom: 19.151926040649414);
 }
 
 class LatLgnFirestoreField<Entity>

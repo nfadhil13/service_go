@@ -18,9 +18,12 @@ class _BengkelTerdekatSection extends StatelessWidget {
               style: text.labelLarge
                   ?.copyWith(fontWeight: FontWeight.w600, fontSize: 13.5.sp),
             ),
-            Text(
-              "Lihat Lebih",
-              style: text.bodyMedium?.copyWith(color: color.primary),
+            InkWell(
+              onTap: () => context.router.push(const BengkelListRoute()),
+              child: Text(
+                "Lihat Lebih",
+                style: text.bodyMedium?.copyWith(color: color.primary),
+              ),
             )
           ],
         ),
