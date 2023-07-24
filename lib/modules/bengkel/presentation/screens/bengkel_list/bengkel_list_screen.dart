@@ -15,6 +15,7 @@ import 'package:service_go/infrastructure/widgets/buttons/button_icon_type.dart'
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
 import 'package:service_go/infrastructure/widgets/buttons/outlined_button.dart';
 import 'package:service_go/infrastructure/widgets/error.dart';
+import 'package:service_go/infrastructure/widgets/image/image_preview.dart';
 import 'package:service_go/infrastructure/widgets/layouts/bottomsheet/bottom_sheet_container.dart';
 import 'package:service_go/infrastructure/widgets/loading/circular.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';

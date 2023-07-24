@@ -119,7 +119,9 @@ class BengkelProfileListWidget extends StatelessWidget {
 
 class BengkelProfileWidget extends StatelessWidget {
   final BengkelProfileWithDistance bengkelProfile;
-  const BengkelProfileWidget({super.key, required this.bengkelProfile});
+  final EdgeInsets? padding;
+  const BengkelProfileWidget(
+      {super.key, required this.bengkelProfile, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +131,7 @@ class BengkelProfileWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
       child: ListTile(
+        contentPadding: padding,
         leading: InkWell(
           onTap: () {
             SGImagePreview.asFullScreenDialog(context, bengkel.profile);

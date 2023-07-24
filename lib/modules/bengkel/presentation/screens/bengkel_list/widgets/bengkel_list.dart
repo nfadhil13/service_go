@@ -1,11 +1,26 @@
 part of '../bengkel_list_screen.dart';
 
-class _BengkelListBottomSheet extends StatelessWidget {
+class _BengkelListBottomSheet extends StatefulWidget {
   const _BengkelListBottomSheet({super.key});
+
+  @override
+  State<_BengkelListBottomSheet> createState() =>
+      _BengkelListBottomSheetState();
+}
+
+class _BengkelListBottomSheetState extends State<_BengkelListBottomSheet> {
+  final _sheetController = DraggableScrollableController();
+
+  @override
+  void dispose() {
+    _sheetController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
+      controller: _sheetController,
       expand: true,
       minChildSize: .4,
       initialChildSize: .4,
@@ -18,73 +33,95 @@ class _BengkelListBottomSheet extends StatelessWidget {
             blurRadius: 6.0,
           )
         ],
-        child: SingleChildScrollView(
-          controller: scrollController,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [15.verticalSpace, const _BengkelList()],
-          ),
-        ),
+        child: _BengkelList(scrollController, _sheetController),
       ),
     );
   }
 }
 
 class _BengkelList extends StatelessWidget {
-  const _BengkelList();
+  final ScrollController controller;
+  final DraggableScrollableController sheetController;
+  const _BengkelList(this.controller, this.sheetController);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BengkelListScreenCubit, BengkelListScreenCubitState>(
+    return BlocConsumer<BengkelListScreenCubit, BengkelListScreenCubitState>(
+      listener: (context, state) {
+        sheetController.jumpTo(.5);
+        controller.jumpTo(0);
+      },
       builder: (context, state) {
         final selected = state.selectedBengkel;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (selected == null)
+        return SingleChildScrollView(
+          controller: controller,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (selected == null)
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 5.w).copyWith(top: 5.h),
+                  child: Stack(
+                    children: [
+                      Text(
+                        "Bengkel Terdekat",
+                        style: context.text.labelSmall?.copyWith(
+                            fontSize: 14.sp, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ),
+              if (selected != null)
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 5.w).copyWith(top: 5.h),
+                  child: _SelectedBengkel(selected: selected),
+                ),
+              if (selected != null)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w).copyWith(
+                    top: 4.5.h,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Bengkel Terdekat Lainya",
+                        style: context.text.labelSmall?.copyWith(
+                            fontSize: 12.sp, fontWeight: FontWeight.w500),
+                      ),
+                      Divider(
+                        color: context.color.outline,
+                      ),
+                    ],
+                  ),
+                ),
+              1.h.verticalSpace,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: Text(
-                  "Bengkel Terdekat",
-                  style: context.text.labelSmall
-                      ?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
-                ),
+                child: ListView.builder(
+                    itemCount: state.bengkelList.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: InkWell(
+                              onTap: () {
+                                context
+                                    .read<BengkelListScreenCubit>()
+                                    .selectBengkel(state.bengkelList[index]);
+                              },
+                              child: BengkelProfileWidget(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 2.w),
+                                  key: Key(state.bengkelList[index].data.id),
+                                  bengkelProfile: state.bengkelList[index])),
+                        )),
               ),
-            if (selected != null)
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 5.w).copyWith(top: 2.h),
-                child: _SelectedBengkel(selected: selected),
-              ),
-            if (selected != null)
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w).copyWith(
-                  top: 4.h,
-                ),
-                child: Text(
-                  "Bengkel Terdekat Lainya",
-                  style: context.text.labelSmall
-                      ?.copyWith(fontSize: 12.sp, fontWeight: FontWeight.w500),
-                ),
-              ),
-            ListView.builder(
-                itemCount: state.bengkelList.length,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: InkWell(
-                          onTap: () {
-                            context
-                                .read<BengkelListScreenCubit>()
-                                .selectBengkel(state.bengkelList[index]);
-                          },
-                          child: BengkelProfileWidget(
-                              key: Key(state.bengkelList[index].data.id),
-                              bengkelProfile: state.bengkelList[index])),
-                    )),
-          ],
+            ],
+          ),
         );
       },
     );
@@ -102,22 +139,36 @@ class _SelectedBengkel extends StatelessWidget {
   Widget build(BuildContext context) {
     final bengkel = selected.data;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          selected.data.nama,
-          style: context.text.titleLarge?.copyWith(fontWeight: FontWeight.w600),
+        Row(
+          children: [
+            InkWell(
+                onTap: () => context.read<BengkelListScreenCubit>().clear(),
+                child: const Icon(Icons.arrow_back_ios)),
+            2.w.horizontalSpace,
+            Text(
+              selected.data.nama,
+              style: context.text.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.w600),
+            ),
+          ],
         ),
         12.verticalSpace,
         Row(
           children: [
-            Container(
-              width: 25.w,
-              height: 25.w,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.contain,
-                      image: selected.data.profile.provider)),
+            InkWell(
+              onTap: () => SGImagePreview.asFullScreenDialog(
+                  context, selected.data.profile),
+              child: Container(
+                width: 25.w,
+                height: 25.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: selected.data.profile.provider)),
+              ),
             ),
             16.horizontalSpace,
             Expanded(
@@ -134,14 +185,18 @@ class _SelectedBengkel extends StatelessWidget {
                 12.verticalSpace,
                 InkWell(
                   onTap: () async {
+                    final currentLocation = context.currentLocation;
                     final availableMaps = await MapLauncher.installedMaps;
                     final location = bengkel.lokasi;
-                    await availableMaps.first.showMarker(
-                      coords: Coords(
+                    await availableMaps.first.showDirections(
+                      destination: Coords(
                         location.lat,
                         location.long,
                       ),
-                      title: bengkel.nama,
+                      originTitle: currentLocation.shortAddress,
+                      origin: currentLocation.latLgn
+                          .let((value) => Coords(value.lat, value.long)),
+                      destinationTitle: bengkel.nama,
                     );
                   },
                   child: Row(
