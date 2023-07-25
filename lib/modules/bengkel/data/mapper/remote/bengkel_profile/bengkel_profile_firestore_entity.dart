@@ -79,13 +79,8 @@ class JadwalBengkelFirestoreField
     return TimeOfDay(hour: hour, minute: minute);
   }
 
-  (TimeOfDay, TimeOfDay) parseJadwal(Map<String, dynamic>? jadwal) {
-    if (jadwal == null) {
-      return const (
-        TimeOfDay(hour: 7, minute: 0),
-        TimeOfDay(hour: 15, minute: 0)
-      );
-    }
+  (TimeOfDay, TimeOfDay)? parseJadwal(Map<String, dynamic>? jadwal) {
+    if (jadwal == null || jadwal.isEmpty) return null;
     return (parseTime(jadwal["start"] ?? ""), parseTime(jadwal["end"] ?? ""));
   }
 
@@ -102,7 +97,8 @@ class JadwalBengkelFirestoreField
     ];
   }
 
-  Map<String, dynamic> toJSON((TimeOfDay start, TimeOfDay end) data) {
+  Map<String, dynamic> toJSON((TimeOfDay start, TimeOfDay end)? data) {
+    if (data == null) return {};
     final (start, end) = data;
     return {
       "start": "${start.hour}:${start.minute}",

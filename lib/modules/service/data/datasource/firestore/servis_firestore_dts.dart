@@ -4,18 +4,17 @@ import 'package:injectable/injectable.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_collections.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_datasource.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_mapper.dart';
-import 'package:service_go/modules/customer/data/mapper/remote/customer_profile_firestore_entity.dart';
-import 'package:service_go/modules/customer/domain/model/customer_profile.dart';
+import 'package:service_go/modules/service/data/mapper/servis/servis_firestore_entity.dart';
+import 'package:service_go/modules/service/data/mapper/servis/servis_dto.dart';
 
 @injectable
-class CustomerProfileFirestoreDTS extends FirestoreDatasource<CustomerProfile,
-    FireStoreMapper<CustomerProfile>> {
+class ServisFirestoreDTS
+    extends FirestoreDatasource<ServisDTO, FireStoreMapper<ServisDTO>> {
   final FirebaseStorage firebaseStorage;
 
-  CustomerProfileFirestoreDTS(
-      FirebaseFirestore firebaseFirestore, this.firebaseStorage)
+  ServisFirestoreDTS(FirebaseFirestore firebaseFirestore, this.firebaseStorage)
       : super(
-            collection: FirestoreCollections.customerProfile,
+            collection: FirestoreCollections.servis,
             firestore: firebaseFirestore,
-            mapper: CustomerProfileFirestoreEntity());
+            mapper: ServisFirestoreEntity());
 }

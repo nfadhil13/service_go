@@ -16,7 +16,8 @@ import 'package:service_go/modules/profile/domain/usecase/customer/check_if_cust
 class CustomerRouterScreen extends AutoRouter implements AutoRouteWrapper {
   static List<AutoRoute> get routes => [
         AutoRoute(page: CustomerHomeRoute.page, path: 'home', initial: true),
-        AutoRoute(page: BengkelListRoute.page, path: 'bengkel')
+        AutoRoute(page: BengkelListRoute.page, path: 'bengkel'),
+        AutoRoute(page: CustomerServisFormRoute.page, path: 'pesan')
       ];
 
   final CustomerProfile? profile;

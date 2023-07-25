@@ -31,6 +31,7 @@ class SGAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: widgetTitle ?? _buildTitle(pageTitle, context),
       backgroundColor: context.color.background,
+      foregroundColor: context.color.onBackground,
       toolbarHeight: height,
       titleSpacing: 7.w,
       elevation: 0,

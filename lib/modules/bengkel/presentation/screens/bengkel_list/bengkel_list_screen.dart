@@ -9,6 +9,7 @@ import 'package:map_launcher/map_launcher.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/double_ext.dart';
 import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
+import 'package:service_go/infrastructure/routing/router.gr.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
 import 'package:service_go/infrastructure/types/query.dart';
 import 'package:service_go/infrastructure/widgets/buttons/button_icon_type.dart';
@@ -16,6 +17,7 @@ import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
 import 'package:service_go/infrastructure/widgets/buttons/outlined_button.dart';
 import 'package:service_go/infrastructure/widgets/error.dart';
 import 'package:service_go/infrastructure/widgets/image/image_preview.dart';
+import 'package:service_go/infrastructure/widgets/layouts/appbar/appbar.dart';
 import 'package:service_go/infrastructure/widgets/layouts/bottomsheet/bottom_sheet_container.dart';
 import 'package:service_go/infrastructure/widgets/loading/circular.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
@@ -42,30 +44,36 @@ class BengkelListScreen extends StatelessWidget {
                     radius: 20,
                     center: context.currentLocation.latLgn))),
       child: Scaffold(
-        body: BlocBuilder<BengkelListCubit, BengkelListState>(
-            builder: (context, state) => switch (state) {
-                  BengkelListSuccess() => BlocProvider(
-                      create: (context) => BengkelListScreenCubit(
-                          BengkelListScreenCubitState(null, state.bengkelList)),
-                      child: Stack(
-                        children: [
-                          SizedBox(
-                              height: 60.h,
-                              child: _Map(
-                                bengkelList: state.bengkelList,
-                              )),
-                          const SizedBox.expand(
-                              child: _BengkelListBottomSheet())
-                        ],
+        appBar: const SGAppBar(
+          pageTitle: "Daftar Bengkel",
+        ),
+        body: SafeArea(
+          child: BlocBuilder<BengkelListCubit, BengkelListState>(
+              builder: (context, state) => switch (state) {
+                    BengkelListSuccess() => BlocProvider(
+                        create: (context) => BengkelListScreenCubit(
+                            BengkelListScreenCubitState(
+                                null, state.bengkelList)),
+                        child: Stack(
+                          children: [
+                            SizedBox(
+                                height: 60.h,
+                                child: _Map(
+                                  bengkelList: state.bengkelList,
+                                )),
+                            const SizedBox.expand(
+                                child: _BengkelListBottomSheet())
+                          ],
+                        ),
                       ),
-                    ),
-                  BengkelListError() =>
-                    SGError(message: state.exception.message),
-                  BengkelListLoading() => const Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [SGCircularLoading()],
-                    )
-                }),
+                    BengkelListError() =>
+                      SGError(message: state.exception.message),
+                    BengkelListLoading() => const Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [SGCircularLoading()],
+                      )
+                  }),
+        ),
       ),
     );
   }

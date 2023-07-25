@@ -3,6 +3,7 @@
 enum FirestoreCollections {
   customerProfile("customer"),
   bengeklProfile("bengkel"),
+  servis("servis"),
 
   jenisLayanan("jenisLayanan"),
 

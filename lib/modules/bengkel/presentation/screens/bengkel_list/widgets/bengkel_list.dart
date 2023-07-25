@@ -263,7 +263,10 @@ class _SelectedBengkel extends StatelessWidget {
           buttonIconType: ButtonIconType.far,
           textStyle:
               context.text.bodyMedium?.copyWith(color: context.color.onPrimary),
-          onPressed: () {},
+          onPressed: () {
+            print("Navigating");
+            context.router.push(CustomerServisFormRoute(bengkel: bengkel));
+          },
           fillParent: true,
         ),
         5.verticalSpace,

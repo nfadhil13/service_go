@@ -9,7 +9,7 @@ abstract class CustomerProfileRemoteDTS {
 
 @Injectable(as: CustomerProfileRemoteDTS)
 class CustomerProfileRemoteDTSImpl implements CustomerProfileRemoteDTS {
-  final CustomProfileFirestoreDTS _firestoreDTS;
+  final CustomerProfileFirestoreDTS _firestoreDTS;
 
   CustomerProfileRemoteDTSImpl(this._firestoreDTS);
 

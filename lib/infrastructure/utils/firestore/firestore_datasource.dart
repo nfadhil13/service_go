@@ -21,6 +21,11 @@ class FirestoreDatasource<Entity, Mapper extends FireStoreMapper<Entity>> {
       this.locationMapper,
       required this.firestore});
 
+  Future<Entity> create(Entity entity) => collectionRef
+      .add(entity)
+      .then((value) => value.get())
+      .then((value) => value.data()!);
+
   Future<void> put(Entity entity, String id) =>
       collectionRef.doc(id).set(entity);
 
