@@ -97,7 +97,7 @@ class SGTextField extends StatelessWidget {
         if (desc != null)
           Text(
             desc!,
-            style: TextStyle(color: color.surfaceVariant),
+            style: context.text.bodySmall,
           ),
       ],
     );

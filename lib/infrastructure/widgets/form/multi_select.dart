@@ -98,64 +98,76 @@ class _SGMultiSelectFieldState<T> extends State<SGMultiSelectField<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: _openDialog,
-      child: DropdownButtonHideUnderline(
-        child: DropdownButtonFormField<List<SGMultiSelectItem<T>>>(
-            items: [
-              DropdownMenuItem(
-                  value: _value,
-                  child: SingleChildScrollView(
-                    child: Wrap(
-                      children: _value
-                          .mapIndexed((i, e) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                child: SGElevatedButton(
-                                  onPressed: () {},
-                                  label: e.name,
-                                  elevation: 0,
-                                  suffixIcon: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        _value.removeAt(i);
-                                      });
-                                    },
-                                    child: const Padding(
-                                      padding: EdgeInsets.only(left: 6),
-                                      child: Icon(
-                                        Icons.close,
-                                        size: 10,
+    return Column(
+      children: [
+        InkWell(
+          onTap: _openDialog,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButtonFormField<List<SGMultiSelectItem<T>>>(
+                items: [
+                  DropdownMenuItem(
+                      value: _value,
+                      child: SingleChildScrollView(
+                        child: Wrap(
+                          children: _value
+                              .mapIndexed((i, e) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4),
+                                    child: SGElevatedButton(
+                                      onPressed: () {},
+                                      label: e.name,
+                                      elevation: 0,
+                                      suffixIcon: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            _value.removeAt(i);
+                                          });
+                                        },
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(left: 6),
+                                          child: Icon(
+                                            Icons.close,
+                                            size: 10,
+                                          ),
+                                        ),
                                       ),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 2, horizontal: 12),
+                                      textStyle: context.text.labelSmall
+                                          ?.copyWith(
+                                              color: context.color.onPrimary),
                                     ),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 2, horizontal: 12),
-                                  textStyle: context.text.labelSmall?.copyWith(
-                                      color: context.color.onPrimary),
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                  ))
-            ],
-            isDense: false,
-            isExpanded: true,
-            value: _value,
-            itemHeight: widget.height ?? 20.h,
-            validator: (value) {
-              return widget.validator
-                  ?.call(value?.map((e) => e.data).toList() ?? []);
-            },
-            decoration: SGInputDecoration.inputDecoration(context,
-                borderRadius: widget.borderRadius ?? BorderRadius.circular(8),
-                contentPadding: widget.contentPadding,
-                hintText: widget.hintText,
-                suffixIcon: widget.suffixIcon,
-                label: widget.label,
-                prefixIcon: widget.prefixIcon),
-            onChanged: null),
-      ),
+                                  ))
+                              .toList(),
+                        ),
+                      ))
+                ],
+                isDense: false,
+                isExpanded: true,
+                value: _value,
+                itemHeight: widget.height ?? 20.h,
+                validator: (value) {
+                  return widget.validator
+                      ?.call(value?.map((e) => e.data).toList() ?? []);
+                },
+                decoration: SGInputDecoration.inputDecoration(context,
+                    borderRadius:
+                        widget.borderRadius ?? BorderRadius.circular(8),
+                    contentPadding: widget.contentPadding,
+                    hintText: widget.hintText,
+                    suffixIcon: widget.suffixIcon,
+                    label: widget.label,
+                    prefixIcon: widget.prefixIcon),
+                onChanged: null),
+          ),
+        ),
+        if (widget.desc != null) const SizedBox(height: 5.0),
+        if (widget.desc != null)
+          Text(
+            widget.desc!,
+            style: context.text.bodySmall,
+          ),
+      ],
     );
   }
 }

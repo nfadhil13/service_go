@@ -13,7 +13,7 @@ class _Form extends StatelessWidget {
       children: [
         Text(
           "Formulir pemesanan servis",
-          style: text.bodySmall?.copyWith(
+          style: text.bodyMedium?.copyWith(
               fontWeight: FontWeight.w600, color: color.onBackground),
         ),
         Divider(
@@ -29,6 +29,8 @@ class _Form extends StatelessWidget {
         ),
         24.verticalSpace,
         SGMultiSelectField(
+            desc:
+                "*Bila service yang anda inginkan tidak ada, silahkan masukan pada bagian catatan",
             height: 100,
             label: "Servis yang dilakukan",
             items: profile.jenisLayanan
@@ -38,6 +40,14 @@ class _Form extends StatelessWidget {
         SGDateTimeField(
           minimumDate: DateTime.now(),
           label: "Tanggal Servis",
+        ),
+        24.verticalSpace,
+        SGTextField(
+          label: "Catatan",
+          minLine: 5,
+          maxLine: 10,
+          desc:
+              "*Tuliskan catatan, hal-hal yang ingin anda sampaikan seperti keluhan motor dll.",
         ),
         const SGHideWidget(child: _Button())
       ],

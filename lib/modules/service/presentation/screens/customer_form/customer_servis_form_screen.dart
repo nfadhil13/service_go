@@ -21,6 +21,8 @@ part 'widgets/selected_bengkel.dart';
 part 'widgets/form.dart';
 part 'widgets/button.dart';
 
+sealed class CustomerServisFormScreenMode {}
+
 @RoutePage()
 class CustomerServisFormScreen extends StatelessWidget {
   final BengkelProfile bengkel;
