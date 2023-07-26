@@ -1,16 +1,25 @@
 class FireStoreField<Entity, T> {
   final String key;
   final T Function(Entity entity) data;
-  final T Function(Map<String, dynamic> firestoreData)? _parser;
+  final T Function(dynamic data)? _parser;
 
-  FireStoreField(this.key, this.data,
-      {T Function(Map<String, dynamic> firestoreData)? parser})
+  FireStoreField(this.key, this.data, {T Function(dynamic data)? parser})
       : _parser = parser;
 
   dynamic toField(T data) => data;
 
   T parseJSON(Map<String, dynamic> firestoreData) {
-    return _parser ?? firestoreData[key];
+    return _parser?.call(firestoreData[key]) ?? firestoreData[key];
+  }
+}
+
+class FireStoreListField<Entity, T> extends FireStoreField<Entity, List<T>> {
+  FireStoreListField(super.key, super.data, {super.parser});
+
+  @override
+  List<T> parseJSON(Map<String, dynamic> firestoreData) {
+    return _parser?.call(firestoreData[key]) ??
+        (firestoreData[key] as List).map((e) => e as T).toList();
   }
 }
 

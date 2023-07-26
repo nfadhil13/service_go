@@ -20,7 +20,7 @@ class CustomerProfileFormCubit extends Cubit<CustomerProfileFormState> {
 
   //Usecase
   final PrepareCustomerForm _prepareCustomerForm;
-  final CraeteOrUpdateCustomer _craeteOrUpdateCustomer;
+  final CreateOrUpdateCustomer _craeteOrUpdateCustomer;
   CustomerProfileFormCubit(this._prepareCustomerForm, @factoryParam this.userId,
       this._craeteOrUpdateCustomer)
       : super(CustomerProfileFormPrepareLoading());

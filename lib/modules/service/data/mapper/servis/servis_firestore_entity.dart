@@ -10,8 +10,8 @@ class ServisFirestoreEntity extends FireStoreMapper<ServisDTO> {
   final FireStoreField<ServisDTO, String> platNomor =
       FireStoreField("platNomor", (entity) => entity.platNomor);
 
-  final FireStoreField<ServisDTO, List<String>> layananIds =
-      FireStoreField("layananIds", (entity) => entity.layananIds);
+  final FireStoreListField<ServisDTO, String> layananIds =
+      FireStoreListField("layananIds", (entity) => entity.layananIds);
 
   final FireStoreField<ServisDTO, Timestamp> tanggalService =
       FireStoreField("tanggalService", (entity) => entity.tanggalService);

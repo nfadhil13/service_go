@@ -264,8 +264,9 @@ class _SelectedBengkel extends StatelessWidget {
           textStyle:
               context.text.bodyMedium?.copyWith(color: context.color.onPrimary),
           onPressed: () {
-            print("Navigating");
-            context.router.push(CustomerServisFormRoute(bengkel: bengkel));
+            context.router.push(CustomerServisFormRoute(
+                mode: CustomerServisFormCreate.byId(
+                    bengkelId: selected.data.id)));
           },
           fillParent: true,
         ),

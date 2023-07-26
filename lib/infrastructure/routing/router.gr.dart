@@ -113,7 +113,7 @@ abstract class $AppRouter extends _i12.RootStackRouter {
         routeData: routeData,
         child: _i8.CustomerServisFormScreen(
           key: args.key,
-          bengkel: args.bengkel,
+          mode: args.mode,
         ),
       );
     },
@@ -340,13 +340,13 @@ class CustomerServisFormRoute
     extends _i12.PageRouteInfo<CustomerServisFormRouteArgs> {
   CustomerServisFormRoute({
     _i13.Key? key,
-    required _i16.BengkelProfile bengkel,
+    required _i8.CustomerServisFormScreenMode mode,
     List<_i12.PageRouteInfo>? children,
   }) : super(
           CustomerServisFormRoute.name,
           args: CustomerServisFormRouteArgs(
             key: key,
-            bengkel: bengkel,
+            mode: mode,
           ),
           initialChildren: children,
         );
@@ -360,16 +360,16 @@ class CustomerServisFormRoute
 class CustomerServisFormRouteArgs {
   const CustomerServisFormRouteArgs({
     this.key,
-    required this.bengkel,
+    required this.mode,
   });
 
   final _i13.Key? key;
 
-  final _i16.BengkelProfile bengkel;
+  final _i8.CustomerServisFormScreenMode mode;
 
   @override
   String toString() {
-    return 'CustomerServisFormRouteArgs{key: $key, bengkel: $bengkel}';
+    return 'CustomerServisFormRouteArgs{key: $key, mode: $mode}';
   }
 }
 

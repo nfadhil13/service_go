@@ -24,6 +24,7 @@ import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
 import 'package:service_go/modules/bengkel/presentation/cubits/bengkel_list/bengkel_list_cubit.dart';
 import 'package:service_go/modules/bengkel/presentation/screens/bengkel_list/cubit/bengkel_list_screen_cubit.dart';
 import 'package:service_go/modules/bengkel/presentation/widgets/bengkel_list/bengkel_list_widget.dart';
+import 'package:service_go/modules/service/presentation/screens/customer_form/customer_servis_form_screen.dart';
 import 'package:sizer/sizer.dart';
 
 part 'widgets/bengkel_list.dart';

@@ -5,12 +5,12 @@ import 'package:service_go/modules/service/domain/model/servis.dart';
 import 'package:service_go/modules/service/domain/repositories/servis_repository.dart';
 
 @injectable
-class CreateServis extends Usecase<Servis, Servis> {
+class CreateOrUpdateServis extends Usecase<Servis, Servis> {
   final ServisRepo _repo;
 
-  CreateServis(this._repo);
+  CreateOrUpdateServis(this._repo);
 
   @override
   Future<Resource<Servis>> execute(Servis params) =>
-      _repo.createServis(params).asResource;
+      _repo.putServis(params).asResource;
 }

@@ -65,6 +65,6 @@ class ServisRemoteDTSImpl implements ServisRemoteDTS {
     final id = servis.id.id;
     if (id == null) return createServis(servis);
     await _servisFirestoreDTS.put(ServisDTO.fromDomain(servis), id);
-    return servis;
+    return (await getServisById(id))!;
   }
 }

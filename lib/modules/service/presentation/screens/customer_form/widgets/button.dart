@@ -5,6 +5,7 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<CustomerServisFormCubit>();
     return Container(
       decoration: BoxDecoration(color: context.color.surface, boxShadow: const [
         BoxShadow(
@@ -16,7 +17,7 @@ class _Button extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
       child: SGElevatedButton(
         label: "Pesan",
-        onPressed: () {},
+        onPressed: () => cubit.submit(context.userSession.userId),
         fillParent: true,
       ),
     );

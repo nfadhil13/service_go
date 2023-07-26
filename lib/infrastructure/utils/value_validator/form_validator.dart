@@ -10,7 +10,7 @@ class ValueValidatorBuilder<Value extends dynamic> {
 
   ValueValidatorBuilder._(this.fieldName, this.validatorList);
 
-  factory ValueValidatorBuilder.create(String fieldName) =>
+  static ValueValidatorBuilder<T> create<T>(String fieldName) =>
       ValueValidatorBuilder._(fieldName, []);
 
   ValueValidatorBuilder<String?> email() =>

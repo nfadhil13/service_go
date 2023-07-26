@@ -18,6 +18,7 @@ class SGDateTimeController extends ValueNotifier<DateTime?> {
 class SGDateTimeField extends StatefulWidget {
   final SGDateTimeController? controller;
 
+  final String? Function(DateTime?)? validator;
   final String? label;
   final DateTime? minimumDate;
   final DateTime? maximumDate;
@@ -28,6 +29,7 @@ class SGDateTimeField extends StatefulWidget {
     this.minimumDate,
     this.maximumDate,
     this.label,
+    this.validator,
   });
 
   @override
@@ -60,6 +62,7 @@ class _SGDateTimeFieldState extends State<SGDateTimeField> {
 
   @override
   void dispose() {
+    _controller.removeListener(_onDateChangeListener);
     _dateTextController.dispose();
     super.dispose();
   }
@@ -90,6 +93,7 @@ class _SGDateTimeFieldState extends State<SGDateTimeField> {
   @override
   Widget build(BuildContext context) {
     return SGTextField(
+      validator: (_) => widget.validator?.call(_controller.value),
       label: widget.label,
       controller: _dateTextController,
       readOnly: true, // Set it to true to prevent editing
