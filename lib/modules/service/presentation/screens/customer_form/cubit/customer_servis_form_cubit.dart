@@ -114,6 +114,7 @@ class CustomerServisFormCubit extends Cubit<CustomerServisFormState> {
         platNomor: platNomor.text,
         status: oldServis?.status ?? ServisStatus.diajukan,
         layanan: layanan.value,
+        catatan: oldServis?.catatan ?? catatan.text,
         customer: oldServis?.customer ?? ServisCustomer(customerId, ""),
         bengkel: oldServis?.bengkel ??
             ServisBengkel(bengkelProfile.id, bengkelProfile.nama),

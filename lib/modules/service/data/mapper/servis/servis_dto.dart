@@ -46,6 +46,7 @@ class ServisDTO implements DTO<Servis, ServisDTOParams> {
         tanggalService: Timestamp.fromDate(servis.tanggalService),
         customerId: servis.customer.id,
         bengkelId: servis.bengkel.id,
+        
         catatan: servis.catatan,
         status: servis.status.id);
   }
