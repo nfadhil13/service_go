@@ -34,7 +34,7 @@ import '../../modules/authentication/domain/usecases/register.dart' as _i41;
 import '../../modules/authentication/presentation/screens/login/cubit/login_cubit.dart'
     as _i36;
 import '../../modules/authentication/presentation/screens/register/cubit/register_cubit.dart'
-    as _i54;
+    as _i55;
 import '../../modules/authentication/presentation/screens/splash/cubit/splash_cubit.dart'
     as _i46;
 import '../../modules/bengkel/data/datasource/firestore/bengkel_firestore_dts.dart'
@@ -92,19 +92,22 @@ import '../../modules/service/domain/repositories/servis_repository.dart'
     as _i43;
 import '../../modules/service/domain/usecases/create_or_update_servis.dart'
     as _i51;
+import '../../modules/service/domain/usecases/get_servis_list.dart' as _i53;
 import '../../modules/service/domain/usecases/prepare_customer_servis_create_form.dart'
     as _i40;
 import '../../modules/service/domain/usecases/prepare_customer_servis_form.dart'
-    as _i53;
+    as _i54;
+import '../../modules/service/presentation/cubits/cubit/servis_list_cubit.dart'
+    as _i56;
 import '../../modules/service/presentation/screens/customer_form/cubit/customer_servis_form_cubit.dart'
-    as _i55;
+    as _i57;
 import '../architecutre/cubits/location/location_cubit.dart' as _i34;
 import '../architecutre/cubits/messenger/messenger_cubit.dart' as _i12;
 import '../architecutre/cubits/session/session_cubit.dart' as _i45;
 import '../local_storage/secure_storage/secure_storage.dart' as _i14;
 import '../utils/location/location_util.dart' as _i11;
 import '../utils/storage/sg_storage_helper.dart' as _i13;
-import 'modules/core_module.dart' as _i56;
+import 'modules/core_module.dart' as _i58;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -246,17 +249,21 @@ extension GetItInjectableX on _i1.GetIt {
           userId,
           gh<_i50.CreateOrUpdateCustomer>(),
         ));
-    gh.factory<_i53.PrepareCustomerServisEditForm>(
-        () => _i53.PrepareCustomerServisEditForm(
+    gh.factory<_i53.GetServisList>(
+        () => _i53.GetServisList(gh<_i43.ServisRepo>()));
+    gh.factory<_i54.PrepareCustomerServisEditForm>(
+        () => _i54.PrepareCustomerServisEditForm(
               gh<_i23.BengkelProfileRepository>(),
               gh<_i43.ServisRepo>(),
             ));
-    gh.factory<_i54.RegisterCubit>(() => _i54.RegisterCubit(
+    gh.factory<_i55.RegisterCubit>(() => _i55.RegisterCubit(
           gh<_i12.MessengerCubit>(),
           gh<_i41.RegisterUserAccount>(),
         ));
-    gh.factory<_i55.CustomerServisFormCubit>(() => _i55.CustomerServisFormCubit(
-          gh<_i53.PrepareCustomerServisEditForm>(),
+    gh.factory<_i56.ServisListCubit>(
+        () => _i56.ServisListCubit(gh<_i53.GetServisList>()));
+    gh.factory<_i57.CustomerServisFormCubit>(() => _i57.CustomerServisFormCubit(
+          gh<_i54.PrepareCustomerServisEditForm>(),
           gh<_i40.PrepareCustomerServisCreateForm>(),
           gh<_i51.CreateOrUpdateServis>(),
         ));
@@ -264,4 +271,4 @@ extension GetItInjectableX on _i1.GetIt {
   }
 }
 
-class _$CoreModules extends _i56.CoreModules {}
+class _$CoreModules extends _i58.CoreModules {}

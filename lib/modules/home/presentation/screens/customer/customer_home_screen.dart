@@ -10,11 +10,13 @@ import 'package:service_go/infrastructure/widgets/icons/text.dart';
 import 'package:service_go/infrastructure/widgets/map/map_picker.dart';
 import 'package:service_go/modules/bengkel/presentation/widgets/bengkel_list/bengkel_list_widget.dart';
 import 'package:service_go/modules/customer/presentation/cubits/cubit/customer_profile_cubit.dart';
+import 'package:service_go/modules/service/presentation/widgets/list/servis_list_widget.dart';
 import 'package:sizer/sizer.dart';
 
 part 'widgets/app_bar.dart';
 part 'widgets/bengkel_terdekat.dart';
 part 'widgets/current_location.dart';
+part 'widgets/servis_berjalan.dart';
 
 @RoutePage()
 class CustomerHomeScreen extends StatelessWidget {
@@ -37,8 +39,12 @@ class CustomerHomeScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: 5.w,
               ),
-              child: const Column(
-                children: [_BengkelTerdekatSection()],
+              child: Column(
+                children: [
+                  const _ServisBerjalan(),
+                  4.h.verticalSpace,
+                  const _BengkelTerdekatSection()
+                ],
               ),
             )
           ],
