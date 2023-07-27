@@ -103,7 +103,12 @@ class ServisListWidget extends StatelessWidget {
         final data = servisList[index];
         return InkWell(
           onTap: () => onTap?.call(data),
-          child: ServisListItem(servis: data),
+          child: Padding(
+            padding: index == servisList.length - 1
+                ? EdgeInsets.zero
+                : const EdgeInsets.only(bottom: 16),
+            child: ServisListItem(servis: data),
+          ),
         );
       },
     );

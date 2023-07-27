@@ -13,7 +13,7 @@ class _ServisBerjalan extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Servis Terdekat",
+              "Servis Berjalan",
               style: text.labelLarge
                   ?.copyWith(fontWeight: FontWeight.w600, fontSize: 13.5.sp),
             ),
@@ -27,8 +27,13 @@ class _ServisBerjalan extends StatelessWidget {
           ],
         ),
         1.5.h.verticalSpace,
-        const ServisListAutoWidget(
-          query: SGDataQuery(limit: 2),
+        ServisListAutoWidget(
+          query: SGDataQuery(limit: 2, query: [
+            SGQueryField("status", whereNotIn: [
+              ServisStatus.ditolak.id,
+              ServisStatus.serviceSelesai.id
+            ]),
+          ]),
         )
       ],
     );

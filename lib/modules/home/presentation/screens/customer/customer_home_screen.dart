@@ -10,6 +10,7 @@ import 'package:service_go/infrastructure/widgets/icons/text.dart';
 import 'package:service_go/infrastructure/widgets/map/map_picker.dart';
 import 'package:service_go/modules/bengkel/presentation/widgets/bengkel_list/bengkel_list_widget.dart';
 import 'package:service_go/modules/customer/presentation/cubits/cubit/customer_profile_cubit.dart';
+import 'package:service_go/modules/service/domain/model/servis_status.dart';
 import 'package:service_go/modules/service/presentation/widgets/list/servis_list_widget.dart';
 import 'package:sizer/sizer.dart';
 

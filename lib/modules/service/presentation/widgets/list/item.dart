@@ -29,6 +29,7 @@ class ServisListItem extends StatelessWidget {
           children: [
             Expanded(
                 child: _Item(title: "Nomor Pesanan", item: servis.id.id ?? "")),
+            14.horizontalSpace,
             Expanded(
                 child: _Item(title: "Bengkel", item: servis.bengkel.bengkel)),
           ],
