@@ -18,7 +18,8 @@ class _ServisBerjalan extends StatelessWidget {
                   ?.copyWith(fontWeight: FontWeight.w600, fontSize: 13.5.sp),
             ),
             InkWell(
-              onTap: () => context.router.push(const BengkelListRoute()),
+              onTap: () => context.router.push(ServisListRoute(
+                  type: ServisListType(false, context.userSession.userId))),
               child: Text(
                 "Lihat Lebih",
                 style: text.bodyMedium?.copyWith(color: color.primary),
@@ -29,6 +30,7 @@ class _ServisBerjalan extends StatelessWidget {
         1.5.h.verticalSpace,
         ServisListAutoWidget(
           query: SGDataQuery(limit: 2, query: [
+            SGQueryField("customerId", isEqual: context.userSession.userId),
             SGQueryField("status", whereNotIn: [
               ServisStatus.ditolak.id,
               ServisStatus.serviceSelesai.id

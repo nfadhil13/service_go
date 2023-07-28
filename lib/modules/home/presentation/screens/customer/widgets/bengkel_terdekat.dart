@@ -31,7 +31,7 @@ class _BengkelTerdekatSection extends StatelessWidget {
         BengkelListWidget(
           query: SGDataQuery(
               limit: 2,
-              query: [SGQueryField("isOpen", isEqual: true)],
+              query: const [SGQueryField("isOpen", isEqual: true)],
               locationQuery: SGLocationQuery(
                   field: "lokasi", radius: 20, center: location.latLgn)),
         )

@@ -17,97 +17,102 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../../modules/authentication/data/datasource/local/authentication_local_dts.dart'
-    as _i17;
-import '../../modules/authentication/data/datasource/remote/authenticatation_remote_dts.dart'
-    as _i18;
-import '../../modules/authentication/data/datasource/remote/user_data_remote_dts.dart'
-    as _i16;
-import '../../modules/authentication/data/repositories/authentication_repo_impl.dart'
     as _i20;
-import '../../modules/authentication/domain/repositories/authentication_repo.dart'
-    as _i19;
-import '../../modules/authentication/domain/usecases/get_current_session.dart'
-    as _i33;
-import '../../modules/authentication/domain/usecases/login.dart' as _i35;
-import '../../modules/authentication/domain/usecases/logout.dart' as _i37;
-import '../../modules/authentication/domain/usecases/register.dart' as _i41;
-import '../../modules/authentication/presentation/screens/login/cubit/login_cubit.dart'
-    as _i36;
-import '../../modules/authentication/presentation/screens/register/cubit/register_cubit.dart'
-    as _i55;
-import '../../modules/authentication/presentation/screens/splash/cubit/splash_cubit.dart'
-    as _i46;
-import '../../modules/bengkel/data/datasource/firestore/bengkel_firestore_dts.dart'
+import '../../modules/authentication/data/datasource/remote/authenticatation_remote_dts.dart'
     as _i21;
+import '../../modules/authentication/data/datasource/remote/user_data_remote_dts.dart'
+    as _i19;
+import '../../modules/authentication/data/repositories/authentication_repo_impl.dart'
+    as _i23;
+import '../../modules/authentication/domain/repositories/authentication_repo.dart'
+    as _i22;
+import '../../modules/authentication/domain/usecases/get_current_session.dart'
+    as _i36;
+import '../../modules/authentication/domain/usecases/login.dart' as _i38;
+import '../../modules/authentication/domain/usecases/logout.dart' as _i40;
+import '../../modules/authentication/domain/usecases/register.dart' as _i44;
+import '../../modules/authentication/presentation/screens/login/cubit/login_cubit.dart'
+    as _i39;
+import '../../modules/authentication/presentation/screens/register/cubit/register_cubit.dart'
+    as _i58;
+import '../../modules/authentication/presentation/screens/splash/cubit/splash_cubit.dart'
+    as _i49;
+import '../../modules/bengkel/data/datasource/firestore/bengkel_firestore_dts.dart'
+    as _i24;
 import '../../modules/bengkel/data/datasource/firestore/jenis_layanan_firestore_dts.dart'
     as _i7;
 import '../../modules/bengkel/data/datasource/remote/bengkel_profile_remote_dts.dart'
-    as _i22;
+    as _i25;
 import '../../modules/bengkel/data/datasource/remote/jenis_layanan_remote_dts.dart'
     as _i8;
 import '../../modules/bengkel/data/repositories/bengkel_profile_repository_impl.dart'
-    as _i24;
+    as _i27;
 import '../../modules/bengkel/data/repositories/jenis_layanan_repository.dart'
     as _i10;
 import '../../modules/bengkel/domain/repositories/bengkel_profile_repository.dart'
-    as _i23;
+    as _i26;
 import '../../modules/bengkel/domain/repositories/jenis_layanan_repository.dart'
     as _i9;
-import '../../modules/bengkel/domain/usecase/get_all_bengkel.dart' as _i31;
+import '../../modules/bengkel/domain/usecase/get_all_bengkel.dart' as _i34;
 import '../../modules/bengkel/domain/usecase/get_all_jenis_layanan.dart'
-    as _i32;
+    as _i35;
 import '../../modules/bengkel/presentation/cubits/bengkel_list/bengkel_list_cubit.dart'
-    as _i47;
-import '../../modules/customer/data/datasource/firestore/customer_profile_firestore_dts.dart'
-    as _i27;
-import '../../modules/customer/data/datasource/remote/customer_profile_remote_dts.dart'
-    as _i28;
-import '../../modules/customer/data/repositories/customer_profile_repo_impl.dart'
-    as _i30;
-import '../../modules/customer/domain/repositories/customer_profile_repo.dart'
-    as _i29;
-import '../../modules/profile/domain/usecase/bengkel/check_is_bengkel_has_profile.dart'
-    as _i25;
-import '../../modules/profile/domain/usecase/bengkel/create_bengkel_profile.dart'
-    as _i26;
-import '../../modules/profile/domain/usecase/bengkel/prepare_bengkel_profile_form.dart'
-    as _i38;
-import '../../modules/profile/domain/usecase/customer/check_if_customer_has_profile.dart'
-    as _i49;
-import '../../modules/profile/domain/usecase/customer/craete_or_update_customer.dart'
     as _i50;
-import '../../modules/profile/domain/usecase/customer/prepare_customer_form.dart'
-    as _i39;
-import '../../modules/profile/presentation/screens/bengkel_profile_form/cubit/form/bengkel_profile_form_cubit.dart'
-    as _i48;
-import '../../modules/profile/presentation/screens/customer_profile_form/cubit/customer_profile_form_cubit.dart'
+import '../../modules/customer/data/datasource/firestore/customer_profile_firestore_dts.dart'
+    as _i30;
+import '../../modules/customer/data/datasource/remote/customer_profile_remote_dts.dart'
+    as _i31;
+import '../../modules/customer/data/repositories/customer_profile_repo_impl.dart'
+    as _i33;
+import '../../modules/customer/domain/repositories/customer_profile_repo.dart'
+    as _i32;
+import '../../modules/profile/domain/usecase/bengkel/check_is_bengkel_has_profile.dart'
+    as _i28;
+import '../../modules/profile/domain/usecase/bengkel/create_bengkel_profile.dart'
+    as _i29;
+import '../../modules/profile/domain/usecase/bengkel/prepare_bengkel_profile_form.dart'
+    as _i41;
+import '../../modules/profile/domain/usecase/customer/check_if_customer_has_profile.dart'
     as _i52;
+import '../../modules/profile/domain/usecase/customer/craete_or_update_customer.dart'
+    as _i53;
+import '../../modules/profile/domain/usecase/customer/prepare_customer_form.dart'
+    as _i42;
+import '../../modules/profile/presentation/screens/bengkel_profile_form/cubit/form/bengkel_profile_form_cubit.dart'
+    as _i51;
+import '../../modules/profile/presentation/screens/customer_profile_form/cubit/customer_profile_form_cubit.dart'
+    as _i55;
 import '../../modules/service/data/datasource/firestore/servis_firestore_dts.dart'
     as _i15;
 import '../../modules/service/data/datasource/remote/servis_remote_dts.dart'
-    as _i42;
+    as _i45;
 import '../../modules/service/data/repositories/servis_repository_impl.dart'
-    as _i44;
+    as _i47;
 import '../../modules/service/domain/repositories/servis_repository.dart'
-    as _i43;
+    as _i46;
 import '../../modules/service/domain/usecases/create_or_update_servis.dart'
-    as _i51;
-import '../../modules/service/domain/usecases/get_servis_list.dart' as _i53;
-import '../../modules/service/domain/usecases/prepare_customer_servis_create_form.dart'
-    as _i40;
-import '../../modules/service/domain/usecases/prepare_customer_servis_form.dart'
     as _i54;
-import '../../modules/service/presentation/cubits/cubit/servis_list_cubit.dart'
-    as _i56;
-import '../../modules/service/presentation/screens/customer_form/cubit/customer_servis_form_cubit.dart'
+import '../../modules/service/domain/usecases/get_servis_list.dart' as _i56;
+import '../../modules/service/domain/usecases/prepare_customer_servis_create_form.dart'
+    as _i43;
+import '../../modules/service/domain/usecases/prepare_customer_servis_form.dart'
     as _i57;
-import '../architecutre/cubits/location/location_cubit.dart' as _i34;
+import '../../modules/service/presentation/cubits/cubit/servis_list_cubit.dart'
+    as _i59;
+import '../../modules/service/presentation/screens/customer_form/cubit/customer_servis_form_cubit.dart'
+    as _i60;
+import '../../modules/service/presentation/screens/list/cubit/servis_list_filter_cubit.dart'
+    as _i16;
+import '../../modules/service/presentation/screens/list/servist_list_screen.dart'
+    as _i18;
+import '../architecutre/cubits/location/location_cubit.dart' as _i37;
 import '../architecutre/cubits/messenger/messenger_cubit.dart' as _i12;
-import '../architecutre/cubits/session/session_cubit.dart' as _i45;
+import '../architecutre/cubits/session/session_cubit.dart' as _i48;
 import '../local_storage/secure_storage/secure_storage.dart' as _i14;
+import '../types/query.dart' as _i17;
 import '../utils/location/location_util.dart' as _i11;
 import '../utils/storage/sg_storage_helper.dart' as _i13;
-import 'modules/core_module.dart' as _i58;
+import 'modules/core_module.dart' as _i61;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -142,133 +147,142 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i4.FirebaseFirestore>(),
           gh<_i5.FirebaseStorage>(),
         ));
-    gh.factory<_i16.UserDataRemoteDTS>(
-        () => _i16.UserDataRemoteDTSImpl(gh<_i4.FirebaseFirestore>()));
-    gh.factory<_i17.AuthenticationLocalDTS>(() => _i17.AuthLocalDTSImpl(
+    gh.factoryParam<_i16.ServisListFilterCubit, _i17.SGDataQuery?,
+        _i18.ServisListType?>((
+      initialQuery,
+      type,
+    ) =>
+        _i16.ServisListFilterCubit(
+          initialQuery,
+          type,
+        ));
+    gh.factory<_i19.UserDataRemoteDTS>(
+        () => _i19.UserDataRemoteDTSImpl(gh<_i4.FirebaseFirestore>()));
+    gh.factory<_i20.AuthenticationLocalDTS>(() => _i20.AuthLocalDTSImpl(
           gh<_i14.SecureStorage>(),
           gh<_i3.FirebaseAuth>(),
         ));
-    gh.factory<_i18.AuthenticationRemoteDTS>(
-        () => _i18.AuthenticationRemoteDTSImpl(gh<_i3.FirebaseAuth>()));
-    gh.factory<_i19.AuthenticationRepo>(() => _i20.AuthenticationRepoImpl(
-          gh<_i18.AuthenticationRemoteDTS>(),
-          gh<_i17.AuthenticationLocalDTS>(),
-          gh<_i16.UserDataRemoteDTS>(),
+    gh.factory<_i21.AuthenticationRemoteDTS>(
+        () => _i21.AuthenticationRemoteDTSImpl(gh<_i3.FirebaseAuth>()));
+    gh.factory<_i22.AuthenticationRepo>(() => _i23.AuthenticationRepoImpl(
+          gh<_i21.AuthenticationRemoteDTS>(),
+          gh<_i20.AuthenticationLocalDTS>(),
+          gh<_i19.UserDataRemoteDTS>(),
         ));
-    gh.factory<_i21.BengkelProfileFirestoreDTS>(
-        () => _i21.BengkelProfileFirestoreDTS(
+    gh.factory<_i24.BengkelProfileFirestoreDTS>(
+        () => _i24.BengkelProfileFirestoreDTS(
               gh<_i4.FirebaseFirestore>(),
               gh<_i5.FirebaseStorage>(),
             ));
-    gh.factory<_i22.BengkelProfileRemoteDTS>(
-        () => _i22.BengkelProfileRemoteDTSImpl(
-              gh<_i21.BengkelProfileFirestoreDTS>(),
+    gh.factory<_i25.BengkelProfileRemoteDTS>(
+        () => _i25.BengkelProfileRemoteDTSImpl(
+              gh<_i24.BengkelProfileFirestoreDTS>(),
               gh<_i7.JenisLayananFirestoreDTS>(),
               gh<_i13.SGStorageHelper>(),
             ));
-    gh.factory<_i23.BengkelProfileRepository>(() =>
-        _i24.BengkelProfileRepositoryImpl(gh<_i22.BengkelProfileRemoteDTS>()));
-    gh.factory<_i25.CheckIfBengkelHasProfile>(
-        () => _i25.CheckIfBengkelHasProfile(
-              gh<_i23.BengkelProfileRepository>(),
-              gh<_i19.AuthenticationRepo>(),
+    gh.factory<_i26.BengkelProfileRepository>(() =>
+        _i27.BengkelProfileRepositoryImpl(gh<_i25.BengkelProfileRemoteDTS>()));
+    gh.factory<_i28.CheckIfBengkelHasProfile>(
+        () => _i28.CheckIfBengkelHasProfile(
+              gh<_i26.BengkelProfileRepository>(),
+              gh<_i22.AuthenticationRepo>(),
             ));
-    gh.factory<_i26.CreateBengkelProfile>(
-        () => _i26.CreateBengkelProfile(gh<_i23.BengkelProfileRepository>()));
-    gh.factory<_i27.CustomerProfileFirestoreDTS>(
-        () => _i27.CustomerProfileFirestoreDTS(
+    gh.factory<_i29.CreateBengkelProfile>(
+        () => _i29.CreateBengkelProfile(gh<_i26.BengkelProfileRepository>()));
+    gh.factory<_i30.CustomerProfileFirestoreDTS>(
+        () => _i30.CustomerProfileFirestoreDTS(
               gh<_i4.FirebaseFirestore>(),
               gh<_i5.FirebaseStorage>(),
             ));
-    gh.factory<_i28.CustomerProfileRemoteDTS>(() =>
-        _i28.CustomerProfileRemoteDTSImpl(
-            gh<_i27.CustomerProfileFirestoreDTS>()));
-    gh.factory<_i29.CustomerProfileRepo>(() =>
-        _i30.CustomerProfileRepoImpl(gh<_i28.CustomerProfileRemoteDTS>()));
-    gh.factory<_i31.GetAllBengkel>(
-        () => _i31.GetAllBengkel(gh<_i23.BengkelProfileRepository>()));
-    gh.factory<_i32.GetAllJenisLayanan>(
-        () => _i32.GetAllJenisLayanan(gh<_i9.JenisLayananRepository>()));
-    gh.factory<_i33.GetCurrentSession>(
-        () => _i33.GetCurrentSession(gh<_i19.AuthenticationRepo>()));
-    gh.factory<_i34.InitialLocationCubit>(
-        () => _i34.InitialLocationCubit(gh<_i11.LocationUtil>()));
-    gh.factory<_i35.Login>(() => _i35.Login(gh<_i19.AuthenticationRepo>()));
-    gh.factory<_i36.LoginCubit>(() => _i36.LoginCubit(gh<_i35.Login>()));
-    gh.factory<_i37.Logout>(() => _i37.Logout(gh<_i19.AuthenticationRepo>()));
-    gh.factory<_i38.PrepareBengkelProfileForm>(
-        () => _i38.PrepareBengkelProfileForm(
+    gh.factory<_i31.CustomerProfileRemoteDTS>(() =>
+        _i31.CustomerProfileRemoteDTSImpl(
+            gh<_i30.CustomerProfileFirestoreDTS>()));
+    gh.factory<_i32.CustomerProfileRepo>(() =>
+        _i33.CustomerProfileRepoImpl(gh<_i31.CustomerProfileRemoteDTS>()));
+    gh.factory<_i34.GetAllBengkel>(
+        () => _i34.GetAllBengkel(gh<_i26.BengkelProfileRepository>()));
+    gh.factory<_i35.GetAllJenisLayanan>(
+        () => _i35.GetAllJenisLayanan(gh<_i9.JenisLayananRepository>()));
+    gh.factory<_i36.GetCurrentSession>(
+        () => _i36.GetCurrentSession(gh<_i22.AuthenticationRepo>()));
+    gh.factory<_i37.InitialLocationCubit>(
+        () => _i37.InitialLocationCubit(gh<_i11.LocationUtil>()));
+    gh.factory<_i38.Login>(() => _i38.Login(gh<_i22.AuthenticationRepo>()));
+    gh.factory<_i39.LoginCubit>(() => _i39.LoginCubit(gh<_i38.Login>()));
+    gh.factory<_i40.Logout>(() => _i40.Logout(gh<_i22.AuthenticationRepo>()));
+    gh.factory<_i41.PrepareBengkelProfileForm>(
+        () => _i41.PrepareBengkelProfileForm(
               gh<_i9.JenisLayananRepository>(),
-              gh<_i23.BengkelProfileRepository>(),
+              gh<_i26.BengkelProfileRepository>(),
             ));
-    gh.factory<_i39.PrepareCustomerForm>(
-        () => _i39.PrepareCustomerForm(gh<_i29.CustomerProfileRepo>()));
-    gh.factory<_i40.PrepareCustomerServisCreateForm>(() =>
-        _i40.PrepareCustomerServisCreateForm(
-            gh<_i23.BengkelProfileRepository>()));
-    gh.factory<_i41.RegisterUserAccount>(
-        () => _i41.RegisterUserAccount(gh<_i19.AuthenticationRepo>()));
-    gh.factory<_i42.ServisRemoteDTS>(() => _i42.ServisRemoteDTSImpl(
+    gh.factory<_i42.PrepareCustomerForm>(
+        () => _i42.PrepareCustomerForm(gh<_i32.CustomerProfileRepo>()));
+    gh.factory<_i43.PrepareCustomerServisCreateForm>(() =>
+        _i43.PrepareCustomerServisCreateForm(
+            gh<_i26.BengkelProfileRepository>()));
+    gh.factory<_i44.RegisterUserAccount>(
+        () => _i44.RegisterUserAccount(gh<_i22.AuthenticationRepo>()));
+    gh.factory<_i45.ServisRemoteDTS>(() => _i45.ServisRemoteDTSImpl(
           gh<_i15.ServisFirestoreDTS>(),
-          gh<_i21.BengkelProfileFirestoreDTS>(),
-          gh<_i27.CustomerProfileFirestoreDTS>(),
+          gh<_i24.BengkelProfileFirestoreDTS>(),
+          gh<_i30.CustomerProfileFirestoreDTS>(),
           gh<_i7.JenisLayananFirestoreDTS>(),
         ));
-    gh.factory<_i43.ServisRepo>(
-        () => _i44.ServisRepoImpl(gh<_i42.ServisRemoteDTS>()));
-    gh.lazySingleton<_i45.SessionCubit>(
-        () => _i45.SessionCubit(gh<_i37.Logout>()));
-    gh.factory<_i46.SplashCubit>(
-        () => _i46.SplashCubit(gh<_i33.GetCurrentSession>()));
-    gh.factory<_i47.BengkelListCubit>(
-        () => _i47.BengkelListCubit(gh<_i31.GetAllBengkel>()));
-    gh.factoryParam<_i48.BengkelProfileFormCubit, String, dynamic>((
+    gh.factory<_i46.ServisRepo>(
+        () => _i47.ServisRepoImpl(gh<_i45.ServisRemoteDTS>()));
+    gh.lazySingleton<_i48.SessionCubit>(
+        () => _i48.SessionCubit(gh<_i40.Logout>()));
+    gh.factory<_i49.SplashCubit>(
+        () => _i49.SplashCubit(gh<_i36.GetCurrentSession>()));
+    gh.factory<_i50.BengkelListCubit>(
+        () => _i50.BengkelListCubit(gh<_i34.GetAllBengkel>()));
+    gh.factoryParam<_i51.BengkelProfileFormCubit, String, dynamic>((
       userId,
       _,
     ) =>
-        _i48.BengkelProfileFormCubit(
-          gh<_i38.PrepareBengkelProfileForm>(),
+        _i51.BengkelProfileFormCubit(
+          gh<_i41.PrepareBengkelProfileForm>(),
           userId,
-          gh<_i26.CreateBengkelProfile>(),
+          gh<_i29.CreateBengkelProfile>(),
         ));
-    gh.factory<_i49.CheckIfCustomerHasProfile>(
-        () => _i49.CheckIfCustomerHasProfile(
-              gh<_i29.CustomerProfileRepo>(),
-              gh<_i19.AuthenticationRepo>(),
+    gh.factory<_i52.CheckIfCustomerHasProfile>(
+        () => _i52.CheckIfCustomerHasProfile(
+              gh<_i32.CustomerProfileRepo>(),
+              gh<_i22.AuthenticationRepo>(),
             ));
-    gh.factory<_i50.CreateOrUpdateCustomer>(
-        () => _i50.CreateOrUpdateCustomer(gh<_i29.CustomerProfileRepo>()));
-    gh.factory<_i51.CreateOrUpdateServis>(
-        () => _i51.CreateOrUpdateServis(gh<_i43.ServisRepo>()));
-    gh.factoryParam<_i52.CustomerProfileFormCubit, String, dynamic>((
+    gh.factory<_i53.CreateOrUpdateCustomer>(
+        () => _i53.CreateOrUpdateCustomer(gh<_i32.CustomerProfileRepo>()));
+    gh.factory<_i54.CreateOrUpdateServis>(
+        () => _i54.CreateOrUpdateServis(gh<_i46.ServisRepo>()));
+    gh.factoryParam<_i55.CustomerProfileFormCubit, String, dynamic>((
       userId,
       _,
     ) =>
-        _i52.CustomerProfileFormCubit(
-          gh<_i39.PrepareCustomerForm>(),
+        _i55.CustomerProfileFormCubit(
+          gh<_i42.PrepareCustomerForm>(),
           userId,
-          gh<_i50.CreateOrUpdateCustomer>(),
+          gh<_i53.CreateOrUpdateCustomer>(),
         ));
-    gh.factory<_i53.GetServisList>(
-        () => _i53.GetServisList(gh<_i43.ServisRepo>()));
-    gh.factory<_i54.PrepareCustomerServisEditForm>(
-        () => _i54.PrepareCustomerServisEditForm(
-              gh<_i23.BengkelProfileRepository>(),
-              gh<_i43.ServisRepo>(),
+    gh.factory<_i56.GetServisList>(
+        () => _i56.GetServisList(gh<_i46.ServisRepo>()));
+    gh.factory<_i57.PrepareCustomerServisEditForm>(
+        () => _i57.PrepareCustomerServisEditForm(
+              gh<_i26.BengkelProfileRepository>(),
+              gh<_i46.ServisRepo>(),
             ));
-    gh.factory<_i55.RegisterCubit>(() => _i55.RegisterCubit(
+    gh.factory<_i58.RegisterCubit>(() => _i58.RegisterCubit(
           gh<_i12.MessengerCubit>(),
-          gh<_i41.RegisterUserAccount>(),
+          gh<_i44.RegisterUserAccount>(),
         ));
-    gh.factory<_i56.ServisListCubit>(
-        () => _i56.ServisListCubit(gh<_i53.GetServisList>()));
-    gh.factory<_i57.CustomerServisFormCubit>(() => _i57.CustomerServisFormCubit(
-          gh<_i54.PrepareCustomerServisEditForm>(),
-          gh<_i40.PrepareCustomerServisCreateForm>(),
-          gh<_i51.CreateOrUpdateServis>(),
+    gh.factory<_i59.ServisListCubit>(
+        () => _i59.ServisListCubit(gh<_i56.GetServisList>()));
+    gh.factory<_i60.CustomerServisFormCubit>(() => _i60.CustomerServisFormCubit(
+          gh<_i57.PrepareCustomerServisEditForm>(),
+          gh<_i43.PrepareCustomerServisCreateForm>(),
+          gh<_i54.CreateOrUpdateServis>(),
         ));
     return this;
   }
 }
 
-class _$CoreModules extends _i58.CoreModules {}
+class _$CoreModules extends _i61.CoreModules {}
