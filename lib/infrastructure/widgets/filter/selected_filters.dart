@@ -1,10 +1,10 @@
 part of 'filter.dart';
 
 class _SelectedFilters extends StatelessWidget {
-  final Set<_SelectedFilterData> filters;
+  final Set<SGSelectedFilterData> filters;
   final int count;
   final VoidCallback onShowFilterBottomSheet;
-  final void Function(_SelectedFilterData data)? onItemClicked;
+  final void Function(SGSelectedFilterData data)? onItemClicked;
   const _SelectedFilters(
       {super.key,
       required this.filters,

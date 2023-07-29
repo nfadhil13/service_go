@@ -9,10 +9,12 @@ class SGAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.actions,
       super.key,
       this.widgetTitle,
-      this.hideBackButton = false});
+      this.hideBackButton = false,
+      this.bottom});
 
   final String? pageTitle;
   final Widget? widgetTitle;
+  final PreferredSizeWidget? bottom;
   final List<SGAppBarItemAction>? actions;
   final bool hideBackButton;
 
@@ -27,13 +29,13 @@ class SGAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(actions);
     return AppBar(
       title: widgetTitle ?? _buildTitle(pageTitle, context),
       backgroundColor: context.color.background,
       foregroundColor: context.color.onBackground,
       toolbarHeight: height,
       titleSpacing: 7.w,
+      bottom: bottom,
       elevation: 0,
       shape:
           Border(bottom: BorderSide(color: context.color.outline, width: .25)),
@@ -59,7 +61,8 @@ class SGAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(height);
+  Size get preferredSize =>
+      Size.fromHeight(height + (bottom?.preferredSize.height ?? 0));
 }
 
 class SGAppBarItemAction {

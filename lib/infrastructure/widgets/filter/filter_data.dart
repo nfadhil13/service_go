@@ -19,9 +19,9 @@ sealed class FilterGroup<T> extends Equatable {
 
   bool _isItemSelected(FilterData filterData);
 
-  void _onItemSelected(FilterData filterData);
+  void selectItem(FilterData? filterData);
 
-  void _reset();
+  void clear();
 
   Set<FilterData> get selected;
 
@@ -30,7 +30,7 @@ sealed class FilterGroup<T> extends Equatable {
   int get _count;
 
   @override
-  List<Object?> get props => [filters, title];
+  List<Object?> get props => [filters, title, selected];
 }
 
 // ignore: must_be_immutable
@@ -50,13 +50,14 @@ class FilterGroupSingle extends FilterGroup {
       [if (selectedQuery != null) selectedQuery!.queryField];
 
   @override
-  void _onItemSelected(FilterData filterData) => selectedQuery = filterData;
+  void selectItem(FilterData? filterData) =>
+      selectedQuery = selectedQuery == filterData ? null : filterData;
 
   @override
   int get _count => selectedQuery != null ? 1 : 0;
 
   @override
-  void _reset() => selectedQuery = null;
+  void clear() => selectedQuery = null;
 
   @override
   Set<FilterData> get selected => {if (selectedQuery != null) selectedQuery!};
@@ -107,7 +108,8 @@ class FilterGroupMultiple extends FilterGroup {
   }
 
   @override
-  void _onItemSelected(FilterData filterData) {
+  void selectItem(FilterData? filterData) {
+    if (filterData == null) return;
     final contains = selectedList.contains(filterData);
     if (contains) {
       selectedList.remove(filterData);
@@ -120,8 +122,18 @@ class FilterGroupMultiple extends FilterGroup {
   int get _count => selectedList.length;
 
   @override
-  void _reset() => selectedList.clear();
+  void clear() => selectedList.clear();
 
   @override
   Set<FilterData> get selected => selectedList;
+}
+
+class SGSelectedFilterData extends Equatable {
+  final int groupdIndex;
+  final FilterData filter;
+
+  const SGSelectedFilterData(this.groupdIndex, this.filter);
+
+  @override
+  List<Object?> get props => [groupdIndex, filter];
 }
