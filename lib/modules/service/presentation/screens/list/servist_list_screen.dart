@@ -31,7 +31,7 @@ class ServisListType {
 class ServisListScreen extends StatelessWidget {
   final SGDataQuery? initialQuery;
   final ServisListType? type;
-  final Servis Function(Servis servis)? onServisClick;
+  final void Function(Servis servis)? onServisClick;
   const ServisListScreen(
       {super.key, this.initialQuery, this.onServisClick, this.type});
 
@@ -57,7 +57,7 @@ class _Content extends StatefulWidget {
   });
 
   final ServisListType? type;
-  final Servis Function(Servis servis)? onServisClick;
+  final void Function(Servis servis)? onServisClick;
 
   @override
   State<_Content> createState() => _ContentState();

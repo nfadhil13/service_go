@@ -18,7 +18,9 @@ class CustomerRouterScreen extends AutoRouter implements AutoRouteWrapper {
         AutoRoute(page: CustomerHomeRoute.page, path: 'home', initial: true),
         AutoRoute(page: BengkelListRoute.page, path: 'bengkel'),
         AutoRoute(page: CustomerServisFormRoute.page, path: 'pesan'),
-        AutoRoute(page: ServisListRoute.page, path: 'pesanan-customer')
+        AutoRoute(page: ServisListRoute.page, path: 'pesanan-customer'),
+        AutoRoute(
+            page: ServisCustomerDetailRoute.page, path: 'pesanan-customer/:id')
       ];
 
   final CustomerProfile? profile;

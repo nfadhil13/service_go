@@ -19,6 +19,12 @@ class _ServisBerjalan extends StatelessWidget {
             ),
             InkWell(
               onTap: () => context.router.push(ServisListRoute(
+                  onServisClick: (servis) {
+                    final id = servis.id.id;
+                    if (id == null) return;
+                    context.router
+                        .push(ServisCustomerDetailRoute(servisId: id));
+                  },
                   type: ServisListType(false, context.userSession.userId))),
               child: Text(
                 "Lihat Lebih",
@@ -29,6 +35,11 @@ class _ServisBerjalan extends StatelessWidget {
         ),
         1.5.h.verticalSpace,
         ServisListAutoWidget(
+          onTap: (servis) {
+            final id = servis.id.id;
+            if (id == null) return;
+            context.router.push(ServisCustomerDetailRoute(servisId: id));
+          },
           query: SGDataQuery(limit: 2, query: [
             SGQueryField("customerId", isEqual: context.userSession.userId),
             SGQueryField("status", whereNotIn: [

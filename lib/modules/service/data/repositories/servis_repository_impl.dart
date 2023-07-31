@@ -1,7 +1,9 @@
 import 'package:injectable/injectable.dart';
+import 'package:service_go/infrastructure/types/exceptions/base_exception.dart';
 import 'package:service_go/infrastructure/types/query.dart';
 import 'package:service_go/modules/service/data/datasource/remote/servis_remote_dts.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
+import 'package:service_go/modules/service/domain/model/servis_detail.dart';
 import 'package:service_go/modules/service/domain/repositories/servis_repository.dart';
 
 @Injectable(as: ServisRepo)
@@ -24,4 +26,8 @@ class ServisRepoImpl implements ServisRepo {
 
   @override
   Future<Servis> putServis(Servis servis) => _servisRemoteDTS.putServis(servis);
+
+  @override
+  Future<ServisDetail> getServisDetailById(String id) =>
+      _servisRemoteDTS.getServisDetail(id);
 }

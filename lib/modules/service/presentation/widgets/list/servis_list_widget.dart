@@ -12,7 +12,8 @@ import 'package:service_go/infrastructure/widgets/error.dart';
 import 'package:service_go/infrastructure/widgets/loading/circular.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
-import 'package:service_go/modules/service/presentation/cubits/cubit/servis_list_cubit.dart';
+import 'package:service_go/modules/service/presentation/cubits/servis_list/servis_list_cubit.dart';
+import 'package:service_go/modules/service/presentation/widgets/status/servis_status.dart';
 
 part 'item.dart';
 

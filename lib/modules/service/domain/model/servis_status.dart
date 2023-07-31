@@ -3,61 +3,62 @@ enum ServisStatus {
     id: 1,
     statusName: 'Diajukan',
     description: 'Layanan sedang diajukan',
-    colorHex: '#ADD8E6',
+    colorHex: '#404040',
   ),
   pengajuanDiterima(
     id: 2,
     statusName: 'Permintaan Diterima',
-    description: 'Layanan sedang ditinjau oleh begnkel',
-    colorHex: '#FFFF00',
+    description: 'Permintaan perbaikan diterima',
+    colorHex: '#00008B',
   ),
   unitDiterima(
     id: 3,
     statusName: 'Unit Diterima',
     description: 'Unit yang diperlukan telah diterima',
-    colorHex: '#FFA500',
+    colorHex: '#006400',
   ),
   unitDiperiksa(
     id: 4,
     statusName: 'Unit Diperika',
-    description: 'Unit yang diperlukan sedang diperiksa oleh bengkel',
-    colorHex: '#FFA500',
+    description: 'Unit sedang diperiksa oleh bengkel',
+    colorHex: '#B8860B',
   ),
   konfirmasiServis(
     id: 5,
     statusName: 'Konfirmasi Servis',
-    description: 'Unit yang diperlukan sedang diperiksa oleh bengkel',
-    colorHex: '#FFA500',
+    description: 'Bengkel mengajukan detail servis kepada customer',
+    colorHex: '#9400D3',
   ),
-  konfirmasiServis(
-    id: 5,
-    statusName: 'Konfirmasi Servis',
-    description: 'Unit yang diperlukan sedang diperiksa oleh bengkel',
-    colorHex: '#FFA500',
+  menungguPengerjaan(
+    id: 6,
+    statusName: 'Menunggu Pengerjaan',
+    description:
+        'Customer dan Bengkel setuju terhadap servis yang akan dilakukan pada unit',
+    colorHex: '#FF8C00',
   ),
   pengerjaanService(
-    id: 6,
+    id: 7,
     statusName: 'Pengerjaan Service',
     description: 'Sedang dalam proses pengerjaan layanan',
-    colorHex: '#800080',
+    colorHex: '#8B0000',
   ),
   siapDiambil(
-    id: 7,
+    id: 8,
     statusName: 'Siap Diambil',
     description: 'Layanan telah selesai dan siap diambil',
-    colorHex: '#008080',
+    colorHex: '#8FBC8F',
   ),
   serviceSelesai(
-    id: 8,
+    id: 9,
     statusName: 'Service Selesai',
     description: 'Layanan selesai dan telah diambil',
-    colorHex: '#00FFFF',
+    colorHex: '#556B2F',
   ),
   ditolak(
-    id: 9,
+    id: 10,
     statusName: 'Ditolak',
     description: 'Permintaan layanan ditolak',
-    colorHex: '#000000',
+    colorHex: '#E9967A',
   );
 
   final int id;
@@ -77,18 +78,20 @@ enum ServisStatus {
       case 2:
         return ServisStatus.pengajuanDiterima;
       case 3:
-        return ServisStatus.menungguUnit;
-      case 4:
-        return ServisStatus.menungguUnit;
-      case 5:
         return ServisStatus.unitDiterima;
+      case 4:
+        return ServisStatus.unitDiperiksa;
+      case 5:
+        return ServisStatus.konfirmasiServis;
       case 6:
-        return ServisStatus.pengerjaanService;
+        return ServisStatus.menungguPengerjaan;
       case 7:
-        return ServisStatus.siapDiambil;
+        return ServisStatus.pengerjaanService;
       case 8:
-        return ServisStatus.serviceSelesai;
+        return ServisStatus.siapDiambil;
       case 9:
+        return ServisStatus.serviceSelesai;
+      case 10:
         return ServisStatus.ditolak;
       default:
         throw ArgumentError('ID tidak valid untuk ServiceStatus.');

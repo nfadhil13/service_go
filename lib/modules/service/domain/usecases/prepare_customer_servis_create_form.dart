@@ -4,8 +4,6 @@ import 'package:service_go/infrastructure/types/exceptions/base_exception.dart';
 import 'package:service_go/infrastructure/types/resource.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
 import 'package:service_go/modules/bengkel/domain/repositories/bengkel_profile_repository.dart';
-import 'package:service_go/modules/service/domain/model/servis.dart';
-import 'package:service_go/modules/service/domain/repositories/servis_repository.dart';
 
 @injectable
 class PrepareCustomerServisCreateForm extends Usecase<String, BengkelProfile> {

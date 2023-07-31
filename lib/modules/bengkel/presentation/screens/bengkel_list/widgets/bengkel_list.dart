@@ -184,21 +184,11 @@ class _SelectedBengkel extends StatelessWidget {
                 ),
                 12.verticalSpace,
                 InkWell(
-                  onTap: () async {
-                    final currentLocation = context.currentLocation;
-                    final availableMaps = await MapLauncher.installedMaps;
-                    final location = bengkel.lokasi;
-                    await availableMaps.first.showDirections(
-                      destination: Coords(
-                        location.lat,
-                        location.long,
-                      ),
-                      originTitle: currentLocation.shortAddress,
-                      origin: currentLocation.latLgn
-                          .let((value) => Coords(value.lat, value.long)),
-                      destinationTitle: bengkel.nama,
-                    );
-                  },
+                  onTap: () => SGIntents.navigateFromTo(
+                      start: context.currentLocation.latLgn,
+                      end: bengkel.lokasi,
+                      endTitle: bengkel.nama,
+                      startTitle: context.currentLocation.shortAddress),
                   child: Row(
                     children: [
                       Icon(

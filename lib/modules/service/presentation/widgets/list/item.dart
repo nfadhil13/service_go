@@ -42,7 +42,7 @@ class ServisListItem extends StatelessWidget {
                 child: _Item(
                     title: "Tanggal Servis",
                     item: servis.tanggalService.dateStringForm())),
-            _StatusChip(status: servis.status)
+            ServisStatusChip(status: servis.status)
           ],
         )
       ]),
@@ -68,27 +68,6 @@ class _Item extends StatelessWidget {
           style: text.bodySmall?.copyWith(fontWeight: FontWeight.w600),
         ),
       ],
-    );
-  }
-}
-
-class _StatusChip extends StatelessWidget {
-  final ServisStatus status;
-  const _StatusChip({super.key, required this.status});
-
-  @override
-  Widget build(BuildContext context) {
-    final color = ColorUtil.hexToColor(status.colorHex);
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: color.withOpacity(.08),
-          border: Border.all(color: color)),
-      child: Text(
-        status.statusName,
-        style: context.text.bodySmall?.copyWith(color: color),
-      ),
     );
   }
 }
