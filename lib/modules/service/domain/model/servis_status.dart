@@ -1,32 +1,38 @@
 enum ServisStatus {
-  pengajuanReschedule(
-    id: 1,
-    statusName: 'Pengajuan Reschedule',
-    description: 'Permintaan pengajuan reschedule layanan',
-    colorHex: '#FFC0CB',
-  ),
   diajukan(
-    id: 2,
+    id: 1,
     statusName: 'Diajukan',
     description: 'Layanan sedang diajukan',
     colorHex: '#ADD8E6',
   ),
-  ditinjau(
-    id: 3,
-    statusName: 'Ditinjau',
-    description: 'Layanan sedang ditinjau oleh pihak terkait',
+  pengajuanDiterima(
+    id: 2,
+    statusName: 'Permintaan Diterima',
+    description: 'Layanan sedang ditinjau oleh begnkel',
     colorHex: '#FFFF00',
   ),
-  menungguUnit(
-    id: 4,
-    statusName: 'Menunggu Unit',
-    description: 'Menunggu unit yang diperlukan untuk pengerjaan',
-    colorHex: '#008000',
-  ),
   unitDiterima(
-    id: 5,
+    id: 3,
     statusName: 'Unit Diterima',
     description: 'Unit yang diperlukan telah diterima',
+    colorHex: '#FFA500',
+  ),
+  unitDiperiksa(
+    id: 4,
+    statusName: 'Unit Diperika',
+    description: 'Unit yang diperlukan sedang diperiksa oleh bengkel',
+    colorHex: '#FFA500',
+  ),
+  konfirmasiServis(
+    id: 5,
+    statusName: 'Konfirmasi Servis',
+    description: 'Unit yang diperlukan sedang diperiksa oleh bengkel',
+    colorHex: '#FFA500',
+  ),
+  konfirmasiServis(
+    id: 5,
+    statusName: 'Konfirmasi Servis',
+    description: 'Unit yang diperlukan sedang diperiksa oleh bengkel',
     colorHex: '#FFA500',
   ),
   pengerjaanService(
@@ -47,14 +53,8 @@ enum ServisStatus {
     description: 'Layanan selesai dan telah diambil',
     colorHex: '#00FFFF',
   ),
-  butuhReschedule(
-    id: 9,
-    statusName: 'Butuh Reschedule',
-    description: 'Memerlukan reschedule layanan',
-    colorHex: '#808080',
-  ),
   ditolak(
-    id: 10,
+    id: 9,
     statusName: 'Ditolak',
     description: 'Permintaan layanan ditolak',
     colorHex: '#000000',
@@ -73,11 +73,11 @@ enum ServisStatus {
   static ServisStatus fromID(int id) {
     switch (id) {
       case 1:
-        return ServisStatus.pengajuanReschedule;
-      case 2:
         return ServisStatus.diajukan;
+      case 2:
+        return ServisStatus.pengajuanDiterima;
       case 3:
-        return ServisStatus.ditinjau;
+        return ServisStatus.menungguUnit;
       case 4:
         return ServisStatus.menungguUnit;
       case 5:
@@ -89,8 +89,6 @@ enum ServisStatus {
       case 8:
         return ServisStatus.serviceSelesai;
       case 9:
-        return ServisStatus.butuhReschedule;
-      case 10:
         return ServisStatus.ditolak;
       default:
         throw ArgumentError('ID tidak valid untuk ServiceStatus.');
