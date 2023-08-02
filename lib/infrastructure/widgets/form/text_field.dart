@@ -19,6 +19,7 @@ class SGTextField extends StatelessWidget {
   final bool readOnly;
   final String? initialValue;
   final bool filled;
+  final bool shownCounter;
   final Color? backgroundColor;
   final Function(String value)? onFieldSubmitted;
   final TextInputAction? textInputAction;
@@ -56,6 +57,7 @@ class SGTextField extends StatelessWidget {
     this.contentPadding,
     this.inputFormatters,
     this.onTap,
+    this.shownCounter = false,
   })  : borderRadius = BorderRadius.circular(8),
         super(key: key);
 
@@ -67,6 +69,15 @@ class SGTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          buildCounter: shownCounter
+              ? (context,
+                  {required currentLength,
+                  required isFocused,
+                  required maxLength}) {
+                  if (!isFocused) return null;
+                  return Text("$currentLength/$maxLength");
+                }
+              : null,
           textAlignVertical: TextAlignVertical.top,
           textAlign: TextAlign.start,
           autofocus: autofocus ?? false,

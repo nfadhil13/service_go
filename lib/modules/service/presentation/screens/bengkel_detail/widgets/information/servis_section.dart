@@ -1,4 +1,4 @@
-part of '../servis_customer_detail_screen.dart';
+part of '../../servis_bengkel_detail_screen.dart';
 
 class _ServisDetail extends StatelessWidget {
   final Servis servis;

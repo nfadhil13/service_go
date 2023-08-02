@@ -1,4 +1,4 @@
-part of '../servis_customer_detail_screen.dart';
+part of '../../servis_bengkel_detail_screen.dart';
 
 class _Layanan extends StatelessWidget {
   final List<JenisLayanan> layananList;
@@ -14,7 +14,7 @@ class _Layanan extends StatelessWidget {
           style: context.text.labelLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
         12.verticalSpace,
-        Wrap(children: [
+        Wrap(runSpacing: 12, children: [
           ...layananList.map((e) => Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: Container(

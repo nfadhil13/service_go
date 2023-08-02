@@ -10,7 +10,7 @@ class SGIntents {
   static Future<void> call(BuildContext context,
       {required String phoneNumber}) async {
     final messenger = context.messenger;
-    String url = "tel://$phoneNumber";
+    String url = "tel:$phoneNumber";
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);

@@ -9,14 +9,25 @@ sealed class ServisDetailState extends Equatable {
 
 class ServisDetailLoading extends ServisDetailState {}
 
-class ServisDetailSuccess extends ServisDetailState {
+sealed class ServisDetailSuccess extends ServisDetailState {
   final ServisDetail servis;
 
   const ServisDetailSuccess(this.servis);
+
+  @override
+  List<Object> get props => [servis];
 }
 
 class ServisDetailError extends ServisDetailState {
   final String message;
 
   const ServisDetailError(this.message);
+}
+
+class ServisDetailSuccessIdle extends ServisDetailSuccess {
+  const ServisDetailSuccessIdle(super.servis);
+}
+
+class ServisDetailSuccessUpdating extends ServisDetailSuccess {
+  const ServisDetailSuccessUpdating(super.servis);
 }

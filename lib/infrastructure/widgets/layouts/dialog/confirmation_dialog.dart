@@ -1,89 +1,139 @@
 part of 'dialog_container.dart';
 
-// class ConfirmationDialog extends StatelessWidget {
-//   final Function(VoidCallback closeDialog) onConfirm;
-//   final VoidCallback? onCancel;
-//   final String? title;
-//   final String? desc;
+class SGConfirmationDialog extends StatelessWidget {
+  final Future<void> Function(Future<void> Function() closeDialog)? onConfirm;
 
-//   const ConfirmationDialog._(
-//       {required this.onConfirm, this.onCancel, this.title, this.desc});
+  final Future<void> Function(Future<void> Function() closeDialog)? onCancel;
+  final double? maxHeightPercentage;
+  final String? title;
+  final String? desc;
+  final Widget? descWidget;
+  final Widget? extraInfo;
 
-//   static Future<void> launch(BuildContext context,
-//       {required Function(VoidCallback closeDialog) onConfirm,
-//       VoidCallback? onCancel,
-//       String? title,
-//       String? desc}) async {
-//     showDialog(
-//         context: context,
-//         builder: (context) => ConfirmationDialog._(
-//               onConfirm: onConfirm,
-//               onCancel: onCancel,
-//               desc: desc,
-//               title: title,
-//             ));
-//   }
+  const SGConfirmationDialog._(
+      {required this.onConfirm,
+      this.title,
+      this.desc,
+      this.extraInfo,
+      this.onCancel,
+      this.descWidget,
+      this.maxHeightPercentage});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return DialogContainer(
-//         maxHeightPercentage: .5,
-//         child: SingleChildScrollView(
-//           child: Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: [
-//                 const Icon(
-//                   Icons.warning_amber,
-//                   size: 84,
-//                   color: Colors.orange,
-//                 ),
-//                 const SizedBox(height: 20),
-//                 if (title != null)
-//                   Text(
-//                     title!,
-//                     style: const TextStyle(
-//                         fontWeight: FontWeight.bold, fontSize: 24),
-//                   ),
-//                 const SizedBox(height: 5),
-//                 if (desc != null)
-//                   Text(
-//                     desc!,
-//                     textAlign: TextAlign.center,
-//                   ),
-//                 const SizedBox(height: 45),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     Expanded(
-//                       child: SGOutlinedButton(
-//                           color: context.colorTheme.primaryColor,
-//                           onPressed: () {
-//                             if (onCancel != null) {
-//                               onCancel?.call();
-//                             } else {
-//                               Navigator.of(context).pop();
-//                             }
-//                           },
-//                           text: "Tidak"),
-//                     ),
-//                     const SizedBox(width: 12),
-//                     Expanded(
-//                       child: PrimaryButton(
-//                         onPressed: () => onConfirm(() {
-//                           Navigator.of(context).pop();
-//                         }),
-//                         text: "Ya",
-//                         backgroundColor: context.colorTheme.primaryColor,
-//                       ),
-//                     )
-//                   ],
-//                 )
-//               ],
-//             ),
-//           ),
-//         ));
-//   }
-// }
+  static Future<T?> launch<T>(BuildContext context,
+      {Future<void> Function(Future<void> Function() closeDialog)? onConfirm,
+      double? maxHeightPercentage,
+      String? title,
+      Widget? descWidget,
+      Future<void> Function(Future<void> Function() closeDialog)? onCancel,
+      String? desc}) async {
+    return showDialog(
+        context: context,
+        builder: (context) => SGConfirmationDialog._(
+              onConfirm: onConfirm,
+              maxHeightPercentage: maxHeightPercentage,
+              desc: desc,
+              onCancel: onCancel,
+              descWidget: descWidget,
+              title: title,
+            ));
+  }
+
+  static Future<bool> launchAsync<T>(BuildContext context,
+      {double? maxHeightPercentage,
+      String? title,
+      Widget? descWidget,
+      Widget? extraInfo,
+      String? desc}) async {
+    final result = await showDialog(
+        context: context,
+        builder: (context) => SGConfirmationDialog._(
+              onConfirm: (closeDialog) {
+                return context.router.pop(true);
+              },
+              maxHeightPercentage: maxHeightPercentage,
+              desc: desc,
+              extraInfo: extraInfo,
+              onCancel: (closeDialog) {
+                return context.router.pop(false);
+              },
+              descWidget: descWidget,
+              title: title,
+            ));
+    return result is bool && result == true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SGDialogContainer(
+        maxHeightPercentage: maxHeightPercentage ?? .5,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (title != null)
+                  Text(
+                    title!,
+                    style: context.text.headlineSmall,
+                  ),
+                const SizedBox(height: 5),
+                if (descWidget != null) descWidget!,
+                if (desc != null && descWidget == null)
+                  Text(
+                    desc!,
+                    textAlign: TextAlign.start,
+                    style: context.text.bodyMedium
+                        ?.copyWith(color: context.color.onSurfaceVariant),
+                  ),
+                if (extraInfo != null) extraInfo!,
+                12.verticalSpace,
+                Column(
+                  children: [
+                    12.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            final onCancel = this.onCancel;
+                            if (onCancel == null) {
+                              context.router.root.pop();
+                              return;
+                            }
+                            onCancel(context.router.pop);
+                          },
+                          child: Text(
+                            "Batal",
+                            style: context.text.labelLarge
+                                ?.copyWith(color: context.color.primary),
+                          ),
+                        ),
+                        12.horizontalSpace,
+                        InkWell(
+                          onTap: () {
+                            final onConfirm = this.onConfirm;
+                            if (onConfirm == null) {
+                              context.router.root.pop();
+                              return;
+                            }
+                            onConfirm(context.router.pop);
+                          },
+                          child: Text(
+                            "Konfirmasi",
+                            style: context.text.labelLarge
+                                ?.copyWith(color: context.color.primary),
+                          ),
+                        ),
+                      ],
+                    ),
+                    12.verticalSpace
+                  ],
+                )
+              ],
+            ),
+          ),
+        ));
+  }
+}

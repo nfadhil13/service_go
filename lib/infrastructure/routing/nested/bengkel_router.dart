@@ -10,7 +10,8 @@ import 'package:service_go/modules/profile/domain/usecase/bengkel/check_is_bengk
 @RoutePage(name: 'BengkelRouter')
 class BengkelRouterScreen extends AutoRouter implements AutoRouteWrapper {
   static List<AutoRoute> get routes => [
-        AutoRoute(page: HomeRoute.page, path: 'home', initial: true),
+        AutoRoute(page: BengkelHomeRoute.page, path: 'home', initial: true),
+        AutoRoute(page: ServisBengkelDetailRoute.page, path: 'pesanan/:id')
       ];
 
   final BengkelProfile? bengkelProfile;

@@ -9,6 +9,7 @@ abstract class UserDataRemoteDTS {
   Future<UserData?> fetchById(String userId);
   Future<bool> isUsernameExist(String username);
   Future<void> createUser(UserData userData);
+  Future<void> updateToken(String userId, {required String? token});
 }
 
 @Injectable(as: UserDataRemoteDTS)
@@ -23,13 +24,13 @@ class UserDataRemoteDTSImpl
 
   @override
   Future<UserData?> fetchById(String userId) async {
-    final result = await collectionRef.doc(userId).get();
+    final result = await collectionRef().doc(userId).get();
     return result.data();
   }
 
   @override
   Future<bool> isUsernameExist(String username) async {
-    final searchUserByUsername = await collectionRef
+    final searchUserByUsername = await collectionRef()
         .where(mapper.usernameField.key, isEqualTo: username)
         .limit(1)
         .get();
@@ -38,6 +39,13 @@ class UserDataRemoteDTSImpl
 
   @override
   Future<void> createUser(UserData userData) async {
-    await collectionRef.doc(userData.id).set(userData);
+    await collectionRef().doc(userData.id).set(userData);
+  }
+
+  @override
+  Future<void> updateToken(String userId, {required String? token}) async {
+    await collectionRef()
+        .doc(userId)
+        .update({mapper.notificationToken.key: token});
   }
 }

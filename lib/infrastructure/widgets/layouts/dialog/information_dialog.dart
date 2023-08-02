@@ -1,13 +1,13 @@
 part of 'dialog_container.dart';
 
-class InformationDialog extends StatelessWidget {
+class SGInformationDialog extends StatelessWidget {
   final void Function(VoidCallback closeDialog)? onConfirm;
   final double? maxHeightPercentage;
   final String? title;
   final String? desc;
   final Widget? descWidget;
 
-  const InformationDialog._(
+  const SGInformationDialog._(
       {required this.onConfirm,
       this.title,
       this.desc,
@@ -22,7 +22,7 @@ class InformationDialog extends StatelessWidget {
       String? desc}) async {
     showDialog(
         context: context,
-        builder: (context) => InformationDialog._(
+        builder: (context) => SGInformationDialog._(
               onConfirm: onConfirm,
               maxHeightPercentage: maxHeightPercentage,
               desc: desc,

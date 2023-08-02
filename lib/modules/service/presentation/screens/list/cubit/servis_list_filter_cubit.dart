@@ -22,7 +22,7 @@ class ServisListFilterCubit extends Cubit<SGDataQuery> {
     final query = [for (final filter in groups) ...filter.mergeQueryFields()];
     final type = this.type;
     if (type != null) query.add(type.queryField);
-    print(query);
+
     emit(state.copyWith(query: query));
   }
 }

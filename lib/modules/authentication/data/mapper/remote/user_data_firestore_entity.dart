@@ -9,6 +9,9 @@ class UserDataFiresotreEntity extends FireStoreMapper<UserData> {
 
   final FireStoreField<UserData, bool> isBengkelField;
 
+  final FireStoreField<UserData, String?> notificationToken =
+      FireStoreField("notificationToken", (entity) => entity.token);
+
   UserDataFiresotreEntity._(
       this.usernameField, this.isBengkelField, this.emailField);
 
@@ -32,6 +35,7 @@ class UserDataFiresotreEntity extends FireStoreMapper<UserData> {
   UserData toResult(firestoreData, String id) {
     return UserData(
         id: id,
+        token: notificationToken.parseJSON(firestoreData),
         username: usernameField.parseJSON(firestoreData),
         email: emailField.parseJSON(firestoreData),
         isBengkel: isBengkelField.parseJSON(firestoreData));
@@ -39,5 +43,5 @@ class UserDataFiresotreEntity extends FireStoreMapper<UserData> {
 
   @override
   List<FireStoreField<UserData, dynamic>> get fields =>
-      [usernameField, emailField, isBengkelField];
+      [usernameField, emailField, isBengkelField, notificationToken];
 }

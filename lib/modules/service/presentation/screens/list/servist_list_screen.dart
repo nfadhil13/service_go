@@ -11,7 +11,6 @@ import 'package:service_go/infrastructure/types/query.dart';
 import 'package:service_go/infrastructure/widgets/filter/filter.dart';
 import 'package:service_go/infrastructure/widgets/layouts/appbar/appbar.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
-import 'package:service_go/modules/service/domain/model/servis_status.dart';
 import 'package:service_go/modules/service/presentation/screens/list/cubit/servis_list_filter_cubit.dart';
 import 'package:service_go/modules/service/presentation/screens/list/cubit/servis_list_queries.dart';
 import 'package:service_go/modules/service/presentation/widgets/list/servis_list_widget.dart';
@@ -39,7 +38,8 @@ class ServisListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          getIt<ServisListFilterCubit>(param1: initialQuery, param2: type),
+          getIt<ServisListFilterCubit>(param1: initialQuery, param2: type)
+            ..applyQuery([]),
       child: BlocProvider(
         create: (context) => SGFilterCubit(SGFilterState(
           filterGroups: context.read<ServisListFilterCubit>().filters,

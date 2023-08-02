@@ -10,6 +10,7 @@ import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
 import 'package:service_go/modules/profile/domain/usecase/customer/craete_or_update_customer.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
+import 'package:service_go/modules/service/domain/model/servis_status_data.dart';
 import 'package:service_go/modules/service/domain/usecases/create_or_update_servis.dart';
 import 'package:service_go/modules/service/domain/usecases/prepare_customer_servis_create_form.dart';
 import 'package:service_go/modules/service/domain/usecases/prepare_customer_servis_form.dart';
@@ -112,7 +113,7 @@ class CustomerServisFormCubit extends Cubit<CustomerServisFormState> {
     return Servis(
         namaMotor: namaMotor.text,
         platNomor: platNomor.text,
-        status: oldServis?.status ?? ServisStatus.diajukan,
+        statusData: oldServis?.statusData ?? ServisStatusDiajukan(),
         layanan: layanan.value,
         catatan: oldServis?.catatan ?? catatan.text,
         customer: oldServis?.customer ?? ServisCustomer(customerId, ""),

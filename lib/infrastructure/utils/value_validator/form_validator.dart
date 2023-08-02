@@ -46,18 +46,19 @@ class ValueValidatorBuilder<Value extends dynamic> {
         }
       ]);
 
-  ValueValidatorBuilder<Value> minLengthOf(int minLenght) =>
+  ValueValidatorBuilder<Value> minLengthOf(int minLenght,
+          {String? errorText}) =>
       ValueValidatorBuilder._(fieldName, [
         ...validatorList,
         (value) {
           if (value is List) {
             if (value.length < minLenght) {
-              return "$fieldName minimal adalah $minLenght";
+              return errorText ?? "$fieldName minimal adalah $minLenght";
             }
             return null;
           }
           return value.toString().length < minLenght
-              ? "$fieldName minimal adalah $minLenght"
+              ? errorText ?? "$fieldName minimal adalah $minLenght"
               : null;
         }
       ]);

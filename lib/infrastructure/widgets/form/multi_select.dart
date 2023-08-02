@@ -20,6 +20,7 @@ class SGMultiSelectItem<T> extends Equatable {
 class SGMultiSelectField<T> extends StatefulWidget {
   final List<SGMultiSelectItem<T>> items;
   final String? Function(List<T>)? validator;
+  final List<SGMultiSelectItem<T>> initialValues;
   final SGMultiSelectFieldController? controller;
   final EdgeInsets? contentPadding;
   final bool? enabled;
@@ -49,7 +50,8 @@ class SGMultiSelectField<T> extends StatefulWidget {
       this.obscureText,
       this.suffixIcon,
       this.prefixIcon,
-      this.height});
+      this.height,
+      this.initialValues = const []});
 
   @override
   State<SGMultiSelectField<T>> createState() => _SGMultiSelectFieldState<T>();
@@ -76,6 +78,7 @@ class _SGMultiSelectFieldState<T> extends State<SGMultiSelectField<T>> {
   void initState() {
     super.initState();
     widget.controller?._init(this);
+    _value = widget.initialValues;
   }
 
   void _openDialog() async {

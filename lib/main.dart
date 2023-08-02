@@ -4,14 +4,14 @@ import 'package:service_go/infrastructure/architecutre/error_handler/global_erro
 import 'package:service_go/infrastructure/env/env.dart';
 import 'package:service_go/infrastructure/routing/router.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:service_go/infrastructure/utils/firebase_messanger_util.dart';
+import 'package:service_go/infrastructure/utils/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await NotificationService.initializeNotification();
+  await NotificationService.requestPermissionsNotification();
+  await FirebaseHelper.setupFirebase();
   await configureDependencies();
   SGGlobalErrorHandler.setUpErrorHandler();
   ENV.setEnv(ENV.dev);

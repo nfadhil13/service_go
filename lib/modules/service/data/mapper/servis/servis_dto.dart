@@ -3,15 +3,18 @@ import 'package:service_go/infrastructure/types/mapper/dto.dart';
 import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
+import 'package:service_go/modules/service/domain/model/servis_status_data.dart';
 
 class ServisDTOParams {
   final ServisCustomer customer;
   final ServisBengkel bengkel;
   final List<JenisLayanan> jenisLayanan;
+  final ServisStatusData data;
 
   ServisDTOParams(
       {required this.customer,
       required this.bengkel,
+      required this.data,
       required this.jenisLayanan});
 }
 
@@ -46,7 +49,6 @@ class ServisDTO implements DTO<Servis, ServisDTOParams> {
         tanggalService: Timestamp.fromDate(servis.tanggalService),
         customerId: servis.customer.id,
         bengkelId: servis.bengkel.id,
-        
         catatan: servis.catatan,
         status: servis.status.id);
   }
@@ -61,7 +63,7 @@ class ServisDTO implements DTO<Servis, ServisDTOParams> {
         bengkel: params.bengkel,
         catatan: catatan,
         id: id,
-        status: ServisStatus.fromID(status),
+        statusData: params.data,
         tanggalService: tanggalService.toDate());
   }
 }

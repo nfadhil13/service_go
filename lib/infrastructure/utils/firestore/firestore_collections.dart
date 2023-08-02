@@ -4,7 +4,7 @@ enum FirestoreCollections {
   customerProfile("customer"),
   bengeklProfile("bengkel"),
   servis("servis"),
-
+  servisLog("servisLog"),
   jenisLayanan("jenisLayanan"),
 
   /// User data collection berisi list data user dengan properties

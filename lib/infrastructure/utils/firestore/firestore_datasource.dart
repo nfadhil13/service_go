@@ -11,38 +11,53 @@ import 'package:service_go/infrastructure/utils/firestore/firestore_mapper.dart'
 
 class FirestoreDatasource<Entity, Mapper extends FireStoreMapper<Entity>> {
   final Mapper mapper;
+  final FirestoreCollections? parentCollection;
   final FirestoreCollections collection;
   final FirebaseFirestore firestore;
   final SGLatLong Function(Entity entity)? locationMapper;
 
   FirestoreDatasource(
       {required this.mapper,
+      this.parentCollection,
       required this.collection,
       this.locationMapper,
       required this.firestore});
 
-  Future<Entity> create(Entity entity) => collectionRef
-      .add(entity)
-      .then((value) => value.get())
-      .then((value) => value.data()!);
+  Future<Entity> create(Entity entity,
+          {String Function(String collectionName)? pathBuilder}) =>
+      collectionRef(pathBuilder: pathBuilder)
+          .add(entity)
+          .then((value) => value.get())
+          .then((value) => value.data()!);
 
-  Future<void> put(Entity entity, String id) =>
-      collectionRef.doc(id).set(entity);
+  Future<void> put(Entity entity, String id,
+          {String Function(String collectionName)? pathBuilder}) =>
+      collectionRef(pathBuilder: pathBuilder).doc(id).set(entity);
 
-  Future<Entity?> fetchOne(String id) =>
-      collectionRef.doc(id).get().then((value) => value.data());
+  Future<Entity?> fetchOne(String id,
+          {String Function(String collectionName)? pathBuilder}) =>
+      collectionRef(pathBuilder: pathBuilder)
+          .doc(id)
+          .get()
+          .then((value) => value.data());
 
-  Future<List<Entity>> fetchAll({SGDataQuery? query}) =>
-      collectionRef.getWithQuery(query: query, locationMapper: locationMapper);
+  Future<List<Entity>> fetchAll(
+          {SGDataQuery? query,
+          String Function(String collectionName)? pathBuilder}) =>
+      collectionRef(pathBuilder: pathBuilder)
+          .getWithQuery(query: query, locationMapper: locationMapper);
 
-  Future<List<SGDistance<Entity>>> fetchAllWithDistance({SGDataQuery? query}) =>
-      collectionRef.getWithQueryDistance(
-          query: query, locationMapper: locationMapper);
+  Future<List<SGDistance<Entity>>> fetchAllWithDistance(
+          {SGDataQuery? query,
+          String Function(String collectionName)? pathBuilder}) =>
+      collectionRef(pathBuilder: pathBuilder)
+          .getWithQueryDistance(query: query, locationMapper: locationMapper);
 
-  Future<List<Entity>> fetchByIds(List<String> ids) async {
+  Future<List<Entity>> fetchByIds(List<String> ids,
+      {String Function(String collectionName)? pathBuilder}) async {
     final ids2D = ids.mapTo2D(10);
 
-    final futures = ids2D.map((e) => collectionRef
+    final futures = ids2D.map((e) => collectionRef()
         .where(FieldPath.documentId, whereIn: ids)
         .get()
         .map((value) => value.docs.map((e) => e.data())));
@@ -50,8 +65,12 @@ class FirestoreDatasource<Entity, Mapper extends FireStoreMapper<Entity>> {
     return [for (final result in resultList) ...result];
   }
 
-  CollectionReference<Entity> get collectionRef =>
-      firestore.collection(collection.collectionName).withConverter(
+  CollectionReference<Entity> collectionRef(
+          {String Function(String collectionName)? pathBuilder}) =>
+      firestore
+          .collection(pathBuilder?.call(collection.collectionName) ??
+              collection.collectionName)
+          .withConverter(
         fromFirestore: (model, _) {
           return mapper.toResult(model.data()!, model.id);
         },

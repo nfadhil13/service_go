@@ -7,6 +7,7 @@ class SessionLocalMapper extends LocalMapper<UserData, dynamic> {
   @override
   UserData toDomain(entity) {
     return UserData(
+        token: entity["firebaseToken"],
         id: entity["id"],
         username: entity["username"],
         email: entity["email"],
@@ -19,7 +20,8 @@ class SessionLocalMapper extends LocalMapper<UserData, dynamic> {
       "id": domain.id,
       "email": domain.email,
       "username": domain.username,
-      "isBengkel": domain.isBengkel
+      "isBengkel": domain.isBengkel,
+      "firebaseToken": domain.token
     };
   }
 }

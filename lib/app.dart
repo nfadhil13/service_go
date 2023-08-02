@@ -30,6 +30,7 @@ class ServiceGoApp extends StatelessWidget {
       child: BlocListener<SessionCubit, SessionState>(
         listener: (context, state) {
           if (state is SessionLogout) {
+            print("Logout");
             context.router.replaceAll([const LoginRoute()]);
           }
         },

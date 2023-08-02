@@ -59,7 +59,15 @@ enum ServisStatus {
     statusName: 'Ditolak',
     description: 'Permintaan layanan ditolak',
     colorHex: '#E9967A',
-  );
+  ),
+  dibatalkan(
+    id: 11,
+    statusName: 'Dibatalkan',
+    description:
+        'Permintaan layanan dibatalkan oleh bengkel atau customer karena alasan tertentu',
+    colorHex: '#E9967A',
+  ),
+  ;
 
   final int id;
   final String statusName;
@@ -93,6 +101,8 @@ enum ServisStatus {
         return ServisStatus.serviceSelesai;
       case 10:
         return ServisStatus.ditolak;
+      case 11:
+        return ServisStatus.dibatalkan;
       default:
         throw ArgumentError('ID tidak valid untuk ServiceStatus.');
     }

@@ -40,6 +40,9 @@ class BengkelProfileFormCubit extends Cubit<BengkelProfileFormState> {
     final result = await _preparForm((userId,));
     switch (result) {
       case Success():
+        final data = result.data;
+        namaBengkel.text = data.bengkelProfile?.nama ?? "";
+        nomorTelepon.text = data.bengkelProfile?.nomorTelepon ?? "";
         emit(BengkelProfileFormIdle(
             result.data.layananList, result.data.bengkelProfile));
       case Error():

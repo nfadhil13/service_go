@@ -16,7 +16,7 @@ class _Form extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const _ImagePicker(),
+                  _ImagePicker(bengkelProfile),
                   5.h.verticalSpace,
                   SGTextField(
                     label: "Nama Bengkel",
@@ -25,7 +25,6 @@ class _Form extends StatelessWidget {
                         .notEmpty()
                         .build,
                     controller: cubit.namaBengkel,
-                    initialValue: bengkelProfile?.nama,
                   ),
                   3.h.verticalSpace,
                   SGTextField(
@@ -36,13 +35,16 @@ class _Form extends StatelessWidget {
                         .build,
                     label: "Nomor Telepon Bengkel",
                     controller: cubit.nomorTelepon,
-                    initialValue: bengkelProfile?.nomorTelepon,
                   ),
                   3.h.verticalSpace,
-                  SGMultiSelectField(
+                  SGMultiSelectField<JenisLayanan>(
                       controller: cubit.jenisLayanan,
                       label: "Layanan Bengkel",
                       hintText: "Pilih Layanan bengkel",
+                      initialValues: bengkelProfile?.jenisLayanan
+                              .map((e) => SGMultiSelectItem(e.name, e))
+                              .toList() ??
+                          [],
                       validator: ValueValidatorBuilder.create("Layanan Bengkel")
                           .notNull()
                           .notEmpty()
@@ -75,7 +77,8 @@ class _Form extends StatelessWidget {
 }
 
 class _ImagePicker extends StatelessWidget {
-  const _ImagePicker();
+  final BengkelProfile? bengkelProfile;
+  const _ImagePicker(this.bengkelProfile);
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +97,7 @@ class _ImagePicker extends StatelessWidget {
             Expanded(
               flex: 2,
               child: SGImagePickerField(
+                initialImage: bengkelProfile?.profile,
                 validator: ValueValidatorBuilder.create("Foto Bengkel")
                     .custom((value) {
                       return null;

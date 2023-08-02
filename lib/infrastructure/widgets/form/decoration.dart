@@ -9,6 +9,7 @@ class SGInputDecoration {
       String? label,
       required BorderRadius borderRadius,
       String? hintText,
+      bool counter = false,
       EdgeInsets? contentPadding}) {
     final color = context.color;
     final text = context.text;

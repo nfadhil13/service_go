@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
@@ -18,4 +19,7 @@ abstract class CoreModules {
 
   @singleton
   FirebaseStorage getFirebaseStorage() => FirebaseStorage.instance;
+
+  @singleton
+  FirebaseMessaging getFirebaseMessaging() => FirebaseMessaging.instance;
 }

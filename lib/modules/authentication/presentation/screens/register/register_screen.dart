@@ -33,7 +33,7 @@ class RegisterScreen extends StatelessWidget {
             child: BlocListener<RegisterCubit, RegisterState>(
               listener: (context, state) async {
                 if (state is RegisterSuccess) {
-                  InformationDialog.launch(context,
+                  SGInformationDialog.launch(context,
                       onConfirm: (closeDialogCallback) {
                     closeDialogCallback();
 

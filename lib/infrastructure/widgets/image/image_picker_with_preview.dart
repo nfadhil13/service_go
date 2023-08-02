@@ -17,6 +17,7 @@ class SGImagePickerWithPreview extends StatefulWidget {
   const SGImagePickerWithPreview._();
 
   static Future<List<XFile>> pickImages(BuildContext context) async {
+    print("pick images");
     final result = await context.router.pushNativeRoute(MaterialPageRoute(
         builder: (context) => const SGImagePickerWithPreview._()));
     if (result is List<XFile>) return result;
