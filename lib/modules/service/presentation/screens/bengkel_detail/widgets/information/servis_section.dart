@@ -44,13 +44,62 @@ class _ServisDetail extends StatelessWidget {
                   item: servis.tanggalService.hourStringForm())),
         ],
       ),
+      if (servis.waktuMulaiPengerjaan != null)
+        Padding(
+          padding: const EdgeInsets.only(top: 24),
+          child: _WaktuPengerjaan(
+            status: servis.status,
+            date: servis.waktuMulaiPengerjaan!,
+          ),
+        )
     ]);
+  }
+}
+
+class _WaktuPengerjaan extends StatelessWidget {
+  final DateTime date;
+  final ServisStatus status;
+  const _WaktuPengerjaan({required this.date, required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    final text = context.text;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Lama Pengerjaan",
+          style: context.text.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+        ),
+        Row(
+          children: [
+            SGHoursSinceStartWidget(
+                startDateTime: date,
+                builder: (hours, minutes, seconds) {
+                  final finalSeconds = seconds.toString().let((value) {
+                    if (value.length > 1) return value;
+                    return "0$value";
+                  });
+                  return Text(
+                    "$hours:$minutes:$finalSeconds",
+                    style:
+                        text.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                  );
+                }),
+            8.horizontalSpace,
+            if (status == ServisStatus.pengerjaanService)
+              Text("(Masih Proses)",
+                  style:
+                      text.bodySmall?.copyWith(fontWeight: FontWeight.normal))
+          ],
+        ),
+      ],
+    );
   }
 }
 
 class _StatusWarning extends StatelessWidget {
   const _StatusWarning({
-    super.key,
     required this.color,
     required this.text,
   });

@@ -15,10 +15,12 @@ class Servis extends Equatable {
   final ServisCustomer customer;
   final ServisBengkel bengkel;
   final String catatan;
+  final DateTime? waktuMulaiPengerjaan;
   final KeteranganServis? keteranganServis;
 
   Servis(
       {String? id,
+      required this.waktuMulaiPengerjaan,
       required this.namaMotor,
       required this.platNomor,
       required this.statusData,
@@ -42,9 +44,11 @@ class Servis extends Equatable {
       ServisCustomer? customer,
       ServisBengkel? bengkel,
       String? catatan,
+      DateTime? waktuMulaiPengerjaan,
       String? alasanPenolakan,
       KeteranganServis? keteranganServis}) {
     return Servis(
+        waktuMulaiPengerjaan: waktuMulaiPengerjaan ?? this.waktuMulaiPengerjaan,
         id: id ?? this.id.id,
         namaMotor: namaMotor ?? this.namaMotor,
         platNomor: platNomor ?? this.platNomor,
@@ -73,9 +77,11 @@ class Servis extends Equatable {
 
 class KeteranganServis extends Equatable {
   final String deskripsiServis;
+  final DateTime waktuMulai;
   final List<SGImage> attachments;
 
-  const KeteranganServis(this.deskripsiServis, this.attachments);
+  const KeteranganServis(
+      this.deskripsiServis, this.attachments, this.waktuMulai);
 
   @override
   List<Object?> get props => [deskripsiServis, attachments];

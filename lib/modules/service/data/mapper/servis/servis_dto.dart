@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/types/mapper/dto.dart';
 import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
@@ -30,6 +31,7 @@ class ServisDTO implements DTO<Servis, ServisDTOParams> {
   final String bengkelId;
   final String catatan;
   final int status;
+  final Timestamp? waktuMulaiPengerjaan;
 
   ServisDTO(
       {required this.id,
@@ -39,11 +41,14 @@ class ServisDTO implements DTO<Servis, ServisDTOParams> {
       required this.layananIds,
       required this.tanggalService,
       required this.customerId,
+      required this.waktuMulaiPengerjaan,
       required this.bengkelId,
       required this.catatan});
 
   factory ServisDTO.fromDomain(Servis servis) {
     return ServisDTO(
+        waktuMulaiPengerjaan: servis.waktuMulaiPengerjaan
+            ?.let((value) => Timestamp.fromDate(value)),
         id: servis.id.id ?? "",
         namaMotor: servis.namaMotor,
         platNomor: servis.platNomor,
@@ -59,6 +64,7 @@ class ServisDTO implements DTO<Servis, ServisDTOParams> {
   Servis toDomain(ServisDTOParams params) {
     return Servis(
         keteranganServis: params.keteranganServis,
+        waktuMulaiPengerjaan: waktuMulaiPengerjaan?.toDate(),
         namaMotor: namaMotor,
         platNomor: platNomor,
         layanan: params.jenisLayanan,

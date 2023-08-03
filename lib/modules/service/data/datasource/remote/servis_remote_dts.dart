@@ -58,7 +58,8 @@ class ServisRemoteDTSImpl implements ServisRemoteDTS {
             servisDTO.id, ServisStatus.konfirmasiServis.id.toString())
         .map((value) {
       if (value is ServisStatusUnitKonfirmasiServis) {
-        return KeteranganServis(value.deskripsiServis, value.attachments);
+        return KeteranganServis(
+            value.deskripsiServis, value.attachments, value.timestamp);
       }
       return null;
     });
@@ -128,7 +129,8 @@ class ServisRemoteDTSImpl implements ServisRemoteDTS {
                 element.status.id == ServisStatus.konfirmasiServis.id)
             .let((value) {
           if (value is ServisStatusUnitKonfirmasiServis) {
-            return KeteranganServis(value.deskripsiServis, value.attachments);
+            return KeteranganServis(
+                value.deskripsiServis, value.attachments, value.timestamp);
           }
           return null;
         }),

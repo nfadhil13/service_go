@@ -16,6 +16,9 @@ class ServisFirestoreEntity extends FireStoreMapper<ServisDTO> {
   final FireStoreField<ServisDTO, Timestamp> tanggalService =
       FireStoreField("tanggalService", (entity) => entity.tanggalService);
 
+  final FireStoreField<ServisDTO, Timestamp?> waktuPengerjaan = FireStoreField(
+      "waktuPengerjaan", (entity) => entity.waktuMulaiPengerjaan);
+
   final FireStoreField<ServisDTO, String> customerId =
       FireStoreField("customerId", (entity) => entity.customerId);
 
@@ -38,12 +41,14 @@ class ServisFirestoreEntity extends FireStoreMapper<ServisDTO> {
         bengkelId,
         catatan,
         status,
+        waktuPengerjaan
       ];
 
   @override
   ServisDTO toResult(Map<String, dynamic> firestoreData, String id) {
     return ServisDTO(
         id: id,
+        waktuMulaiPengerjaan: waktuPengerjaan.parseJSON(firestoreData),
         status: status.parseJSON(firestoreData),
         namaMotor: namaMotor.parseJSON(firestoreData),
         platNomor: platNomor.parseJSON(firestoreData),

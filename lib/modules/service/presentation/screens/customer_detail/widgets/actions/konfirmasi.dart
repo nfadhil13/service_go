@@ -17,7 +17,7 @@ class _ActionKonfirmasi extends StatelessWidget {
     if (!isAccepted) return;
     cubit.updateServis(
       onErrorText: "Menerima servis error, silahkan coba lagi",
-      onSuccessText: "Berhasil menerima servis",
+      onSuccessText: "Berhasil menerima pengajuan servis",
       currentServisUpdater: (currentServis) =>
           currentServis.copyWith(statusData: ServisStatusMenungguPengerjaan()),
     );

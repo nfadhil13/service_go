@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/date_ext.dart';
 import 'package:service_go/infrastructure/ext/double_ext.dart';
+import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
 import 'package:service_go/infrastructure/utils/value_validator/form_validator.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
@@ -14,7 +15,10 @@ import 'package:service_go/infrastructure/widgets/form/text_field.dart';
 import 'package:service_go/infrastructure/widgets/hide_widget.dart';
 import 'package:service_go/infrastructure/widgets/layouts/appbar/appbar.dart';
 import 'package:service_go/infrastructure/widgets/layouts/dialog/dialog_container.dart';
+import 'package:service_go/infrastructure/widgets/layouts/expandable_container.dart';
+import 'package:service_go/infrastructure/widgets/loading/circular.dart';
 import 'package:service_go/infrastructure/widgets/loading/overlay.dart';
+import 'package:service_go/infrastructure/widgets/time_counter.dart';
 import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
 import 'package:service_go/modules/service/domain/model/servis_detail.dart';
@@ -23,13 +27,13 @@ import 'package:service_go/modules/service/domain/model/servis_status_data.dart'
 import 'package:service_go/modules/service/presentation/cubits/detail/servis_detail_cubit.dart';
 import 'package:service_go/modules/service/presentation/widgets/status/servis_status.dart';
 import 'package:service_go/modules/service/presentation/widgets/status_desc/servis_status_desc.dart';
-import 'package:sizer/sizer.dart';
 
 //Information
 part 'widgets/information.dart';
 part 'widgets/information/servis_section.dart';
 part 'widgets/information/layanan.dart';
 part 'widgets/information/notes.dart';
+part 'widgets/information/detail_servis.dart';
 
 //Actions
 part 'widgets/actions.dart';
@@ -38,6 +42,7 @@ part 'widgets/actions/terima_unit.dart';
 part 'widgets/actions/ditolak.dart';
 part 'widgets/actions/pemeriksaan_unit.dart';
 part 'widgets/actions/pengajuan_servis.dart';
+part 'widgets/actions/mulai_pengerjaan.dart';
 
 @RoutePage()
 class ServisBengkelDetailScreen extends StatelessWidget {
