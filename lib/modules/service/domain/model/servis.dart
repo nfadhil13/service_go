@@ -16,6 +16,7 @@ class Servis extends Equatable {
   final ServisBengkel bengkel;
   final String catatan;
   final DateTime? waktuMulaiPengerjaan;
+  final DateTime? waktuSelesaiPengerjaan;
   final KeteranganServis? keteranganServis;
 
   Servis(
@@ -29,6 +30,7 @@ class Servis extends Equatable {
       required this.bengkel,
       required this.tanggalService,
       required this.keteranganServis,
+      required this.waktuSelesaiPengerjaan,
       this.catatan = ""})
       : id = SGId(id);
 
@@ -45,9 +47,12 @@ class Servis extends Equatable {
       ServisBengkel? bengkel,
       String? catatan,
       DateTime? waktuMulaiPengerjaan,
+      DateTime? waktuSelesaiPengerjaan,
       String? alasanPenolakan,
       KeteranganServis? keteranganServis}) {
     return Servis(
+        waktuSelesaiPengerjaan:
+            waktuSelesaiPengerjaan ?? this.waktuSelesaiPengerjaan,
         waktuMulaiPengerjaan: waktuMulaiPengerjaan ?? this.waktuMulaiPengerjaan,
         id: id ?? this.id.id,
         namaMotor: namaMotor ?? this.namaMotor,

@@ -56,12 +56,15 @@ class ServisStatusRemoteDTSImpl implements ServisStatusRemoteDTS {
             finalStatusData.copyWith(attachments: uploadedAttachments);
         break;
       case ServisStatusSelesai():
-        final image = finalStatusData.bukti;
-        final finalImage = image is SGFileImage
-            ? SGNetworkImage(await _storageHelper.uploadImage(image))
-            : image;
+        final attachments = finalStatusData.bukti;
+        final uploadBukti = await Future.wait(attachments.map((e) async {
+          final finalImage = e is SGFileImage
+              ? SGNetworkImage(await _storageHelper.uploadImage(e))
+              : e;
+          return finalImage;
+        }));
 
-        finalStatusData = finalStatusData.copyWith(bukti: finalImage);
+        finalStatusData = finalStatusData.copyWith(bukti: uploadBukti);
         break;
       default:
         break;

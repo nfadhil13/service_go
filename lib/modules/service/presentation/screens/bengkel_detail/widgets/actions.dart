@@ -45,6 +45,10 @@ class _ActionsButton extends StatelessWidget {
         return const _ActionPengajuanServis();
       case ServisStatusMenungguPengerjaan():
         return const _ActionsMulaiPengerjaan();
+      case ServisStatusPengerjaanServis():
+        return const _ActionPengerjaanSelesai();
+      case ServisStatusSiapDiambil():
+        return const _ActionSelesaikan();
       default:
         return const SizedBox();
     }

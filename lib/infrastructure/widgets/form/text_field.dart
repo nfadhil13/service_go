@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/widgets/form/decoration.dart';
+import 'package:service_go/infrastructure/widgets/form/field_desc.dart';
 import 'package:sizer/sizer.dart';
 
 class SGTextField extends StatelessWidget {
@@ -104,11 +105,9 @@ class SGTextField extends StatelessWidget {
           keyboardType: inputType,
           onTap: onTap,
         ),
-        if (desc != null) const SizedBox(height: 5.0),
         if (desc != null)
-          Text(
-            desc!,
-            style: context.text.bodySmall,
+          SGFieldDesc(
+            desc: desc!,
           ),
       ],
     );

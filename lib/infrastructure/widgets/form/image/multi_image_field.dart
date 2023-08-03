@@ -4,6 +4,7 @@ import 'package:service_go/infrastructure/ext/double_ext.dart';
 import 'package:service_go/infrastructure/ext/list_ext.dart';
 import 'package:service_go/infrastructure/types/image.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
+import 'package:service_go/infrastructure/widgets/form/field_desc.dart';
 import 'package:service_go/infrastructure/widgets/image/image_carousel.dart';
 import 'package:service_go/infrastructure/widgets/image/image_picker_with_preview.dart';
 
@@ -13,10 +14,12 @@ class SGMultiImageField extends StatefulWidget {
   final String? label;
   final double imageSize;
   final bool readOnly;
+  final String? desc;
   final String? Function(List<SGImage> result)? validator;
   const SGMultiImageField(
       {super.key,
       this.imageSize = 64,
+      this.desc,
       this.initialImages = const [],
       this.label,
       this.readOnly = false,
@@ -77,6 +80,7 @@ class _SGMultiImageFieldState extends State<SGMultiImageField> {
   Widget build(BuildContext context) {
     final color = context.color;
     final text = context.text;
+    final desc = widget.desc;
     return FormField(
       validator: (_) {
         return widget.validator?.call(_images);
@@ -191,7 +195,8 @@ class _SGMultiImageFieldState extends State<SGMultiImageField> {
             Text(
               field.errorText!,
               style: text.bodySmall?.copyWith(color: color.error),
-            )
+            ),
+          if (desc != null) SGFieldDesc(desc: desc)
         ],
       ),
     );

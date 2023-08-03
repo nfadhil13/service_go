@@ -31,68 +31,96 @@ class _ServisDetail extends StatelessWidget {
         ],
       ),
       24.verticalSpace,
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-              child: _Item(
-                  title: "Tanggal Servis",
-                  item: servis.tanggalService.dateStringForm())),
-          Expanded(
-              child: _Item(
-                  title: "Jam Servis",
-                  item: servis.tanggalService.hourStringForm())),
-        ],
-      ),
+      if (servis.waktuMulaiPengerjaan == null)
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+                child: _Item(
+                    title: "Tanggal Servis (Estimasi)",
+                    item: servis.tanggalService.dateStringForm())),
+            Expanded(
+                child: _Item(
+                    title: "Jam Servis (Estimasi)",
+                    item: servis.tanggalService.hourStringForm())),
+          ],
+        ),
       if (servis.waktuMulaiPengerjaan != null)
-        Padding(
-          padding: const EdgeInsets.only(top: 24),
-          child: _WaktuPengerjaan(
-            status: servis.status,
-            date: servis.waktuMulaiPengerjaan!,
-          ),
-        )
+        _WaktuPengerjaan(
+          waktuMulai: servis.waktuMulaiPengerjaan!,
+          waktuSelesai: servis.waktuSelesaiPengerjaan,
+        ),
     ]);
   }
 }
 
 class _WaktuPengerjaan extends StatelessWidget {
-  final DateTime date;
-  final ServisStatus status;
-  const _WaktuPengerjaan({required this.date, required this.status});
+  final DateTime? waktuSelesai;
+  final DateTime waktuMulai;
+  const _WaktuPengerjaan({this.waktuSelesai, required this.waktuMulai});
+
+  String _printFullDateTime(DateTime dateTime) {
+    return "${dateTime.dateStringForm(pattern: "d MMM yyyy")}, Pukul ${dateTime.hourStringForm()}";
+  }
 
   @override
   Widget build(BuildContext context) {
     final text = context.text;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    final waktuSelesai = this.waktuSelesai;
+    if (waktuSelesai == null) {
+      return Row(
+        children: [
+          Expanded(
+              child: _Item(
+                  title: "Mulai Pengerjaan",
+                  item: _printFullDateTime(waktuMulai))),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Lama Pengerjaan",
+                  style: context.text.labelLarge
+                      ?.copyWith(fontWeight: FontWeight.w600),
+                ),
+                Row(
+                  children: [
+                    SGHoursSinceStartWidget(
+                        startDateTime: waktuMulai,
+                        builder: (hours, minutes, seconds) {
+                          final finalSeconds = seconds.toString().let((value) {
+                            if (value.length > 1) return value;
+                            return "0$value";
+                          });
+                          return Text(
+                            "$hours:$minutes:$finalSeconds",
+                            style: text.bodySmall
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          );
+                        }),
+                    8.horizontalSpace,
+                    Text("(Masih Proses)",
+                        style: text.bodySmall
+                            ?.copyWith(fontWeight: FontWeight.normal))
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          "Lama Pengerjaan",
-          style: context.text.labelLarge?.copyWith(fontWeight: FontWeight.w600),
-        ),
-        Row(
-          children: [
-            SGHoursSinceStartWidget(
-                startDateTime: date,
-                builder: (hours, minutes, seconds) {
-                  final finalSeconds = seconds.toString().let((value) {
-                    if (value.length > 1) return value;
-                    return "0$value";
-                  });
-                  return Text(
-                    "$hours:$minutes:$finalSeconds",
-                    style:
-                        text.bodySmall?.copyWith(fontWeight: FontWeight.w600),
-                  );
-                }),
-            8.horizontalSpace,
-            if (status == ServisStatus.pengerjaanService)
-              Text("(Masih Proses)",
-                  style:
-                      text.bodySmall?.copyWith(fontWeight: FontWeight.normal))
-          ],
-        ),
+        Expanded(
+            child: _Item(
+                title: "Mulai Pengerjaan",
+                item: _printFullDateTime(waktuMulai))),
+        Expanded(
+            child: _Item(
+                title: "Selesai Pengerjaan",
+                item: _printFullDateTime(waktuSelesai))),
       ],
     );
   }
@@ -133,14 +161,13 @@ class _StatusWarning extends StatelessWidget {
 class _Item extends StatelessWidget {
   final String title;
   final String item;
-  final CrossAxisAlignment? alignment;
-  const _Item({required this.title, required this.item, this.alignment});
+  const _Item({required this.title, required this.item});
 
   @override
   Widget build(BuildContext context) {
     final text = context.text;
     return Column(
-      crossAxisAlignment: alignment ?? CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,

@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 extension DateExt on DateTime {
-  String hourStringForm({String pattern = "HH:MM", String locale = 'id'}) =>
+  String hourStringForm({String pattern = "HH:mm", String locale = 'id'}) =>
       DateFormat(pattern).format(this);
 
   String dateStringForm({String pattern = 'dd/MM/yyyy', String locale = 'id'}) {

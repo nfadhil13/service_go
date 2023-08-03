@@ -111,6 +111,7 @@ class CustomerServisFormCubit extends Cubit<CustomerServisFormState> {
     final isValid = form.currentState?.validate();
     if (isValid != true) return null;
     return Servis(
+        waktuSelesaiPengerjaan: null,
         waktuMulaiPengerjaan: null,
         keteranganServis: null,
         namaMotor: namaMotor.text,

@@ -22,34 +22,34 @@ class SGDialogContainer extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: true,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: size.width * .05, vertical: 0),
-            child: Material(
-              type: MaterialType.transparency,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ConstrainedBox(
-                    constraints: BoxConstraints(
-                        maxHeight: size.height * maxHeightPercentage,
-                        minHeight: 0),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                          color: colorTheme.surface,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: child,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.width * .05, vertical: 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                          maxHeight: size.height * maxHeightPercentage,
+                          minHeight: 0),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: colorTheme.surface,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: child,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

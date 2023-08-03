@@ -29,8 +29,6 @@ class _SGHoursSinceStartWidgetState extends State<SGHoursSinceStartWidget> {
 
   void _updateHoursSinceStart() {
     DateTime currentDateTime = DateTime.now();
-    print("Current : $currentDateTime");
-    print("start ${widget.startDateTime}");
     Duration difference = currentDateTime.difference(widget.startDateTime);
     _hours = difference.inHours;
     _minutes = difference.inMinutes.remainder(60);

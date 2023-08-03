@@ -35,57 +35,55 @@ class SGInformationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return SGDialogContainer(
         maxHeightPercentage: maxHeightPercentage ?? .5,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (title != null)
-                  Text(
-                    title!,
-                    style: context.text.headlineSmall,
-                  ),
-                const SizedBox(height: 5),
-                if (descWidget != null) descWidget!,
-                if (desc != null && descWidget == null)
-                  Text(
-                    desc!,
-                    textAlign: TextAlign.start,
-                    style: context.text.bodyMedium
-                        ?.copyWith(color: context.color.onSurfaceVariant),
-                  ),
-                12.verticalSpace,
-                InkWell(
-                  onTap: () {
-                    final onConfirm = this.onConfirm;
-                    if (onConfirm == null) {
-                      context.router.root.pop();
-                      return;
-                    }
-                    onConfirm(() => context.router.pop());
-                  },
-                  child: Column(
-                    children: [
-                      12.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Ya",
-                            style: context.text.labelLarge
-                                ?.copyWith(color: context.color.primary),
-                          ),
-                          12.horizontalSpace
-                        ],
-                      ),
-                      12.verticalSpace
-                    ],
-                  ),
-                )
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (title != null)
+                Text(
+                  title!,
+                  style: context.text.headlineSmall,
+                ),
+              const SizedBox(height: 5),
+              if (descWidget != null) descWidget!,
+              if (desc != null && descWidget == null)
+                Text(
+                  desc!,
+                  textAlign: TextAlign.start,
+                  style: context.text.bodyMedium
+                      ?.copyWith(color: context.color.onSurfaceVariant),
+                ),
+              12.verticalSpace,
+              InkWell(
+                onTap: () {
+                  final onConfirm = this.onConfirm;
+                  if (onConfirm == null) {
+                    context.router.root.pop();
+                    return;
+                  }
+                  onConfirm(() => context.router.pop());
+                },
+                child: Column(
+                  children: [
+                    12.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "Ya",
+                          style: context.text.labelLarge
+                              ?.copyWith(color: context.color.primary),
+                        ),
+                        12.horizontalSpace
+                      ],
+                    ),
+                    12.verticalSpace
+                  ],
+                ),
+              )
+            ],
           ),
         ));
   }

@@ -3,7 +3,7 @@ part of '../servis_status_data.dart';
 class ServisStatusSelesai extends ServisStatusData {
   final String picBengkel;
   final String namaPengambil;
-  final SGImage bukti;
+  final List<SGImage> bukti;
   final String catatan;
   ServisStatusSelesai(
       {required this.picBengkel,
@@ -15,7 +15,7 @@ class ServisStatusSelesai extends ServisStatusData {
   ServisStatusSelesai copyWith({
     String? picBengkel,
     String? namaPengambil,
-    SGImage? bukti,
+    List<SGImage>? bukti,
     String? catatan,
   }) =>
       ServisStatusSelesai(

@@ -16,10 +16,10 @@ import 'package:service_go/infrastructure/widgets/hide_widget.dart';
 import 'package:service_go/infrastructure/widgets/layouts/appbar/appbar.dart';
 import 'package:service_go/infrastructure/widgets/layouts/dialog/dialog_container.dart';
 import 'package:service_go/infrastructure/widgets/layouts/expandable_container.dart';
-import 'package:service_go/infrastructure/widgets/loading/circular.dart';
 import 'package:service_go/infrastructure/widgets/loading/overlay.dart';
 import 'package:service_go/infrastructure/widgets/time_counter.dart';
 import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
+import 'package:service_go/modules/service/domain/model/data_pengambilan.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
 import 'package:service_go/modules/service/domain/model/servis_detail.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
@@ -34,6 +34,7 @@ part 'widgets/information/servis_section.dart';
 part 'widgets/information/layanan.dart';
 part 'widgets/information/notes.dart';
 part 'widgets/information/detail_servis.dart';
+part 'widgets/information/data_pengambilan.dart';
 
 //Actions
 part 'widgets/actions.dart';
@@ -43,6 +44,8 @@ part 'widgets/actions/ditolak.dart';
 part 'widgets/actions/pemeriksaan_unit.dart';
 part 'widgets/actions/pengajuan_servis.dart';
 part 'widgets/actions/mulai_pengerjaan.dart';
+part 'widgets/actions/pengerjaan_selesai.dart';
+part 'widgets/actions/selesaikan.dart';
 
 @RoutePage()
 class ServisBengkelDetailScreen extends StatelessWidget {

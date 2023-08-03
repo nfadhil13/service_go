@@ -32,6 +32,7 @@ class ServisDTO implements DTO<Servis, ServisDTOParams> {
   final String catatan;
   final int status;
   final Timestamp? waktuMulaiPengerjaan;
+  final Timestamp? waktuSelesaiPengerjaan;
 
   ServisDTO(
       {required this.id,
@@ -43,10 +44,13 @@ class ServisDTO implements DTO<Servis, ServisDTOParams> {
       required this.customerId,
       required this.waktuMulaiPengerjaan,
       required this.bengkelId,
+      required this.waktuSelesaiPengerjaan,
       required this.catatan});
 
   factory ServisDTO.fromDomain(Servis servis) {
     return ServisDTO(
+        waktuSelesaiPengerjaan: servis.waktuSelesaiPengerjaan
+            ?.let((value) => Timestamp.fromDate(value)),
         waktuMulaiPengerjaan: servis.waktuMulaiPengerjaan
             ?.let((value) => Timestamp.fromDate(value)),
         id: servis.id.id ?? "",
@@ -63,6 +67,7 @@ class ServisDTO implements DTO<Servis, ServisDTOParams> {
   @override
   Servis toDomain(ServisDTOParams params) {
     return Servis(
+        waktuSelesaiPengerjaan: waktuSelesaiPengerjaan?.toDate(),
         keteranganServis: params.keteranganServis,
         waktuMulaiPengerjaan: waktuMulaiPengerjaan?.toDate(),
         namaMotor: namaMotor,

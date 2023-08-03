@@ -37,7 +37,10 @@ class ServisStatusDataDTO implements DTONoParams<ServisStatusData> {
         return {
           "picBengkel": data.picBengkel,
           "namaPengambil": data.namaPengambil,
-          "bukti": data.bukti.data,
+          "bukti": data.bukti
+              .whereType<SGNetworkImage>()
+              .map((e) => e.data)
+              .toList(),
           "catatan": data.catatan
         };
       case ServisStatusDibatalkan():
@@ -90,7 +93,9 @@ class ServisStatusDataDTO implements DTONoParams<ServisStatusData> {
         return ServisStatusSelesai(
             picBengkel: detailData["picBengkel"],
             namaPengambil: detailData["namaPengambil"],
-            bukti: SGNetworkImage(detailData["bukti"]),
+            bukti: (detailData["bukti"] as List)
+                .map((e) => SGNetworkImage(e.toString()))
+                .toList(),
             catatan: detailData["catatan"]);
       case ServisStatus.dibatalkan:
         return ServisStatusDibatalkan(

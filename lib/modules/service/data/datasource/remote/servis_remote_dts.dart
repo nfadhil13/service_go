@@ -12,6 +12,7 @@ import 'package:service_go/modules/service/data/datasource/firestore/servis_stat
 import 'package:service_go/modules/service/data/datasource/remote/servis_status_remote_dts.dart';
 import 'package:service_go/modules/service/data/mapper/servis/servis_dto.dart';
 import 'package:service_go/modules/service/data/mapper/status/servis_status_dto.dart';
+import 'package:service_go/modules/service/domain/model/data_pengambilan.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
 import 'package:service_go/modules/service/domain/model/servis_detail.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
@@ -123,6 +124,9 @@ class ServisRemoteDTSImpl implements ServisRemoteDTS {
     final statusDataLog = await _servisStatusRemoteDTS.getAll(id);
     final bengkel = await bengkelFuture;
 
+    final currentStatus = statusDataLog
+        .firstWhere((element) => element.status.id == servisDTO.status);
+
     final params = ServisDTOParams(
         keteranganServis: statusDataLog
             .firstWhere((element) =>
@@ -134,12 +138,27 @@ class ServisRemoteDTSImpl implements ServisRemoteDTS {
           }
           return null;
         }),
-        data: statusDataLog
-            .firstWhere((element) => element.status.id == servisDTO.status),
+        data: currentStatus,
         customer: await customerFuture,
         bengkel: ServisBengkel(bengkel!.id, bengkel.nama),
         jenisLayanan: await jenisLayananFuture);
     return ServisDetail(
-        servisDTO.toDomain(params), bengkel.toDomain([]), statusDataLog);
+      servisDTO.toDomain(params),
+      bengkel.toDomain([]),
+      statusDataLog,
+      dataPengambilanServis: currentStatus.let((value) {
+        if (value is ServisStatusSelesai) {
+          return DataPengambilanServis(
+              isDibatalkan: false,
+              tanggalPengambilan: value.timestamp,
+              picBengkel: value.picBengkel,
+              bukti: value.bukti,
+              catatan: value.catatan,
+              namaPengambil: value.namaPengambil);
+        }
+        if (value is ServisStatusDibatalkan) {}
+        return null;
+      }),
+    );
   }
 }
