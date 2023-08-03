@@ -10,12 +10,14 @@ class ServisDTOParams {
   final ServisBengkel bengkel;
   final List<JenisLayanan> jenisLayanan;
   final ServisStatusData data;
+  final KeteranganServis? keteranganServis;
 
   ServisDTOParams(
       {required this.customer,
       required this.bengkel,
       required this.data,
-      required this.jenisLayanan});
+      required this.jenisLayanan,
+      required this.keteranganServis});
 }
 
 class ServisDTO implements DTO<Servis, ServisDTOParams> {
@@ -56,6 +58,7 @@ class ServisDTO implements DTO<Servis, ServisDTOParams> {
   @override
   Servis toDomain(ServisDTOParams params) {
     return Servis(
+        keteranganServis: params.keteranganServis,
         namaMotor: namaMotor,
         platNomor: platNomor,
         layanan: params.jenisLayanan,

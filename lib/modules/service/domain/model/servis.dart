@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:service_go/infrastructure/types/id.dart';
+import 'package:service_go/infrastructure/types/image.dart';
 import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
 import 'package:service_go/modules/service/domain/model/servis_status_data.dart';
@@ -14,6 +15,7 @@ class Servis extends Equatable {
   final ServisCustomer customer;
   final ServisBengkel bengkel;
   final String catatan;
+  final KeteranganServis? keteranganServis;
 
   Servis(
       {String? id,
@@ -24,34 +26,35 @@ class Servis extends Equatable {
       required this.customer,
       required this.bengkel,
       required this.tanggalService,
+      required this.keteranganServis,
       this.catatan = ""})
       : id = SGId(id);
 
   ServisStatus get status => statusData.status;
 
-  Servis copyWith({
-    String? id,
-    String? namaMotor,
-    String? platNomor,
-    ServisStatusData? statusData,
-    List<JenisLayanan>? layanan,
-    DateTime? tanggalService,
-    ServisCustomer? customer,
-    ServisBengkel? bengkel,
-    String? catatan,
-    String? alasanPenolakan,
-  }) {
+  Servis copyWith(
+      {String? id,
+      String? namaMotor,
+      String? platNomor,
+      ServisStatusData? statusData,
+      List<JenisLayanan>? layanan,
+      DateTime? tanggalService,
+      ServisCustomer? customer,
+      ServisBengkel? bengkel,
+      String? catatan,
+      String? alasanPenolakan,
+      KeteranganServis? keteranganServis}) {
     return Servis(
-      id: id ?? this.id.id,
-      namaMotor: namaMotor ?? this.namaMotor,
-      platNomor: platNomor ?? this.platNomor,
-      statusData: statusData ?? this.statusData,
-      layanan: layanan ?? this.layanan,
-      tanggalService: tanggalService ?? this.tanggalService,
-      customer: customer ?? this.customer,
-      bengkel: bengkel ?? this.bengkel,
-      catatan: catatan ?? this.catatan,
-    );
+        id: id ?? this.id.id,
+        namaMotor: namaMotor ?? this.namaMotor,
+        platNomor: platNomor ?? this.platNomor,
+        statusData: statusData ?? this.statusData,
+        layanan: layanan ?? this.layanan,
+        tanggalService: tanggalService ?? this.tanggalService,
+        customer: customer ?? this.customer,
+        bengkel: bengkel ?? this.bengkel,
+        catatan: catatan ?? this.catatan,
+        keteranganServis: keteranganServis ?? this.keteranganServis);
   }
 
   @override
@@ -66,6 +69,16 @@ class Servis extends Equatable {
         tanggalService,
         catatan
       ];
+}
+
+class KeteranganServis extends Equatable {
+  final String deskripsiServis;
+  final List<SGImage> attachments;
+
+  const KeteranganServis(this.deskripsiServis, this.attachments);
+
+  @override
+  List<Object?> get props => [deskripsiServis, attachments];
 }
 
 class ServisCustomer extends Equatable {

@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:service_go/infrastructure/architecutre/use_case.dart';
+import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/types/exceptions/base_exception.dart';
 import 'package:service_go/infrastructure/types/query.dart';
 import 'package:service_go/infrastructure/utils/storage/sg_storage_helper.dart';
@@ -13,6 +14,8 @@ import 'package:service_go/modules/service/data/mapper/servis/servis_dto.dart';
 import 'package:service_go/modules/service/data/mapper/status/servis_status_dto.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
 import 'package:service_go/modules/service/domain/model/servis_detail.dart';
+import 'package:service_go/modules/service/domain/model/servis_status.dart';
+import 'package:service_go/modules/service/domain/model/servis_status_data.dart';
 
 abstract class ServisRemoteDTS {
   Future<Servis> createServis(Servis servis);
@@ -50,7 +53,17 @@ class ServisRemoteDTSImpl implements ServisRemoteDTS {
         _jenisLayananFirestoreDTS.fetchByIds(servisDTO.layananIds);
     final statusData = _servisStatusRemoteDTS.getById(
         servisDTO.id, servisDTO.status.toString());
+    final keteranganServis = _servisStatusRemoteDTS
+        .getByIdNullable(
+            servisDTO.id, ServisStatus.konfirmasiServis.id.toString())
+        .map((value) {
+      if (value is ServisStatusUnitKonfirmasiServis) {
+        return KeteranganServis(value.deskripsiServis, value.attachments);
+      }
+      return null;
+    });
     return ServisDTOParams(
+        keteranganServis: await keteranganServis,
         data: await statusData,
         customer: await customerFuture,
         bengkel: await bengkelFuture,
@@ -110,6 +123,15 @@ class ServisRemoteDTSImpl implements ServisRemoteDTS {
     final bengkel = await bengkelFuture;
 
     final params = ServisDTOParams(
+        keteranganServis: statusDataLog
+            .firstWhere((element) =>
+                element.status.id == ServisStatus.konfirmasiServis.id)
+            .let((value) {
+          if (value is ServisStatusUnitKonfirmasiServis) {
+            return KeteranganServis(value.deskripsiServis, value.attachments);
+          }
+          return null;
+        }),
         data: statusDataLog
             .firstWhere((element) => element.status.id == servisDTO.status),
         customer: await customerFuture,

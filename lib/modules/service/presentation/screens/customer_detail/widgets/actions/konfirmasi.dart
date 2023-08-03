@@ -19,7 +19,7 @@ class _ActionKonfirmasi extends StatelessWidget {
       onErrorText: "Menerima servis error, silahkan coba lagi",
       onSuccessText: "Berhasil menerima servis",
       currentServisUpdater: (currentServis) =>
-          currentServis.copyWith(statusData: ServisStatusPengajuanDiterima()),
+          currentServis.copyWith(statusData: ServisStatusMenungguPengerjaan()),
     );
   }
 

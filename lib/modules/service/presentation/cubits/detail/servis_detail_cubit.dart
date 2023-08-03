@@ -44,7 +44,7 @@ class ServisDetailCubit extends Cubit<ServisDetailState> {
         _messengerCubit
             .showSuccessSnackbar(onSuccessText ?? "Berhasil mengupdate servis");
         emit(ServisDetailSuccessIdle(
-            ServisDetail(result.data, state.servis.bengkelProfile, [])));
+            ServisDetail(result.data, state.servis.bengkelProfile, const [])));
       case Error():
         _messengerCubit
             .showErrorSnackbar(onErrorText ?? "Gagal mengupdate servis");

@@ -10,6 +10,7 @@ class _Information extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final servis = servisDetail.servis;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       child: SingleChildScrollView(
@@ -18,9 +19,16 @@ class _Information extends StatelessWidget {
           children: [
             _ServisDetail(servis: servisDetail.servis),
             18.verticalSpace,
-            _Layanan(layananList: servisDetail.servis.layanan),
-            12.verticalSpace,
+            if (servis.keteranganServis != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: _DetailServis(
+                    keteranganServis: servis.keteranganServis!,
+                    status: servis.status),
+              ),
             _Notes(note: servisDetail.servis.catatan),
+            12.verticalSpace,
+            _Layanan(layananList: servisDetail.servis.layanan),
             12.verticalSpace,
             _Bengkel(bengkelProfile: servisDetail.bengkelProfile),
             SGHideWidget(

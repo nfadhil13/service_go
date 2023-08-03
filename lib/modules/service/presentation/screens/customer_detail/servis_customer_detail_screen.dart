@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/ext/date_ext.dart';
 import 'package:service_go/infrastructure/ext/double_ext.dart';
+import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
+import 'package:service_go/infrastructure/utils/color_utils.dart';
 import 'package:service_go/infrastructure/utils/sg_intents.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
 import 'package:service_go/infrastructure/widgets/error.dart';
@@ -37,6 +39,7 @@ part 'widgets/information/servis_section.dart';
 part 'widgets/information/layanan.dart';
 part 'widgets/information/notes.dart';
 part 'widgets/information/bengkel.dart';
+part 'widgets/information/detail_servis.dart';
 
 //Action
 part 'widgets/actions.dart';
@@ -77,7 +80,16 @@ class _Content extends StatelessWidget {
     return Stack(
       children: [
         _Information(servisDetail: servisDetail),
-        _Actions(servisStatusData: servisDetail.servis.statusData)
+        _Actions(servisStatusData: servisDetail.servis.statusData),
+        BlocBuilder<ServisDetailCubit, ServisDetailState>(
+          builder: (context, state) {
+            if (state is ServisDetailLoading ||
+                state is ServisDetailSuccessUpdating) {
+              return const SGLoadingOverlay();
+            }
+            return const SizedBox();
+          },
+        )
       ],
     );
   }

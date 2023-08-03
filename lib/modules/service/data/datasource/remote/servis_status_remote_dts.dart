@@ -10,6 +10,7 @@ import 'package:service_go/modules/service/domain/model/servis_status_data.dart'
 
 abstract class ServisStatusRemoteDTS {
   Future<ServisStatusData> getById(String servisId, String id);
+  Future<ServisStatusData?> getByIdNullable(String servisId, String id);
   Future<ServisStatusData> put(String servisId, ServisStatusData servisStatus);
   Future<List<ServisStatusData>> getAll(String servisId);
 }
@@ -83,5 +84,16 @@ class ServisStatusRemoteDTSImpl implements ServisStatusRemoteDTS {
               collectionName: collectionName, servisId: servisId),
         )
         .map((value) => value!.toDomain());
+  }
+
+  @override
+  Future<ServisStatusData?> getByIdNullable(String servisId, String id) {
+    return _servisStatusFirestoreDTS
+        .fetchOne(
+          id,
+          pathBuilder: (collectionName) => _servisStatusDataCollectionBuilder(
+              collectionName: collectionName, servisId: servisId),
+        )
+        .map((value) => value?.toDomain());
   }
 }
