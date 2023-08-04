@@ -35,8 +35,6 @@ class _ActionsButton extends StatelessWidget {
     switch (statusData) {
       case ServisStatusDiajukan():
         return const _ActionDiajukan();
-      case ServisStatusDitolak():
-        return _ActionDitolak(alasanPenolakan: statusData.alasanPenolakan);
       case ServisStatusPengajuanDiterima():
         return const _ActionTerimaUnit();
       case ServisStatusUnitDiterima():

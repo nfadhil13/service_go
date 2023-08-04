@@ -20,6 +20,7 @@ class ServisDetailCubit extends Cubit<ServisDetailState> {
       : super(ServisDetailLoading());
 
   void getById(String id) async {
+    print("Get by id");
     emit(ServisDetailLoading());
     final result = await _getServisById(id);
     switch (result) {

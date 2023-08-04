@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
@@ -28,10 +29,12 @@ class _BengkelHomeScreenState extends State<BengkelHomeScreen> {
     _HomeItem(
         Icons.checklist,
         (context) => ServisListScreen(
-              onServisClick: (servis) {
+              onServisClick: (servis, refresh) async {
                 final id = servis.id.id;
                 if (id == null) return;
-                context.router.push(ServisBengkelDetailRoute(servisId: id));
+                await context.router
+                    .push(ServisBengkelDetailRoute(servisId: id));
+                refresh();
               },
               type: ServisListType(true, context.userSession.userId),
             ),

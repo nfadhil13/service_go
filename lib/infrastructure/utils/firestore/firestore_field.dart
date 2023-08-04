@@ -3,6 +3,10 @@ class FireStoreField<Entity, T> {
   final T Function(Entity entity) data;
   final T Function(dynamic data)? _parser;
 
+  static String get createdAtKey => "createdAt";
+
+  static String get updatedAtKey => "updatedAt";
+
   FireStoreField(this.key, this.data, {T Function(dynamic data)? parser})
       : _parser = parser;
 

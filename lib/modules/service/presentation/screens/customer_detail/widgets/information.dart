@@ -11,6 +11,7 @@ class _Information extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final servis = servisDetail.servis;
+    final statusData = servis.statusData;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       child: SingleChildScrollView(
@@ -25,6 +26,13 @@ class _Information extends StatelessWidget {
                 child: _DetailServis(
                     keteranganServis: servis.keteranganServis!,
                     status: servis.status),
+              ),
+            if (statusData is ServisStatusDitolak)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: _AlasanPenolakan(
+                  alasanPenolakan: statusData.alasanPenolakan,
+                ),
               ),
             _Notes(note: servisDetail.servis.catatan),
             12.verticalSpace,

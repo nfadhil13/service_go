@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:service_go/infrastructure/architecutre/use_case.dart';
 import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
+import 'package:service_go/infrastructure/ext/list_ext.dart';
 import 'package:service_go/infrastructure/types/exceptions/base_exception.dart';
 import 'package:service_go/infrastructure/types/query.dart';
 import 'package:service_go/infrastructure/utils/storage/sg_storage_helper.dart';
@@ -129,7 +130,7 @@ class ServisRemoteDTSImpl implements ServisRemoteDTS {
 
     final params = ServisDTOParams(
         keteranganServis: statusDataLog
-            .firstWhere((element) =>
+            .firstWhereOrNull((index, element) =>
                 element.status.id == ServisStatus.konfirmasiServis.id)
             .let((value) {
           if (value is ServisStatusUnitKonfirmasiServis) {

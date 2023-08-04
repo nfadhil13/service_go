@@ -7,6 +7,7 @@ import 'package:service_go/infrastructure/types/gis/distance.dart';
 import 'package:service_go/infrastructure/types/gis/lat_lgn.dart';
 import 'package:service_go/infrastructure/types/query.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_collections.dart';
+import 'package:service_go/infrastructure/utils/firestore/firestore_field.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_mapper.dart';
 
 class FirestoreDatasource<Entity, Mapper extends FireStoreMapper<Entity>> {
@@ -25,14 +26,22 @@ class FirestoreDatasource<Entity, Mapper extends FireStoreMapper<Entity>> {
 
   Future<Entity> create(Entity entity,
           {String Function(String collectionName)? pathBuilder}) =>
-      collectionRef(pathBuilder: pathBuilder)
-          .add(entity)
+      _collectionRefNoConverter(pathBuilder: pathBuilder)
+          .add({
+            ...mapper.toFirestoreObject(entity),
+            FireStoreField.createdAtKey: FieldValue.serverTimestamp(),
+            FireStoreField.updatedAtKey: FieldValue.serverTimestamp()
+          })
           .then((value) => value.get())
-          .then((value) => value.data()!);
+          .then((value) =>
+              mapper.toResult(value.data() as Map<String, dynamic>, value.id));
 
   Future<void> put(Entity entity, String id,
           {String Function(String collectionName)? pathBuilder}) =>
-      collectionRef(pathBuilder: pathBuilder).doc(id).set(entity);
+      _collectionRefNoConverter(pathBuilder: pathBuilder).doc(id).set({
+        ...mapper.toFirestoreObject(entity),
+        FireStoreField.updatedAtKey: FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true));
 
   Future<Entity?> fetchOne(String id,
           {String Function(String collectionName)? pathBuilder}) =>
@@ -65,12 +74,15 @@ class FirestoreDatasource<Entity, Mapper extends FireStoreMapper<Entity>> {
     return [for (final result in resultList) ...result];
   }
 
+  CollectionReference _collectionRefNoConverter(
+      {String Function(String collectionName)? pathBuilder}) {
+    return firestore.collection(pathBuilder?.call(collection.collectionName) ??
+        collection.collectionName);
+  }
+
   CollectionReference<Entity> collectionRef(
           {String Function(String collectionName)? pathBuilder}) =>
-      firestore
-          .collection(pathBuilder?.call(collection.collectionName) ??
-              collection.collectionName)
-          .withConverter(
+      _collectionRefNoConverter(pathBuilder: pathBuilder).withConverter(
         fromFirestore: (model, _) {
           return mapper.toResult(model.data()!, model.id);
         },
@@ -119,7 +131,18 @@ extension CollectionRef<Entity> on CollectionReference<Entity> {
 
   Query<Entity> buildQueryData({SGDataQuery? query}) {
     if (query == null) return this;
-    return buildLimit(query.limit).buildQuery(query.query);
+    return buildLimit(query.limit)
+        .buildQuery(query.query)
+        .buildOrder(query.sort);
+  }
+
+  Query<Entity> buildOrder(List<SGSort> sort) {
+    Query<Entity> ref = this;
+    for (final sortItem in sort) {
+      ref = ref.orderBy(sortItem.key,
+          descending: sortItem.type == SGSortType.desc);
+    }
+    return ref;
   }
 
   Query<Entity> buildLimit(int? limit) {
@@ -152,6 +175,15 @@ extension QueryExt<Entity> on Query<Entity> {
   Query<Entity> buildQueryData({SGDataQuery? query}) {
     if (query == null) return this;
     return buildLimit(query.limit);
+  }
+
+  Query<Entity> buildOrder(List<SGSort> sort) {
+    Query<Entity> ref = this;
+    for (final sortItem in sort) {
+      ref = ref.orderBy(sortItem.key,
+          descending: sortItem.type == SGSortType.desc);
+    }
+    return ref;
   }
 
   Query<Entity> buildLimit(int? limit) {

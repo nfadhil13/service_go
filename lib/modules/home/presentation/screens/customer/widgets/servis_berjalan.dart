@@ -19,11 +19,12 @@ class _ServisBerjalan extends StatelessWidget {
             ),
             InkWell(
               onTap: () => context.router.push(ServisListRoute(
-                  onServisClick: (servis) {
+                  onServisClick: (servis, onRefresh) async {
                     final id = servis.id.id;
                     if (id == null) return;
-                    context.router
+                    await context.router
                         .push(ServisCustomerDetailRoute(servisId: id));
+                    onRefresh();
                   },
                   type: ServisListType(false, context.userSession.userId))),
               child: Text(
@@ -35,10 +36,11 @@ class _ServisBerjalan extends StatelessWidget {
         ),
         1.5.h.verticalSpace,
         ServisListAutoWidget(
-          onTap: (servis) {
+          onTap: (servis, refersh) async {
             final id = servis.id.id;
             if (id == null) return;
-            context.router.push(ServisCustomerDetailRoute(servisId: id));
+            await context.router.push(ServisCustomerDetailRoute(servisId: id));
+            refersh();
           },
           query: SGDataQuery(limit: 2, query: [
             SGQueryField("customerId", isEqual: context.userSession.userId),
@@ -46,6 +48,9 @@ class _ServisBerjalan extends StatelessWidget {
               ServisStatus.ditolak.id,
               ServisStatus.serviceSelesai.id
             ]),
+          ], sort: [
+            SGSort(key: "status", type: SGSortType.desc),
+            SGSort(key: FireStoreField.updatedAtKey, type: SGSortType.desc)
           ]),
         )
       ],

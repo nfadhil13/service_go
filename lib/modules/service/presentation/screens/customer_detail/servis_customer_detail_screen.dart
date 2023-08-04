@@ -1,3 +1,6 @@
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +11,7 @@ import 'package:service_go/infrastructure/ext/double_ext.dart';
 import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
 import 'package:service_go/infrastructure/utils/color_utils.dart';
+import 'package:service_go/infrastructure/utils/notification/notification/sg_notification.dart';
 import 'package:service_go/infrastructure/utils/sg_intents.dart';
 import 'package:service_go/infrastructure/widgets/buttons/elevated_button.dart';
 import 'package:service_go/infrastructure/widgets/error.dart';
@@ -40,6 +44,7 @@ part 'widgets/information/layanan.dart';
 part 'widgets/information/notes.dart';
 part 'widgets/information/bengkel.dart';
 part 'widgets/information/detail_servis.dart';
+part 'widgets/information/alasan_penolakan.dart';
 
 //Action
 part 'widgets/actions.dart';
@@ -71,16 +76,56 @@ class ServisCustomerDetailScreen extends StatelessWidget {
   }
 }
 
-class _Content extends StatelessWidget {
+class _Content extends StatefulWidget {
   final ServisDetail servisDetail;
   const _Content({required this.servisDetail});
+
+  @override
+  State<_Content> createState() => _ContentState();
+}
+
+class _ContentState extends State<_Content> {
+  final ReceivePort _port = ReceivePort();
+
+  @override
+  void initState() {
+    super.initState();
+
+    IsolateNameServer.registerPortWithName(
+        _port.sendPort, SGNavigationNotifList.customerServis.path);
+    _port.listen((message) {
+      if (message is Map<String, dynamic>) {
+        final id = message["id"];
+        if (id != widget.servisDetail.servis.id.id) return;
+        _refresh();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    IsolateNameServer.removePortNameMapping(
+        SGNavigationNotifList.customerServis.path);
+    super.dispose();
+  }
+
+  void _refresh() {
+    context
+        .read<ServisDetailCubit>()
+        .getById(widget.servisDetail.servis.id.id!);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        _Information(servisDetail: servisDetail),
-        _Actions(servisStatusData: servisDetail.servis.statusData),
+        RefreshIndicator(
+          onRefresh: () async => _refresh(),
+          child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: _Information(servisDetail: widget.servisDetail)),
+        ),
+        _Actions(servisStatusData: widget.servisDetail.servis.statusData),
         BlocBuilder<ServisDetailCubit, ServisDetailState>(
           builder: (context, state) {
             if (state is ServisDetailLoading ||

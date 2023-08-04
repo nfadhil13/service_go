@@ -31,13 +31,13 @@ import '../../modules/authentication/domain/usecases/get_current_session.dart'
     as _i41;
 import '../../modules/authentication/domain/usecases/login.dart' as _i43;
 import '../../modules/authentication/domain/usecases/logout.dart' as _i45;
-import '../../modules/authentication/domain/usecases/register.dart' as _i49;
+import '../../modules/authentication/domain/usecases/register.dart' as _i50;
 import '../../modules/authentication/presentation/screens/login/cubit/login_cubit.dart'
     as _i44;
 import '../../modules/authentication/presentation/screens/register/cubit/register_cubit.dart'
-    as _i64;
+    as _i67;
 import '../../modules/authentication/presentation/screens/splash/cubit/splash_cubit.dart'
-    as _i54;
+    as _i57;
 import '../../modules/bengkel/data/datasource/firestore/bengkel_firestore_dts.dart'
     as _i29;
 import '../../modules/bengkel/data/datasource/firestore/jenis_layanan_firestore_dts.dart'
@@ -58,7 +58,7 @@ import '../../modules/bengkel/domain/usecase/get_all_bengkel.dart' as _i39;
 import '../../modules/bengkel/domain/usecase/get_all_jenis_layanan.dart'
     as _i40;
 import '../../modules/bengkel/presentation/cubits/bengkel_list/bengkel_list_cubit.dart'
-    as _i55;
+    as _i58;
 import '../../modules/customer/data/datasource/firestore/customer_profile_firestore_dts.dart'
     as _i35;
 import '../../modules/customer/data/datasource/remote/customer_profile_remote_dts.dart'
@@ -74,55 +74,60 @@ import '../../modules/profile/domain/usecase/bengkel/create_bengkel_profile.dart
 import '../../modules/profile/domain/usecase/bengkel/prepare_bengkel_profile_form.dart'
     as _i46;
 import '../../modules/profile/domain/usecase/customer/check_if_customer_has_profile.dart'
-    as _i57;
+    as _i60;
 import '../../modules/profile/domain/usecase/customer/craete_or_update_customer.dart'
-    as _i58;
+    as _i61;
 import '../../modules/profile/domain/usecase/customer/prepare_customer_form.dart'
     as _i47;
 import '../../modules/profile/presentation/screens/bengkel_profile_form/cubit/form/bengkel_profile_form_cubit.dart'
-    as _i56;
+    as _i59;
 import '../../modules/profile/presentation/screens/customer_profile_form/cubit/customer_profile_form_cubit.dart'
-    as _i60;
+    as _i63;
 import '../../modules/service/data/datasource/firestore/servis_firestore_dts.dart'
     as _i18;
 import '../../modules/service/data/datasource/firestore/servis_status_firestore_dts.dart'
     as _i22;
 import '../../modules/service/data/datasource/remote/servis_remote_dts.dart'
-    as _i50;
+    as _i53;
 import '../../modules/service/data/datasource/remote/servis_status_remote_dts.dart'
     as _i23;
-import '../../modules/service/data/repositories/servis_repository_impl.dart'
+import '../../modules/service/data/repositories/servis_notif_repo_impl.dart'
     as _i52;
-import '../../modules/service/domain/repositories/servis_repository.dart'
+import '../../modules/service/data/repositories/servis_repository_impl.dart'
+    as _i55;
+import '../../modules/service/domain/repositories/servis_notif_repo.dart'
     as _i51;
+import '../../modules/service/domain/repositories/servis_repository.dart'
+    as _i54;
 import '../../modules/service/domain/usecases/create_or_update_servis.dart'
-    as _i59;
-import '../../modules/service/domain/usecases/get_servis_by_id.dart' as _i61;
-import '../../modules/service/domain/usecases/get_servis_list.dart' as _i62;
+    as _i62;
+import '../../modules/service/domain/usecases/get_servis_by_id.dart' as _i64;
+import '../../modules/service/domain/usecases/get_servis_list.dart' as _i65;
 import '../../modules/service/domain/usecases/prepare_customer_servis_create_form.dart'
     as _i48;
 import '../../modules/service/domain/usecases/prepare_customer_servis_form.dart'
-    as _i63;
-import '../../modules/service/presentation/cubits/detail/servis_detail_cubit.dart'
-    as _i65;
-import '../../modules/service/presentation/cubits/servis_list/servis_list_cubit.dart'
     as _i66;
+import '../../modules/service/presentation/cubits/detail/servis_detail_cubit.dart'
+    as _i68;
+import '../../modules/service/presentation/cubits/servis_list/servis_list_cubit.dart'
+    as _i69;
 import '../../modules/service/presentation/screens/customer_form/cubit/customer_servis_form_cubit.dart'
-    as _i67;
+    as _i70;
 import '../../modules/service/presentation/screens/list/cubit/servis_list_filter_cubit.dart'
     as _i19;
 import '../../modules/service/presentation/screens/list/servist_list_screen.dart'
     as _i21;
 import '../architecutre/cubits/location/location_cubit.dart' as _i42;
 import '../architecutre/cubits/messenger/messenger_cubit.dart' as _i14;
-import '../architecutre/cubits/session/session_cubit.dart' as _i53;
+import '../architecutre/cubits/session/session_cubit.dart' as _i56;
 import '../local_storage/secure_storage/secure_storage.dart' as _i17;
 import '../types/query.dart' as _i20;
 import '../utils/firebase_messanger_util.dart' as _i5;
 import '../utils/location/location_util.dart' as _i13;
-import '../utils/notification_service.dart' as _i15;
+import '../utils/notification/notification_service.dart' as _i15;
+import '../utils/notification/push_notification_util.dart' as _i49;
 import '../utils/storage/sg_storage_helper.dart' as _i16;
-import 'modules/core_module.dart' as _i68;
+import 'modules/core_module.dart' as _i71;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -243,77 +248,83 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i48.PrepareCustomerServisCreateForm>(() =>
         _i48.PrepareCustomerServisCreateForm(
             gh<_i31.BengkelProfileRepository>()));
-    gh.factory<_i49.RegisterUserAccount>(
-        () => _i49.RegisterUserAccount(gh<_i27.AuthenticationRepo>()));
-    gh.factory<_i50.ServisRemoteDTS>(() => _i50.ServisRemoteDTSImpl(
+    gh.factory<_i49.PushNotificationUtil>(
+        () => _i49.PushNotificationUtilImpl(gh<_i24.UserDataRemoteDTS>()));
+    gh.factory<_i50.RegisterUserAccount>(
+        () => _i50.RegisterUserAccount(gh<_i27.AuthenticationRepo>()));
+    gh.factory<_i51.ServisNotifRepo>(
+        () => _i52.ServisNotifRepoImpl(gh<_i49.PushNotificationUtil>()));
+    gh.factory<_i53.ServisRemoteDTS>(() => _i53.ServisRemoteDTSImpl(
           gh<_i18.ServisFirestoreDTS>(),
           gh<_i29.BengkelProfileFirestoreDTS>(),
           gh<_i35.CustomerProfileFirestoreDTS>(),
           gh<_i9.JenisLayananFirestoreDTS>(),
           gh<_i23.ServisStatusRemoteDTS>(),
         ));
-    gh.factory<_i51.ServisRepo>(
-        () => _i52.ServisRepoImpl(gh<_i50.ServisRemoteDTS>()));
-    gh.lazySingleton<_i53.SessionCubit>(
-        () => _i53.SessionCubit(gh<_i45.Logout>()));
-    gh.factory<_i54.SplashCubit>(
-        () => _i54.SplashCubit(gh<_i41.GetCurrentSession>()));
-    gh.factory<_i55.BengkelListCubit>(
-        () => _i55.BengkelListCubit(gh<_i39.GetAllBengkel>()));
-    gh.factoryParam<_i56.BengkelProfileFormCubit, String, dynamic>((
+    gh.factory<_i54.ServisRepo>(
+        () => _i55.ServisRepoImpl(gh<_i53.ServisRemoteDTS>()));
+    gh.lazySingleton<_i56.SessionCubit>(
+        () => _i56.SessionCubit(gh<_i45.Logout>()));
+    gh.factory<_i57.SplashCubit>(
+        () => _i57.SplashCubit(gh<_i41.GetCurrentSession>()));
+    gh.factory<_i58.BengkelListCubit>(
+        () => _i58.BengkelListCubit(gh<_i39.GetAllBengkel>()));
+    gh.factoryParam<_i59.BengkelProfileFormCubit, String, dynamic>((
       userId,
       _,
     ) =>
-        _i56.BengkelProfileFormCubit(
+        _i59.BengkelProfileFormCubit(
           gh<_i46.PrepareBengkelProfileForm>(),
           userId,
           gh<_i34.CreateBengkelProfile>(),
         ));
-    gh.factory<_i57.CheckIfCustomerHasProfile>(
-        () => _i57.CheckIfCustomerHasProfile(
+    gh.factory<_i60.CheckIfCustomerHasProfile>(
+        () => _i60.CheckIfCustomerHasProfile(
               gh<_i37.CustomerProfileRepo>(),
               gh<_i27.AuthenticationRepo>(),
             ));
-    gh.factory<_i58.CreateOrUpdateCustomer>(
-        () => _i58.CreateOrUpdateCustomer(gh<_i37.CustomerProfileRepo>()));
-    gh.factory<_i59.CreateOrUpdateServis>(
-        () => _i59.CreateOrUpdateServis(gh<_i51.ServisRepo>()));
-    gh.factoryParam<_i60.CustomerProfileFormCubit, String, dynamic>((
+    gh.factory<_i61.CreateOrUpdateCustomer>(
+        () => _i61.CreateOrUpdateCustomer(gh<_i37.CustomerProfileRepo>()));
+    gh.factory<_i62.CreateOrUpdateServis>(() => _i62.CreateOrUpdateServis(
+          gh<_i54.ServisRepo>(),
+          gh<_i51.ServisNotifRepo>(),
+        ));
+    gh.factoryParam<_i63.CustomerProfileFormCubit, String, dynamic>((
       userId,
       _,
     ) =>
-        _i60.CustomerProfileFormCubit(
+        _i63.CustomerProfileFormCubit(
           gh<_i47.PrepareCustomerForm>(),
           userId,
-          gh<_i58.CreateOrUpdateCustomer>(),
+          gh<_i61.CreateOrUpdateCustomer>(),
         ));
-    gh.factory<_i61.GetServisById>(
-        () => _i61.GetServisById(gh<_i51.ServisRepo>()));
-    gh.factory<_i62.GetServisList>(
-        () => _i62.GetServisList(gh<_i51.ServisRepo>()));
-    gh.factory<_i63.PrepareCustomerServisEditForm>(
-        () => _i63.PrepareCustomerServisEditForm(
+    gh.factory<_i64.GetServisById>(
+        () => _i64.GetServisById(gh<_i54.ServisRepo>()));
+    gh.factory<_i65.GetServisList>(
+        () => _i65.GetServisList(gh<_i54.ServisRepo>()));
+    gh.factory<_i66.PrepareCustomerServisEditForm>(
+        () => _i66.PrepareCustomerServisEditForm(
               gh<_i31.BengkelProfileRepository>(),
-              gh<_i51.ServisRepo>(),
+              gh<_i54.ServisRepo>(),
             ));
-    gh.factory<_i64.RegisterCubit>(() => _i64.RegisterCubit(
+    gh.factory<_i67.RegisterCubit>(() => _i67.RegisterCubit(
           gh<_i14.MessengerCubit>(),
-          gh<_i49.RegisterUserAccount>(),
+          gh<_i50.RegisterUserAccount>(),
         ));
-    gh.factory<_i65.ServisDetailCubit>(() => _i65.ServisDetailCubit(
-          gh<_i61.GetServisById>(),
-          gh<_i59.CreateOrUpdateServis>(),
+    gh.factory<_i68.ServisDetailCubit>(() => _i68.ServisDetailCubit(
+          gh<_i64.GetServisById>(),
+          gh<_i62.CreateOrUpdateServis>(),
           gh<_i14.MessengerCubit>(),
         ));
-    gh.factory<_i66.ServisListCubit>(
-        () => _i66.ServisListCubit(gh<_i62.GetServisList>()));
-    gh.factory<_i67.CustomerServisFormCubit>(() => _i67.CustomerServisFormCubit(
-          gh<_i63.PrepareCustomerServisEditForm>(),
+    gh.factory<_i69.ServisListCubit>(
+        () => _i69.ServisListCubit(gh<_i65.GetServisList>()));
+    gh.factory<_i70.CustomerServisFormCubit>(() => _i70.CustomerServisFormCubit(
+          gh<_i66.PrepareCustomerServisEditForm>(),
           gh<_i48.PrepareCustomerServisCreateForm>(),
-          gh<_i59.CreateOrUpdateServis>(),
+          gh<_i62.CreateOrUpdateServis>(),
         ));
     return this;
   }
 }
 
-class _$CoreModules extends _i68.CoreModules {}
+class _$CoreModules extends _i71.CoreModules {}

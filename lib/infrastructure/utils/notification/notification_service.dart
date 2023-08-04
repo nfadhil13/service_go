@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:service_go/infrastructure/utils/notification/notification/sg_notification.dart';
 
 @injectable
 class NotificationService {
@@ -69,10 +70,10 @@ class NotificationService {
   }
 
   static void onMessage(RemoteMessage message) async {
-    print("On meesage");
     RemoteNotification? notification = message.notification;
     AndroidNotification? androidNotification = message.notification?.android;
     AppleNotification? appleNotification = message.notification?.apple;
+
     if (notification == null) return;
     if (androidNotification != null || appleNotification != null) {
       _notificationsPlugin.show(notification.hashCode, notification.title,
@@ -82,7 +83,6 @@ class NotificationService {
   }
 
   static void onMessageOpenedApp(Map<String, dynamic> data) {
-    print("On meesage opened app");
     NotificationUtils.handlePayload(data);
   }
 
@@ -144,13 +144,10 @@ class NotificationUtils {
 
   static void handlePayload(Map<String, dynamic> payload) {
     try {
-      final actionType = payload['actionType'];
-      switch (actionType) {
-        case "open_file":
-          break;
-        case 'navigate':
-          break;
-      }
+      final notification = SGNotificationParser.parse(payload);
+      print("Parsed notification $notification");
+      notification?.handle();
+      if (notification == null) return;
     } catch (e) {
       return;
     }

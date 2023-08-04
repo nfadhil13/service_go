@@ -20,7 +20,7 @@ part 'item.dart';
 class ServisListAutoWidget extends StatelessWidget {
   final SGDataQuery? query;
   final ServisListCubit? cubit;
-  final void Function(Servis servis)? onTap;
+  final void Function(Servis servis, void Function() refresh)? onTap;
   const ServisListAutoWidget({super.key, this.query, this.cubit, this.onTap});
 
   @override
@@ -46,8 +46,8 @@ class ServisListAutoWidget extends StatelessWidget {
 class _Content extends StatefulWidget {
   final SGDataQuery? query;
   final bool isInnerCubit;
+  final void Function(Servis servis, void Function() refresh)? onTap;
 
-  final void Function(Servis servis)? onTap;
   const _Content({this.query, required this.isInnerCubit, this.onTap});
 
   @override
@@ -59,10 +59,14 @@ class _ContentState extends State<_Content> {
   void didUpdateWidget(covariant _Content oldWidget) {
     if (widget.isInnerCubit) {
       if (oldWidget.query != widget.query) {
-        context.read<ServisListCubit>().getServisList(query: widget.query);
+        _refresh();
       }
     }
     super.didUpdateWidget(oldWidget);
+  }
+
+  void _refresh() {
+    context.read<ServisListCubit>().getServisList(query: widget.query);
   }
 
   @override
@@ -72,7 +76,9 @@ class _ContentState extends State<_Content> {
         return switch (state) {
           ServisListSuccess() => ServisListWidget(
               servisList: state.servisList,
-              onTap: widget.onTap,
+              onTap: (servis) {
+                widget.onTap?.call(servis, _refresh);
+              },
             ),
           ServisListError() => SGError(
               message: state.exception.message,

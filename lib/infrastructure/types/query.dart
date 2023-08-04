@@ -1,27 +1,40 @@
 import 'package:equatable/equatable.dart';
 import 'package:service_go/infrastructure/types/gis/lat_lgn.dart';
 
+enum SGSortType { asc, desc }
+
+class SGSort {
+  final String key;
+  final SGSortType type;
+
+  SGSort({required this.key, required this.type});
+}
+
 class SGDataQuery extends Equatable {
   final int? limit;
   final List<SGQueryField>? query;
   final SGLocationQuery? locationQuery;
+  final List<SGSort> sort;
 
-  const SGDataQuery({this.limit, this.query, this.locationQuery});
+  const SGDataQuery(
+      {this.limit, this.query, this.locationQuery, this.sort = const []});
 
   SGDataQuery copyWith({
     int? limit,
     List<SGQueryField>? query,
     SGLocationQuery? locationQuery,
+    List<SGSort>? sort,
   }) {
     return SGDataQuery(
       limit: limit ?? this.limit,
       query: query ?? this.query,
+      sort: sort ?? this.sort,
       locationQuery: locationQuery ?? this.locationQuery,
     );
   }
 
   @override
-  List<Object?> get props => [limit, query, locationQuery];
+  List<Object?> get props => [limit, query, locationQuery, sort];
 }
 
 class SGLocationQuery extends Equatable {

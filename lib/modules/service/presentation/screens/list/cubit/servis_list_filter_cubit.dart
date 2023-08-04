@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:service_go/infrastructure/types/query.dart';
+import 'package:service_go/infrastructure/utils/firestore/firestore_field.dart';
 import 'package:service_go/infrastructure/widgets/filter/filter.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
 import 'package:service_go/modules/service/presentation/screens/list/cubit/servis_list_queries.dart';
@@ -23,6 +24,10 @@ class ServisListFilterCubit extends Cubit<SGDataQuery> {
     final type = this.type;
     if (type != null) query.add(type.queryField);
 
-    emit(state.copyWith(query: query));
+    emit(state.copyWith(query: query, sort: [
+      SGSort(key: "tanggalService", type: SGSortType.asc),
+      SGSort(key: "status", type: SGSortType.desc),
+      SGSort(key: FireStoreField.updatedAtKey, type: SGSortType.desc)
+    ]));
   }
 }

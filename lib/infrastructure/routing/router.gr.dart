@@ -466,7 +466,10 @@ class ServisListRoute extends _i15.PageRouteInfo<ServisListRouteArgs> {
   ServisListRoute({
     _i16.Key? key,
     _i20.SGDataQuery? initialQuery,
-    void Function(_i21.Servis)? onServisClick,
+    void Function(
+      _i21.Servis,
+      void Function(),
+    )? onServisClick,
     _i10.ServisListType? type,
     List<_i15.PageRouteInfo>? children,
   }) : super(
@@ -498,7 +501,10 @@ class ServisListRouteArgs {
 
   final _i20.SGDataQuery? initialQuery;
 
-  final void Function(_i21.Servis)? onServisClick;
+  final void Function(
+    _i21.Servis,
+    void Function(),
+  )? onServisClick;
 
   final _i10.ServisListType? type;
 

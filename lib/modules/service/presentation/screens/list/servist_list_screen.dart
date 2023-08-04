@@ -30,7 +30,7 @@ class ServisListType {
 class ServisListScreen extends StatelessWidget {
   final SGDataQuery? initialQuery;
   final ServisListType? type;
-  final void Function(Servis servis)? onServisClick;
+  final void Function(Servis servis, void Function() refresh)? onServisClick;
   const ServisListScreen(
       {super.key, this.initialQuery, this.onServisClick, this.type});
 
@@ -57,7 +57,7 @@ class _Content extends StatefulWidget {
   });
 
   final ServisListType? type;
-  final void Function(Servis servis)? onServisClick;
+  final void Function(Servis servis, void Function() refresh)? onServisClick;
 
   @override
   State<_Content> createState() => _ContentState();
@@ -155,11 +155,20 @@ class _ContentState extends State<_Content> with TickerProviderStateMixin {
               ),
               2.h.verticalSpace,
               Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.5.w),
-                  child: ServisListAutoWidget(
-                    onTap: widget.onServisClick,
-                    query: state,
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    _onFilterChange(
+                        context.read<SGFilterCubit>().state.filterGroups);
+                  },
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 2.5.w),
+                      child: ServisListAutoWidget(
+                        onTap: widget.onServisClick,
+                        query: state,
+                      ),
+                    ),
                   ),
                 ),
               ),

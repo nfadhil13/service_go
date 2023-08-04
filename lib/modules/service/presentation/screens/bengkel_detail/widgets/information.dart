@@ -7,11 +7,19 @@ class _Information extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final servis = servisDetail.servis;
+    final statusData = servis.statusData;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _ServisDetail(servis: servisDetail.servis),
         24.verticalSpace,
+        if (statusData is ServisStatusDitolak)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: _ActionDitolak(
+              alasanPenolakan: statusData.alasanPenolakan,
+            ),
+          ),
         if (servisDetail.dataPengambilanServis != null)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),

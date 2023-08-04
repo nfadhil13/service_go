@@ -5,3 +5,5 @@ abstract class DTO<Domain, Params> {
 abstract class DTONoParams<Domain> {
   Domain toDomain();
 }
+
+class BaseModel {}

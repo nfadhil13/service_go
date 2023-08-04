@@ -5,7 +5,7 @@ import 'package:service_go/infrastructure/env/env.dart';
 import 'package:service_go/infrastructure/routing/router.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
 import 'package:service_go/infrastructure/utils/firebase_messanger_util.dart';
-import 'package:service_go/infrastructure/utils/notification_service.dart';
+import 'package:service_go/infrastructure/utils/notification/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +15,8 @@ void main() async {
   await configureDependencies();
   SGGlobalErrorHandler.setUpErrorHandler();
   ENV.setEnv(ENV.dev);
+
   runApp(ServiceGoApp(
-    appRouter: AppRouter(),
+    appRouter: getIt<AppRouter>(),
   ));
 }

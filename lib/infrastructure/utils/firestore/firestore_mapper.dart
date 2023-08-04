@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:service_go/infrastructure/utils/firestore/firestore_field.dart';
 
 abstract class FireStoreMapper<Result> {
@@ -14,6 +15,12 @@ abstract class FireStoreMapper<Result> {
     }
     return firestoreObject;
   }
+
+  Timestamp createdAt(Map<String, dynamic> firestoreData) =>
+      firestoreData[FireStoreField.createdAtKey];
+
+  Timestamp updatedAt(Map<String, dynamic> firestoreData) =>
+      firestoreData[FireStoreField.updatedAtKey];
 
   // FireStoreField<Entity, Result> asField<Entity>(
   //   String key,

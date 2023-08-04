@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_go/infrastructure/architecutre/cubits/session/session_cubit.dart';
+import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/routing/router.gr.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
 import 'package:service_go/infrastructure/widgets/icons/service_geo.dart';
@@ -22,15 +23,20 @@ class SplashScreen extends StatelessWidget {
             if (state is SplashSuccess) {
               context.read<SessionCubit>().setCurrenetUser(state.userSession);
               final session = state.userSession;
+              final router = context.router;
+              PageRouteInfo? info;
               if (session != null) {
-                if (session.isBengkel) {
-                  context.router.replace(BengkelRouter());
-                  return;
+                List<PageRouteInfo>? children;
+                final routeNavNotif = state.navNotif;
+                if (routeNavNotif != null &&
+                    routeNavNotif.path.isBengkel == session.isBengkel) {
+                  children = routeNavNotif.getRouter()?.let((value) => [value]);
                 }
-                context.router.replace(CustomerRouter());
-                return;
+                info = session.isBengkel
+                    ? BengkelRouter(children: children) as PageRouteInfo
+                    : CustomerRouter(children: children);
               }
-              context.router.replace(const LoginRoute());
+              router.replace(info ?? const LoginRoute());
             }
           },
           child: Container(

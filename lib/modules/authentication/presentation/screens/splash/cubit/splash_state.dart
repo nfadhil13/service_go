@@ -11,6 +11,7 @@ class SplashInitial extends SplashState {}
 
 class SplashSuccess extends SplashState {
   final UserSession? userSession;
+  final SGNavigationNotif? navNotif;
 
-  const SplashSuccess(this.userSession);
+  const SplashSuccess(this.userSession, this.navNotif);
 }
