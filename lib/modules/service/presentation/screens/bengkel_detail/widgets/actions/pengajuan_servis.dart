@@ -29,7 +29,7 @@ class _ActionPengajuanServis extends StatelessWidget {
       currentServisUpdater: (currentServis) => currentServis.copyWith(
           statusData: ServisStatusDibatalkan(
               alasan: alasanPembatalan,
-              isDikembalikan: false,
+              dataPengambilanServis: null,
               isDibatalkanBengkel: true)),
     );
   }

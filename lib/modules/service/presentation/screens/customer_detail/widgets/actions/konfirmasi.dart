@@ -38,7 +38,7 @@ class _ActionKonfirmasi extends StatelessWidget {
           statusData: ServisStatusDibatalkan(
               alasan: alasanPenolakan,
               isDibatalkanBengkel: false,
-              isDikembalikan: false)),
+              dataPengambilanServis: null)),
     );
   }
 

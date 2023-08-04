@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:service_go/infrastructure/types/image.dart';
+import 'package:service_go/modules/service/domain/model/data_pengambilan.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
 
 part 'status_data/diajukan.dart';

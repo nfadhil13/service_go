@@ -169,11 +169,11 @@ class _Item extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        AutoSizeText(
           title,
           style: context.text.labelLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
-        Text(
+        AutoSizeText(
           item,
           style: text.bodySmall?.copyWith(fontWeight: FontWeight.w600),
         ),

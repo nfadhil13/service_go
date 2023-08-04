@@ -45,6 +45,7 @@ part 'widgets/information/notes.dart';
 part 'widgets/information/bengkel.dart';
 part 'widgets/information/detail_servis.dart';
 part 'widgets/information/alasan_penolakan.dart';
+part 'widgets/information/data_pembatalan.dart';
 
 //Action
 part 'widgets/actions.dart';

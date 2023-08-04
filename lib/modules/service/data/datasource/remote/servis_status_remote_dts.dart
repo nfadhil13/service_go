@@ -5,6 +5,7 @@ import 'package:service_go/infrastructure/utils/firestore/firestore_collections.
 import 'package:service_go/infrastructure/utils/storage/sg_storage_helper.dart';
 import 'package:service_go/modules/service/data/datasource/firestore/servis_status_firestore_dts.dart';
 import 'package:service_go/modules/service/data/mapper/status/servis_status_dto.dart';
+import 'package:service_go/modules/service/domain/model/data_pengambilan.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
 import 'package:service_go/modules/service/domain/model/servis_status_data.dart';
 
@@ -65,6 +66,29 @@ class ServisStatusRemoteDTSImpl implements ServisStatusRemoteDTS {
         }));
 
         finalStatusData = finalStatusData.copyWith(bukti: uploadBukti);
+        break;
+
+      case ServisStatusDibatalkan():
+        final dataPengembalian = finalStatusData.dataPengambilanServis;
+
+        if (dataPengembalian != null) {
+          final uploadBukti =
+              await Future.wait(dataPengembalian.bukti.map((e) async {
+            final finalImage = e is SGFileImage
+                ? SGNetworkImage(await _storageHelper.uploadImage(e))
+                : e;
+            return finalImage;
+          }));
+          finalStatusData = finalStatusData.copyWith(
+              dataPengambilanServis: DataPengambilanServis(
+                  picBengkel: dataPengembalian.picBengkel,
+                  namaPengambil: dataPengembalian.namaPengambil,
+                  bukti: uploadBukti,
+                  tanggalPengambilan: dataPengembalian.tanggalPengambilan,
+                  isDibatalkan: dataPengembalian.isDibatalkan,
+                  catatan: dataPengembalian.catatan));
+        }
+
         break;
       default:
         break;

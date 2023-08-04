@@ -157,7 +157,19 @@ class ServisRemoteDTSImpl implements ServisRemoteDTS {
               catatan: value.catatan,
               namaPengambil: value.namaPengambil);
         }
-        if (value is ServisStatusDibatalkan) {}
+        if (value is ServisStatusDibatalkan) {
+          if (value is ServisStatusSelesai) {
+            final data = value.dataPengambilanServis;
+            if (data == null) return null;
+            return DataPengambilanServis(
+                isDibatalkan: true,
+                tanggalPengambilan: data.tanggalPengambilan,
+                picBengkel: data.picBengkel,
+                bukti: data.bukti,
+                catatan: data.catatan,
+                namaPengambil: data.namaPengambil);
+          }
+        }
         return null;
       }),
     );

@@ -109,20 +109,19 @@ class _StatusWarning extends StatelessWidget {
 class _Item extends StatelessWidget {
   final String title;
   final String item;
-  final CrossAxisAlignment? alignment;
-  const _Item({required this.title, required this.item, this.alignment});
+  const _Item({required this.title, required this.item});
 
   @override
   Widget build(BuildContext context) {
     final text = context.text;
     return Column(
-      crossAxisAlignment: alignment ?? CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        AutoSizeText(
           title,
           style: context.text.labelLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
-        Text(
+        AutoSizeText(
           item,
           style: text.bodySmall?.copyWith(fontWeight: FontWeight.w600),
         ),

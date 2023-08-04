@@ -13,6 +13,13 @@ class _Information extends StatelessWidget {
       children: [
         _ServisDetail(servis: servisDetail.servis),
         24.verticalSpace,
+        if (statusData is ServisStatusDibatalkan)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: _DataPembatalan(
+              statusData: statusData,
+            ),
+          ),
         if (statusData is ServisStatusDitolak)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),

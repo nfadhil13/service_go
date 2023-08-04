@@ -2,7 +2,7 @@ part of '../../servis_customer_detail_screen.dart';
 
 class _Layanan extends StatelessWidget {
   final List<JenisLayanan> layananList;
-  const _Layanan({super.key, required this.layananList});
+  const _Layanan({required this.layananList});
 
   @override
   Widget build(BuildContext context) {

@@ -39,6 +39,7 @@ part 'widgets/information/layanan.dart';
 part 'widgets/information/notes.dart';
 part 'widgets/information/detail_servis.dart';
 part 'widgets/information/data_pengambilan.dart';
+part 'widgets/information/data_pembatalan.dart';
 
 //Actions
 part 'widgets/actions.dart';
@@ -50,6 +51,7 @@ part 'widgets/actions/pengajuan_servis.dart';
 part 'widgets/actions/mulai_pengerjaan.dart';
 part 'widgets/actions/pengerjaan_selesai.dart';
 part 'widgets/actions/selesaikan.dart';
+part 'widgets/actions/dibatalkan.dart';
 
 @RoutePage()
 class ServisBengkelDetailScreen extends StatelessWidget {

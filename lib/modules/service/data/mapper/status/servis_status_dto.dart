@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:service_go/infrastructure/ext/dynamic_ext.dart';
 import 'package:service_go/infrastructure/types/image.dart';
 import 'package:service_go/infrastructure/types/mapper/dto.dart';
+import 'package:service_go/modules/service/domain/model/data_pengambilan.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
 import 'package:service_go/modules/service/domain/model/servis_status_data.dart';
 
@@ -46,7 +48,16 @@ class ServisStatusDataDTO implements DTONoParams<ServisStatusData> {
       case ServisStatusDibatalkan():
         return {
           "alasan": data.alasan,
-          "isDikembalikan": data.isDikembalikan,
+          "dataPengembalian": data.dataPengambilanServis?.let((value) => {
+                "picBengkel": value.picBengkel,
+                "namaPengambil": value.namaPengambil,
+                "bukti": value.bukti
+                    .whereType<SGNetworkImage>()
+                    .map((e) => e.data)
+                    .toList(),
+                "catatan": value.catatan,
+                "tanggalPengambilan": FieldValue.serverTimestamp()
+              }),
           "isDibatalkanBengkel": data.isDibatalkanBengkel
         };
     }
@@ -101,7 +112,18 @@ class ServisStatusDataDTO implements DTONoParams<ServisStatusData> {
         return ServisStatusDibatalkan(
             isDibatalkanBengkel: detailData["isDibatalkanBengkel"],
             alasan: detailData["alasan"],
-            isDikembalikan: detailData["isDikembalikan"]);
+            dataPengambilanServis:
+                (detailData["dataPengembalian"] as Map<String, dynamic>?)?.let(
+                    (value) => DataPengambilanServis(
+                        isDibatalkan: true,
+                        tanggalPengambilan:
+                            (value["tanggalPengambilan"] as Timestamp).toDate(),
+                        picBengkel: value["picBengkel"],
+                        namaPengambil: value["namaPengambil"],
+                        bukti: (value["bukti"] as List)
+                            .map((e) => SGNetworkImage(e.toString()))
+                            .toList(),
+                        catatan: value["catatan"])));
     }
   }
 }
