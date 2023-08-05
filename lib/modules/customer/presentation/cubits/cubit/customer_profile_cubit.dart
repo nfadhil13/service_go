@@ -6,4 +6,8 @@ part 'customer_profile_state.dart';
 
 class CustomerProfileCubit extends Cubit<CustomerProfile> {
   CustomerProfileCubit(super.initialState);
+
+  void setValue(CustomerProfile profile) {
+    emit(profile);
+  }
 }

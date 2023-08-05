@@ -6,11 +6,13 @@ import 'package:service_go/infrastructure/routing/router.dart';
 import 'package:service_go/infrastructure/service_locator/service_locator.dart';
 import 'package:service_go/infrastructure/utils/firebase_messanger_util.dart';
 import 'package:service_go/infrastructure/utils/notification/notification_service.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService.initializeNotification();
   await NotificationService.requestPermissionsNotification();
+  await initializeDateFormatting('id_ID');
   await FirebaseHelper.setupFirebase();
   await configureDependencies();
   SGGlobalErrorHandler.setUpErrorHandler();

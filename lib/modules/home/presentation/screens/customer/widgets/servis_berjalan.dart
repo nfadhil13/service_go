@@ -42,10 +42,26 @@ class _ServisBerjalan extends StatelessWidget {
             await context.router.push(ServisCustomerDetailRoute(servisId: id));
             refersh();
           },
+          emptyWidget: Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Column(
+              children: [
+                const Text("Tidak ada servis berjalan"),
+                4.verticalSpace,
+                SGElevatedButton(
+                  label: "Buat Servis",
+                  onPressed: () =>
+                      context.router.push(const BengkelListRoute()),
+                  prefixIcon: const Icon(Icons.add),
+                )
+              ],
+            ),
+          ),
           query: SGDataQuery(limit: 2, query: [
             SGQueryField("customerId", isEqual: context.userSession.userId),
             SGQueryField("status", whereNotIn: [
               ServisStatus.ditolak.id,
+              ServisStatus.dibatalkan.id,
               ServisStatus.serviceSelesai.id
             ]),
           ], sort: [

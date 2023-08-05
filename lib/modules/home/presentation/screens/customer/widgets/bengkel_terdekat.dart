@@ -29,6 +29,9 @@ class _BengkelTerdekatSection extends StatelessWidget {
         ),
         3.h.verticalSpace,
         BengkelListWidget(
+          onTap: (profile, index) {
+            context.router.push(BengkelProfileRoute(userId: profile.id));
+          },
           query: SGDataQuery(
               limit: 2,
               query: const [SGQueryField("isOpen", isEqual: true)],

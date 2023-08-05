@@ -21,7 +21,9 @@ class ServisListAutoWidget extends StatelessWidget {
   final SGDataQuery? query;
   final ServisListCubit? cubit;
   final void Function(Servis servis, void Function() refresh)? onTap;
-  const ServisListAutoWidget({super.key, this.query, this.cubit, this.onTap});
+  final Widget? emptyWidget;
+  const ServisListAutoWidget(
+      {super.key, this.query, this.cubit, this.onTap, this.emptyWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class ServisListAutoWidget extends StatelessWidget {
         query: query,
         onTap: onTap,
         isInnerCubit: cubit == null,
+        emptyWidget: emptyWidget,
       ),
     );
   }
@@ -46,9 +49,11 @@ class ServisListAutoWidget extends StatelessWidget {
 class _Content extends StatefulWidget {
   final SGDataQuery? query;
   final bool isInnerCubit;
+  final Widget? emptyWidget;
   final void Function(Servis servis, void Function() refresh)? onTap;
 
-  const _Content({this.query, required this.isInnerCubit, this.onTap});
+  const _Content(
+      {this.query, required this.isInnerCubit, this.onTap, this.emptyWidget});
 
   @override
   State<_Content> createState() => _ContentState();
@@ -74,10 +79,17 @@ class _ContentState extends State<_Content> {
     return BlocBuilder<ServisListCubit, ServisListState>(
       builder: (context, state) {
         return switch (state) {
-          ServisListSuccess() => ServisListWidget(
-              servisList: state.servisList,
-              onTap: (servis) {
-                widget.onTap?.call(servis, _refresh);
+          ServisListSuccess() => Builder(
+              builder: (context) {
+                if (state.servisList.isEmpty) {
+                  return widget.emptyWidget ?? _EmptyWidget(widget: widget);
+                }
+                return ServisListWidget(
+                  servisList: state.servisList,
+                  onTap: (servis) {
+                    widget.onTap?.call(servis, _refresh);
+                  },
+                );
               },
             ),
           ServisListError() => SGError(
@@ -90,6 +102,28 @@ class _ContentState extends State<_Content> {
           ServisListLoading() => const SGCircularLoading()
         };
       },
+    );
+  }
+}
+
+class _EmptyWidget extends StatelessWidget {
+  const _EmptyWidget({
+    super.key,
+    required this.widget,
+  });
+
+  final _Content widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+      child: Column(
+        children: [
+          const Icon(Icons.assignment_outlined),
+          const Text("Servis Tidak ditemukan"),
+        ],
+      ),
     );
   }
 }

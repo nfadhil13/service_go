@@ -30,6 +30,8 @@ class CustomerProfileFormCubit extends Cubit<CustomerProfileFormState> {
     final result = await _prepareCustomerForm((userId,));
     switch (result) {
       case Success():
+        name.text = result.data?.nama ?? "";
+        nomorTelepon.text = result.data?.phoneNumber ?? "";
         emit(CustomerProfileFormIdle(result.data));
       case Error():
         emit(CustomerProfileFormPrepareError(

@@ -24,21 +24,40 @@ class _HomeAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Halo, ${context.read<CustomerProfileCubit>().state.nama}",
-                  style: text.bodySmall?.copyWith(fontSize: 11.5.sp),
-                ),
-                .7.h.verticalSpace,
-                const SGIconText()
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Halo, ${context.read<CustomerProfileCubit>().state.nama}",
+                    style: text.bodySmall?.copyWith(fontSize: 11.5.sp),
+                  ),
+                  .7.h.verticalSpace,
+                  const SGIconText()
+                ],
+              ),
             ),
-            InkWell(
-                onTap: () => context.logout(),
-                child: const Icon(Icons.notifications))
+            const _Profile()
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Profile extends StatelessWidget {
+  const _Profile();
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      child: CircleAvatar(
+        radius: 6.w,
+        backgroundColor: context.color.primary,
+        child: AutoSizeText(
+          context.read<CustomerProfileCubit>().state.nama.characters.first,
+          style: context.text.titleMedium?.copyWith(
+              color: context.color.onPrimary, fontWeight: FontWeight.bold),
         ),
       ),
     );

@@ -3,4 +3,8 @@ import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
 
 class BengkelProfileCubit extends Cubit<BengkelProfile> {
   BengkelProfileCubit(super.initialState);
+
+  void setValue(BengkelProfile bengkelProfile) {
+    emit(bengkelProfile);
+  }
 }

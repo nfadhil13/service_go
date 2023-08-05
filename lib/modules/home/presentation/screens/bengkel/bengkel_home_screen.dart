@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:service_go/infrastructure/ext/ctx_ext.dart';
 import 'package:service_go/infrastructure/routing/router.gr.dart';
+import 'package:service_go/modules/profile/presentation/screens/bengkel_profile/bengkel_profile_screen.dart';
 import 'package:service_go/modules/profile/presentation/screens/bengkel_profile_form/bengkel_profile_form_screen.dart';
 import 'package:service_go/modules/service/presentation/screens/list/servist_list_screen.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
@@ -40,7 +41,11 @@ class _BengkelHomeScreenState extends State<BengkelHomeScreen> {
             ),
         "Pesanan"),
     _HomeItem(
-        Icons.person, (context) => const BengkelProfileFormScreen(), "Profile"),
+        Icons.person,
+        (context) => BengkelProfileScreen(
+              userId: context.userSession.userId,
+            ),
+        "Profile"),
   ];
 
   int _activeIndex = 0;

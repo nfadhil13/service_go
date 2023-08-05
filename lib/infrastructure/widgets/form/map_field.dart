@@ -16,12 +16,14 @@ class SGMapPickerField extends StatefulWidget {
   final SGLocation? initialValue;
   final String? Function(SGLocation? result)? validator;
   final SGMapPickerFieldController? controller;
+  final bool readOnly;
   const SGMapPickerField(
       {super.key,
       this.height = 240,
       this.label,
       this.initialValue,
       this.controller,
+      this.readOnly = false,
       this.validator});
 
   @override
@@ -51,6 +53,7 @@ class _SGMapPickerFieldState extends State<SGMapPickerField> {
   void initState() {
     super.initState();
     widget.controller?._init(this);
+    _value = widget.initialValue;
   }
 
   void _changeLocation() async {
@@ -123,15 +126,16 @@ class _SGMapPickerFieldState extends State<SGMapPickerField> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SGElevatedButton(
-                          label: "Pilih Lokasi",
-                          fillParent: false,
-                          onPressed: _changeLocation,
-                        ),
+                        if (!widget.readOnly)
+                          SGElevatedButton(
+                            label: "Pilih Lokasi",
+                            fillParent: false,
+                            onPressed: _changeLocation,
+                          ),
                       ],
                     ),
                   ),
-                if (value != null)
+                if (value != null && !widget.readOnly)
                   Positioned(
                     right: 0,
                     child: Padding(
@@ -189,7 +193,8 @@ class _MapState extends State<_Map> {
     super.initState();
     _initialCameraPosition = widget.location.let((value) {
       if (value == null) return _defaultCameraPosition;
-      return CameraPosition(target: LatLng(value.lat, value.long));
+      return CameraPosition(
+          target: LatLng(value.lat, value.long), zoom: 16.151926040649414);
     });
   }
 

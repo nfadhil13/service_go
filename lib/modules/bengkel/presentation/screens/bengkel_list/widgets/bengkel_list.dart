@@ -266,7 +266,9 @@ class _SelectedBengkel extends StatelessWidget {
           label: "Lihat Detail Bengkel",
           textStyle:
               context.text.bodyMedium?.copyWith(color: context.color.primary),
-          onPressed: () {},
+          onPressed: () {
+            context.router.push(BengkelProfileRoute(userId: selected.data.id));
+          },
           fillParent: true,
           suffixIcon: const Icon(
             Icons.arrow_forward_ios,

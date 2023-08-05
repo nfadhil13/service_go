@@ -2,7 +2,7 @@ part of '../customer_profile_form_screen.dart';
 
 class _Form extends StatelessWidget {
   final CustomerProfile? profile;
-  const _Form({super.key, this.profile});
+  const _Form({this.profile});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,6 @@ class _Form extends StatelessWidget {
                     .notEmpty()
                     .build,
                 controller: cubit.name,
-                initialValue: profile?.nama,
               ),
               3.h.verticalSpace,
               SGTextField(
@@ -32,7 +31,6 @@ class _Form extends StatelessWidget {
                     .notEmpty()
                     .build,
                 controller: cubit.nomorTelepon,
-                initialValue: profile?.phoneNumber,
               ),
               5.h.verticalSpace,
               SGElevatedButton(

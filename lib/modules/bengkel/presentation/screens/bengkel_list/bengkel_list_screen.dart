@@ -21,6 +21,7 @@ import 'package:service_go/infrastructure/widgets/image/image_preview.dart';
 import 'package:service_go/infrastructure/widgets/layouts/appbar/appbar.dart';
 import 'package:service_go/infrastructure/widgets/layouts/bottomsheet/bottom_sheet_container.dart';
 import 'package:service_go/infrastructure/widgets/loading/circular.dart';
+import 'package:service_go/infrastructure/widgets/loading/overlay.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
 import 'package:service_go/modules/bengkel/presentation/cubits/bengkel_list/bengkel_list_cubit.dart';
 import 'package:service_go/modules/bengkel/presentation/screens/bengkel_list/cubit/bengkel_list_screen_cubit.dart';
@@ -70,10 +71,7 @@ class BengkelListScreen extends StatelessWidget {
                       ),
                     BengkelListError() =>
                       SGError(message: state.exception.message),
-                    BengkelListLoading() => const Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [SGCircularLoading()],
-                      )
+                    BengkelListLoading() => const SGLoadingOverlay()
                   }),
         ),
       ),

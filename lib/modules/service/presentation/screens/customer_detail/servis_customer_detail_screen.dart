@@ -26,6 +26,7 @@ import 'package:service_go/infrastructure/widgets/loading/overlay.dart';
 import 'package:service_go/infrastructure/widgets/qr/qr_dialog.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
 import 'package:service_go/modules/bengkel/domain/model/jenis_layanan.dart';
+import 'package:service_go/modules/service/domain/model/data_pengambilan.dart';
 import 'package:service_go/modules/service/domain/model/servis.dart';
 import 'package:service_go/modules/service/domain/model/servis_detail.dart';
 import 'package:service_go/modules/service/domain/model/servis_status.dart';
@@ -46,6 +47,7 @@ part 'widgets/information/bengkel.dart';
 part 'widgets/information/detail_servis.dart';
 part 'widgets/information/alasan_penolakan.dart';
 part 'widgets/information/data_pembatalan.dart';
+part 'widgets/information/data_pengambilan.dart';
 
 //Action
 part 'widgets/actions.dart';
