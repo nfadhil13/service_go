@@ -4,12 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_go/infrastructure/routing/router.gr.dart';
 import 'package:service_go/infrastructure/types/resource.dart';
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart';
+import 'package:service_go/modules/bengkel/domain/model/jadwal_bengkel.dart';
 import 'package:service_go/modules/bengkel/presentation/cubits/bengkel_profile/bengkel_profile_cubit.dart';
 import 'package:service_go/modules/profile/domain/usecase/bengkel/check_is_bengkel_has_profile.dart';
 
 @RoutePage(name: 'BengkelRouter')
 class BengkelRouterScreen extends AutoRouter implements AutoRouteWrapper {
   static List<AutoRoute> get routes => [
+        AutoRoute(page: JadwalBengkelFormRoute.page, path: 'jadwal'),
         AutoRoute(page: BengkelHomeRoute.page, path: 'home', initial: true),
         AutoRoute(page: ServisBengkelDetailRoute.page, path: 'pesanan/:id')
       ];

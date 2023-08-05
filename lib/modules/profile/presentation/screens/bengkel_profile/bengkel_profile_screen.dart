@@ -73,7 +73,7 @@ class BengkelProfileScreen extends StatelessWidget {
 
 class _Content extends StatelessWidget {
   final BengkelProfile profile;
-  const _Content({super.key, required this.profile});
+  const _Content({required this.profile});
 
   @override
   Widget build(BuildContext context) {

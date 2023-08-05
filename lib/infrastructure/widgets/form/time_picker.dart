@@ -25,51 +25,48 @@ class SGTimePickerField extends StatefulWidget {
   State<SGTimePickerField> createState() => _SGTimePickerFieldState();
 }
 
-class SGTimePickerController {
-  _SGTimePickerFieldState? _state;
-
-  SGTimePickerController();
-
-  _init(
-    _SGTimePickerFieldState state,
-  ) {
-    _state = state;
-  }
-
-  dispose() {
-    _state = null;
-  }
-
-  TimeOfDay? get value => _state?._value;
+class SGTimePickerController extends ValueNotifier<TimeOfDay?> {
+  SGTimePickerController({TimeOfDay? initialValue}) : super(initialValue);
 }
 
 class _SGTimePickerFieldState extends State<SGTimePickerField> {
   late final TextEditingController _textController;
-  TimeOfDay? _value;
+  late SGTimePickerController _controller;
 
   @override
   void initState() {
     super.initState();
-    widget.controller?._init(this);
+    _controller = widget.controller ?? SGTimePickerController();
     _textController = TextEditingController();
-    _value = widget.initialValue;
+    _controller.addListener(_onValueChange);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _textController.text = _value?.format(context) ?? "";
+      _onValueChange();
     });
   }
 
   void _showTimePicker() async {
     final result = await showTimePicker(
-        context: context, initialTime: _value ?? TimeOfDay.now());
+        context: context, initialTime: _controller.value ?? TimeOfDay.now());
     if (result != null) {
       _setValue(result);
     }
   }
 
+  void _onValueChange() {
+    _textController.text = _controller.value?.format(context) ?? "";
+  }
+
   void _setValue(TimeOfDay? timeOfDay) {
-    if (!mounted) return;
-    _value = timeOfDay;
-    _textController.text = timeOfDay?.format(context) ?? '';
+    _controller.value = timeOfDay;
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_onValueChange);
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -83,7 +80,7 @@ class _SGTimePickerFieldState extends State<SGTimePickerField> {
           label: widget.label,
           controller: _textController,
           validator: (_) {
-            return widget.validator?.call(_value);
+            return widget.validator?.call(_controller.value);
           },
           focusNode: widget.focusNode,
           readOnly: true,
