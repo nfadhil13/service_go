@@ -6,6 +6,7 @@ import 'package:service_go/infrastructure/utils/value_validator/form_validator.d
 import 'package:service_go/infrastructure/widgets/buttons/outlined_button.dart';
 import 'package:service_go/infrastructure/widgets/form/password_field.dart';
 import 'package:service_go/infrastructure/widgets/icons/service_geo.dart';
+import 'package:service_go/modules/authentication/domain/model/user_type.dart';
 import 'package:sizer/sizer.dart';
 import 'package:service_go/infrastructure/architecutre/cubits/messenger/messenger_cubit.dart';
 import 'package:service_go/infrastructure/architecutre/cubits/session/session_cubit.dart';
@@ -35,10 +36,13 @@ class LoginScreen extends StatelessWidget {
               listener: (context, state) async {
                 if (state is LoginSuccess) {
                   context.read<SessionCubit>().setCurrenetUser(state.session);
-                  if (state.session.isBengkel) {
-                    context.router.replaceAll([BengkelRouter()]);
-                  } else {
-                    context.router.replaceAll([CustomerRouter()]);
+                  switch (state.session.userData.userType) {
+                    case UserType.admin:
+                      context.router.replaceAll([const AdminRouter()]);
+                    case UserType.bengkel:
+                      context.router.replaceAll([BengkelRouter()]);
+                    case UserType.customer:
+                      context.router.replaceAll([CustomerRouter()]);
                   }
                 }
               },

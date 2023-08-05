@@ -6,4 +6,5 @@ abstract class BengkelProfileRepository {
   Future<BengkelProfile> createOrUpdateProfile(BengkelProfile bengkelProfile);
   Future<List<BengkelProfileWithDistance>> getBengkelList(
       {SGDataQuery? queryData});
+  Future<int> count({SGDataQuery? queryData});
 }

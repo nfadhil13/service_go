@@ -128,7 +128,9 @@ class _ContentState extends State<_Content> {
               physics: const AlwaysScrollableScrollPhysics(),
               child: _Information(servisDetail: widget.servisDetail)),
         ),
-        _Actions(servisStatusData: widget.servisDetail.servis.statusData),
+        if (context.userSession.userId ==
+            widget.servisDetail.servis.customer.id)
+          _Actions(servisStatusData: widget.servisDetail.servis.statusData),
         BlocBuilder<ServisDetailCubit, ServisDetailState>(
           builder: (context, state) {
             if (state is ServisDetailLoading ||

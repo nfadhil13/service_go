@@ -57,7 +57,6 @@ class CustomerServisFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Masuk sini");
     return BlocProvider(
       create: (context) => getIt<CustomerServisFormCubit>()..init(mode),
       child: Scaffold(

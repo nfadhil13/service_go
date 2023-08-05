@@ -22,4 +22,8 @@ class BengkelProfileRepositoryImpl implements BengkelProfileRepository {
   Future<List<BengkelProfileWithDistance>> getBengkelList(
           {SGDataQuery? queryData}) =>
       _remoteDTS.getBengkelList(dataQuery: queryData);
+
+  @override
+  Future<int> count({SGDataQuery? queryData}) =>
+      _remoteDTS.count(dataQuery: queryData);
 }

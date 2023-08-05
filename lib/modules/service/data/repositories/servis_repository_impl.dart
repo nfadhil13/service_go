@@ -30,4 +30,7 @@ class ServisRepoImpl implements ServisRepo {
   @override
   Future<ServisDetail> getServisDetailById(String id) =>
       _servisRemoteDTS.getServisDetail(id);
+
+  @override
+  Future<int> count({SGDataQuery? query}) => _servisRemoteDTS.count(query);
 }

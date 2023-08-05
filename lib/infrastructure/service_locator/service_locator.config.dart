@@ -35,7 +35,7 @@ import '../../modules/authentication/domain/usecases/register.dart' as _i53;
 import '../../modules/authentication/presentation/screens/login/cubit/login_cubit.dart'
     as _i47;
 import '../../modules/authentication/presentation/screens/register/cubit/register_cubit.dart'
-    as _i74;
+    as _i75;
 import '../../modules/authentication/presentation/screens/splash/cubit/splash_cubit.dart'
     as _i60;
 import '../../modules/bengkel/data/datasource/firestore/bengkel_firestore_dts.dart'
@@ -72,6 +72,9 @@ import '../../modules/customer/data/repositories/customer_profile_repo_impl.dart
     as _i38;
 import '../../modules/customer/domain/repositories/customer_profile_repo.dart'
     as _i37;
+import '../../modules/home/domain/usecases/prerpare_admin_home.dart' as _i73;
+import '../../modules/home/presentation/screens/admin/cubit/admin_home_screen_cubit.dart'
+    as _i78;
 import '../../modules/profile/domain/usecase/bengkel/check_is_bengkel_has_profile.dart'
     as _i33;
 import '../../modules/profile/domain/usecase/bengkel/create_bengkel_profile.dart'
@@ -119,13 +122,13 @@ import '../../modules/service/domain/usecases/get_servis_list.dart' as _i71;
 import '../../modules/service/domain/usecases/prepare_customer_servis_create_form.dart'
     as _i51;
 import '../../modules/service/domain/usecases/prepare_customer_servis_form.dart'
-    as _i73;
+    as _i74;
 import '../../modules/service/presentation/cubits/detail/servis_detail_cubit.dart'
-    as _i75;
-import '../../modules/service/presentation/cubits/servis_list/servis_list_cubit.dart'
     as _i76;
-import '../../modules/service/presentation/screens/customer_form/cubit/customer_servis_form_cubit.dart'
+import '../../modules/service/presentation/cubits/servis_list/servis_list_cubit.dart'
     as _i77;
+import '../../modules/service/presentation/screens/customer_form/cubit/customer_servis_form_cubit.dart'
+    as _i79;
 import '../../modules/service/presentation/screens/list/cubit/servis_list_filter_cubit.dart'
     as _i19;
 import '../../modules/service/presentation/screens/list/servist_list_screen.dart'
@@ -140,7 +143,7 @@ import '../utils/location/location_util.dart' as _i13;
 import '../utils/notification/notification_service.dart' as _i15;
 import '../utils/notification/push_notification_util.dart' as _i52;
 import '../utils/storage/sg_storage_helper.dart' as _i16;
-import 'modules/core_module.dart' as _i78;
+import 'modules/core_module.dart' as _i80;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -332,24 +335,31 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i44.GetJadwalBengkel>(),
           gh<_i61.UpdateJadwalBengkel>(),
         ));
-    gh.factory<_i73.PrepareCustomerServisEditForm>(
-        () => _i73.PrepareCustomerServisEditForm(
+    gh.factory<_i73.PrepareAdminHome>(() => _i73.PrepareAdminHome(
+          gh<_i31.BengkelProfileRepository>(),
+          gh<_i37.CustomerProfileRepo>(),
+          gh<_i57.ServisRepo>(),
+        ));
+    gh.factory<_i74.PrepareCustomerServisEditForm>(
+        () => _i74.PrepareCustomerServisEditForm(
               gh<_i31.BengkelProfileRepository>(),
               gh<_i57.ServisRepo>(),
             ));
-    gh.factory<_i74.RegisterCubit>(() => _i74.RegisterCubit(
+    gh.factory<_i75.RegisterCubit>(() => _i75.RegisterCubit(
           gh<_i14.MessengerCubit>(),
           gh<_i53.RegisterUserAccount>(),
         ));
-    gh.factory<_i75.ServisDetailCubit>(() => _i75.ServisDetailCubit(
+    gh.factory<_i76.ServisDetailCubit>(() => _i76.ServisDetailCubit(
           gh<_i70.GetServisById>(),
           gh<_i67.CreateOrUpdateServis>(),
           gh<_i14.MessengerCubit>(),
         ));
-    gh.factory<_i76.ServisListCubit>(
-        () => _i76.ServisListCubit(gh<_i71.GetServisList>()));
-    gh.factory<_i77.CustomerServisFormCubit>(() => _i77.CustomerServisFormCubit(
-          gh<_i73.PrepareCustomerServisEditForm>(),
+    gh.factory<_i77.ServisListCubit>(
+        () => _i77.ServisListCubit(gh<_i71.GetServisList>()));
+    gh.factory<_i78.AdminHomeScreenCubit>(
+        () => _i78.AdminHomeScreenCubit(gh<_i73.PrepareAdminHome>()));
+    gh.factory<_i79.CustomerServisFormCubit>(() => _i79.CustomerServisFormCubit(
+          gh<_i74.PrepareCustomerServisEditForm>(),
           gh<_i51.PrepareCustomerServisCreateForm>(),
           gh<_i67.CreateOrUpdateServis>(),
         ));
@@ -357,4 +367,4 @@ extension GetItInjectableX on _i1.GetIt {
   }
 }
 
-class _$CoreModules extends _i78.CoreModules {}
+class _$CoreModules extends _i80.CoreModules {}

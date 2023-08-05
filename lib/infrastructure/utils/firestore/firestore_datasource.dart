@@ -24,6 +24,15 @@ class FirestoreDatasource<Entity, Mapper extends FireStoreMapper<Entity>> {
       this.locationMapper,
       required this.firestore});
 
+  Future<int> count(
+          {SGDataQuery? query,
+          String Function(String collectionName)? pathBuilder}) =>
+      _collectionRefNoConverter(pathBuilder: pathBuilder)
+          .buildQuery(query?.query)
+          .count()
+          .get()
+          .then((value) => value.count);
+
   Future<Entity> create(Entity entity,
           {String Function(String collectionName)? pathBuilder}) =>
       _collectionRefNoConverter(pathBuilder: pathBuilder)

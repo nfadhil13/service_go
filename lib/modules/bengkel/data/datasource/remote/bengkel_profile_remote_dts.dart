@@ -14,6 +14,7 @@ abstract class BengkelProfileRemoteDTS {
   Future<BengkelProfile> put(BengkelProfile bengkelProfile);
   Future<List<BengkelProfileWithDistance>> getBengkelList(
       {SGDataQuery? dataQuery});
+  Future<int> count({SGDataQuery? dataQuery});
 }
 
 @Injectable(as: BengkelProfileRemoteDTS)
@@ -63,4 +64,8 @@ class BengkelProfileRemoteDTSImpl implements BengkelProfileRemoteDTS {
           distanceInKm: bengkelWithDistance.distanceInKm);
     }));
   }
+
+  @override
+  Future<int> count({SGDataQuery? dataQuery}) =>
+      _profileFirestore.count(query: dataQuery);
 }

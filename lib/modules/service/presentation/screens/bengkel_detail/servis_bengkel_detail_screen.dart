@@ -153,12 +153,13 @@ class _ContentState extends State<_Content> {
             ),
           ),
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            _Actions(servisDetail: widget.servisDetail),
-          ],
-        )
+        if (context.userSession.userId == widget.servisDetail.bengkelProfile.id)
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _Actions(servisDetail: widget.servisDetail),
+            ],
+          )
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:service_go/infrastructure/types/query.dart';
 import 'package:service_go/modules/customer/data/datasource/remote/customer_profile_remote_dts.dart';
 import 'package:service_go/modules/customer/domain/model/customer_profile.dart';
 import 'package:service_go/modules/customer/domain/repositories/customer_profile_repo.dart';
@@ -19,4 +20,7 @@ class CustomerProfileRepoImpl implements CustomerProfileRepo {
     await _remoteDTS.putCustomer(customerProfile);
     return customerProfile;
   }
+
+  @override
+  Future<int> count({SGDataQuery? query}) => _remoteDTS.count(query: query);
 }

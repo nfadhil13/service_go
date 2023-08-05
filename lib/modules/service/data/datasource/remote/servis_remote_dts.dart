@@ -23,6 +23,7 @@ abstract class ServisRemoteDTS {
   Future<Servis> createServis(Servis servis);
   Future<Servis> putServis(Servis servis);
   Future<List<Servis>> getServisList(SGDataQuery? query);
+  Future<int> count(SGDataQuery? query);
   Future<Servis?> getServisById(String id);
   Future<ServisDetail> getServisDetail(String id);
 }
@@ -174,4 +175,8 @@ class ServisRemoteDTSImpl implements ServisRemoteDTS {
       }),
     );
   }
+
+  @override
+  Future<int> count(SGDataQuery? query) =>
+      _servisFirestoreDTS.count(query: query);
 }

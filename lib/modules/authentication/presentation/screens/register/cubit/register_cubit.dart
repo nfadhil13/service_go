@@ -8,6 +8,7 @@ import 'package:service_go/infrastructure/types/exceptions/form_exception.dart';
 import 'package:service_go/infrastructure/types/resource.dart';
 import 'package:service_go/infrastructure/widgets/form/dropdown.dart';
 import 'package:service_go/modules/authentication/domain/model/user_register_data.dart';
+import 'package:service_go/modules/authentication/domain/model/user_type.dart';
 import 'package:service_go/modules/authentication/domain/usecases/register.dart';
 
 part 'register_state.dart';
@@ -57,7 +58,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         username: username.text,
         email: email.text,
         password: password.text,
-        isBengkel: isBengkel.value!);
+        isBengkel: isBengkel.value! ? UserType.bengkel : UserType.customer);
   }
 
   void _addErrorAndValidate(Map<String, dynamic> newErrors) {

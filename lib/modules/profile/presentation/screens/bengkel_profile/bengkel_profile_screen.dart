@@ -77,7 +77,7 @@ class _Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isBengkel = context.userSession.isBengkel;
+    final isCustomer = context.userSession.isCustomer;
     return Stack(
       children: [
         SizedBox.expand(
@@ -108,7 +108,7 @@ class _Content extends StatelessWidget {
                       profile: profile,
                       jadwalBengkel: profile.jadwalBengkel,
                     ),
-                    if (!isBengkel)
+                    if (isCustomer)
                       SGHideWidget(child: _ButtonPesan(bengkelId: profile.id))
                   ],
                 ),
@@ -116,7 +116,7 @@ class _Content extends StatelessWidget {
             ),
           ),
         ),
-        if (!isBengkel)
+        if (isCustomer)
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.stretch,

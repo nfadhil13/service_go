@@ -1,5 +1,6 @@
 import 'package:service_go/infrastructure/architecutre/local_mapper.dart';
 import 'package:service_go/modules/authentication/domain/model/user_data.dart';
+import 'package:service_go/modules/authentication/domain/model/user_type.dart';
 
 class SessionLocalMapper extends LocalMapper<UserData, dynamic> {
   SessionLocalMapper();
@@ -11,7 +12,7 @@ class SessionLocalMapper extends LocalMapper<UserData, dynamic> {
         id: entity["id"],
         username: entity["username"],
         email: entity["email"],
-        isBengkel: entity["isBengkel"]);
+        userType: UserType.fromId(entity["userType"]));
   }
 
   @override
@@ -20,7 +21,7 @@ class SessionLocalMapper extends LocalMapper<UserData, dynamic> {
       "id": domain.id,
       "email": domain.email,
       "username": domain.username,
-      "isBengkel": domain.isBengkel,
+      "userType": domain.userType.id,
       "firebaseToken": domain.token
     };
   }

@@ -168,7 +168,8 @@ class BengkelProfileWidget extends StatelessWidget {
                 Text("${bengkel.jenisLayanan.length - 2}+")
             ]),
             2.verticalSpace,
-            Text(bengkelProfile.distranceString)
+            if (bengkelProfile.distanceInKm >= 0)
+              Text(bengkelProfile.distranceString)
           ],
         ),
       ),

@@ -26,6 +26,10 @@ class SplashScreen extends StatelessWidget {
               final router = context.router;
               PageRouteInfo? info;
               if (session != null) {
+                if (session.userData.isAdmin) {
+                  router.replaceAll([const AdminRouter()]);
+                  return;
+                }
                 List<PageRouteInfo>? children;
                 final routeNavNotif = state.navNotif;
                 if (routeNavNotif != null &&

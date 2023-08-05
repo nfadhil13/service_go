@@ -60,6 +60,6 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
         id: registuerUserResult.uid,
         username: user.username,
         email: user.email,
-        isBengkel: user.isBengkel));
+        userType: user.isBengkel));
   }
 }
