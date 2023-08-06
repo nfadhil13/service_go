@@ -12,4 +12,13 @@ class JenisLayananRepositoryImpl implements JenisLayananRepository {
   @override
   Future<List<JenisLayanan>> getAllJenisLayanan() =>
       _jenisLayananRemoteDTS.fetchAllJenisLayanan();
+
+  @override
+  Future<void> put(JenisLayanan jenisLayanan) async {
+    if (jenisLayanan.id.isEmpty) {
+      await _jenisLayananRemoteDTS.create(jenisLayanan.name);
+    } else {
+      await _jenisLayananRemoteDTS.update(jenisLayanan);
+    }
+  }
 }

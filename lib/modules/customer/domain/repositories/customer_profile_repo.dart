@@ -5,5 +5,6 @@ abstract class CustomerProfileRepo {
   Future<CustomerProfile?> getCustomerByUserId(String userId);
   Future<CustomerProfile> createOrUpdatCustomer(
       CustomerProfile customerProfile);
+  Future<List<CustomerProfile>> getCutomerList({SGDataQuery? query});
   Future<int> count({SGDataQuery? query});
 }

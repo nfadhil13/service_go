@@ -7,6 +7,7 @@ abstract class CustomerProfileRemoteDTS {
   Future<CustomerProfile?> getByUserId(String userId);
   Future<void> putCustomer(CustomerProfile customerProfile);
   Future<int> count({SGDataQuery? query});
+  Future<List<CustomerProfile>> getCustomerList({SGDataQuery? query});
 }
 
 @Injectable(as: CustomerProfileRemoteDTS)
@@ -25,4 +26,8 @@ class CustomerProfileRemoteDTSImpl implements CustomerProfileRemoteDTS {
 
   @override
   Future<int> count({SGDataQuery? query}) => _firestoreDTS.count(query: query);
+
+  @override
+  Future<List<CustomerProfile>> getCustomerList({SGDataQuery? query}) =>
+      _firestoreDTS.fetchAll(query: query);
 }

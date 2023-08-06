@@ -21,6 +21,7 @@ class AdminHomeScreenCubit extends Cubit<AdminHomeScreenState> {
         emit(AdminHomeScreenSuccess(
             servisCount: data.servisCount,
             customerCount: data.userCount,
+            jenisLayananCout: data.jenisCount,
             bengkelCount: data.bengkelCount));
       case Error():
         emit(AdminHomeScreenError(result.exception.message));

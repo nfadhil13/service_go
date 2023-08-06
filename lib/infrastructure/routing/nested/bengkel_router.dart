@@ -13,7 +13,7 @@ class BengkelRouterScreen extends AutoRouter implements AutoRouteWrapper {
   static List<AutoRoute> get routes => [
         AutoRoute(page: JadwalBengkelFormRoute.page, path: 'jadwal'),
         AutoRoute(page: BengkelHomeRoute.page, path: 'home', initial: true),
-        AutoRoute(page: ServisBengkelDetailRoute.page, path: 'pesanan/:id')
+        AutoRoute(page: ServisBengkelDetailRoute.page, path: 'pesanan/:id'),
       ];
 
   final BengkelProfile? bengkelProfile;

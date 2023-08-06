@@ -23,4 +23,8 @@ class CustomerProfileRepoImpl implements CustomerProfileRepo {
 
   @override
   Future<int> count({SGDataQuery? query}) => _remoteDTS.count(query: query);
+
+  @override
+  Future<List<CustomerProfile>> getCutomerList({SGDataQuery? query}) =>
+      _remoteDTS.getCustomerList(query: query);
 }

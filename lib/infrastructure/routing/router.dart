@@ -13,7 +13,8 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: LoginRoute.page, path: '/login'),
         AutoRoute(page: RegisterRoute.page, path: '/register'),
         AutoRoute(page: SplashRoute.page, path: '/splash', initial: true),
-        AutoRoute(page: CustomProfileFormRoute.page, path: '/register'),
+        AutoRoute(
+            page: CustomProfileFormRoute.page, path: '/customer-register'),
         AutoRoute(
             page: BengkelProfileFormRoute.page, path: '/bengkel-register'),
         AutoRoute(page: BengkelProfileRoute.page, path: '/profile/bengkel/:id'),

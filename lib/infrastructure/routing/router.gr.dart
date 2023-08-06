@@ -8,16 +8,16 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i21;
-import 'package:flutter/material.dart' as _i22;
-import 'package:flutter/src/widgets/framework.dart' as _i24;
+import 'package:auto_route/auto_route.dart' as _i23;
+import 'package:flutter/material.dart' as _i24;
+import 'package:flutter/src/widgets/framework.dart' as _i26;
 import 'package:service_go/infrastructure/routing/nested/admin_router.dart'
     as _i19;
 import 'package:service_go/infrastructure/routing/nested/bengkel_router.dart'
     as _i2;
 import 'package:service_go/infrastructure/routing/nested/customer_router.dart'
     as _i1;
-import 'package:service_go/infrastructure/types/query.dart' as _i26;
+import 'package:service_go/infrastructure/types/query.dart' as _i28;
 import 'package:service_go/modules/authentication/presentation/screens/login/login_screen.dart'
     as _i18;
 import 'package:service_go/modules/authentication/presentation/screens/register/register_screen.dart'
@@ -25,15 +25,19 @@ import 'package:service_go/modules/authentication/presentation/screens/register/
 import 'package:service_go/modules/authentication/presentation/screens/splash/splash_screen.dart'
     as _i16;
 import 'package:service_go/modules/bengkel/domain/model/bengkel_profile.dart'
-    as _i25;
+    as _i27;
 import 'package:service_go/modules/bengkel/presentation/screens/admin_bengkel_list/admin_bengkel_list_screen.dart'
     as _i20;
+import 'package:service_go/modules/bengkel/presentation/screens/admin_jenis_layanan/admin_jenis_layanan_list_screen.dart'
+    as _i22;
 import 'package:service_go/modules/bengkel/presentation/screens/bengkel_list/bengkel_list_screen.dart'
     as _i6;
 import 'package:service_go/modules/bengkel/presentation/screens/jadwal_bengkel/jadwal_bengkel_screen.dart'
     as _i7;
 import 'package:service_go/modules/customer/domain/model/customer_profile.dart'
-    as _i23;
+    as _i25;
+import 'package:service_go/modules/customer/presentation/screens/admin_customer_list_screen.dart'
+    as _i21;
 import 'package:service_go/modules/home/presentation/screens/admin/admin_home_screen.dart'
     as _i4;
 import 'package:service_go/modules/home/presentation/screens/bengkel/bengkel_home_screen.dart'
@@ -48,7 +52,7 @@ import 'package:service_go/modules/profile/presentation/screens/customer_profile
     as _i9;
 import 'package:service_go/modules/profile/presentation/screens/customer_profile_form/customer_profile_form_screen.dart'
     as _i10;
-import 'package:service_go/modules/service/domain/model/servis.dart' as _i27;
+import 'package:service_go/modules/service/domain/model/servis.dart' as _i29;
 import 'package:service_go/modules/service/presentation/screens/bengkel_detail/servis_bengkel_detail_screen.dart'
     as _i13;
 import 'package:service_go/modules/service/presentation/screens/customer_detail/servis_customer_detail_screen.dart'
@@ -58,17 +62,17 @@ import 'package:service_go/modules/service/presentation/screens/customer_form/cu
 import 'package:service_go/modules/service/presentation/screens/list/servist_list_screen.dart'
     as _i14;
 
-abstract class $AppRouter extends _i21.RootStackRouter {
+abstract class $AppRouter extends _i23.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i21.PageFactory> pagesMap = {
+  final Map<String, _i23.PageFactory> pagesMap = {
     CustomerRouter.name: (routeData) {
       final args = routeData.argsAs<CustomerRouterArgs>(
           orElse: () => const CustomerRouterArgs());
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i21.WrappedRoute(
+        child: _i23.WrappedRoute(
             child: _i1.CustomerRouterScreen(
           key: args.key,
           profile: args.profile,
@@ -78,9 +82,9 @@ abstract class $AppRouter extends _i21.RootStackRouter {
     BengkelRouter.name: (routeData) {
       final args = routeData.argsAs<BengkelRouterArgs>(
           orElse: () => const BengkelRouterArgs());
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i21.WrappedRoute(
+        child: _i23.WrappedRoute(
             child: _i2.BengkelRouterScreen(
           key: args.key,
           bengkelProfile: args.bengkelProfile,
@@ -88,31 +92,31 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       );
     },
     BengkelHomeRoute.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i3.BengkelHomeScreen(),
       );
     },
     AdmminHomeRoute.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i4.AdmminHomeScreen(),
       );
     },
     CustomerHomeRoute.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i5.CustomerHomeScreen(),
       );
     },
     BengkelListRoute.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i6.BengkelListScreen(),
       );
     },
     JadwalBengkelFormRoute.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i7.JadwalBengkelFormScreen(),
       );
@@ -122,7 +126,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       final args = routeData.argsAs<BengkelProfileRouteArgs>(
           orElse: () =>
               BengkelProfileRouteArgs(userId: pathParams.getString('id')));
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i8.BengkelProfileScreen(
           key: args.key,
@@ -135,7 +139,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       final args = routeData.argsAs<CustomerProfileRouteArgs>(
           orElse: () =>
               CustomerProfileRouteArgs(userId: pathParams.getString('id')));
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i9.CustomerProfileScreen(
           key: args.key,
@@ -146,7 +150,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
     CustomProfileFormRoute.name: (routeData) {
       final args = routeData.argsAs<CustomProfileFormRouteArgs>(
           orElse: () => const CustomProfileFormRouteArgs());
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i10.CustomProfileFormScreen(
           key: args.key,
@@ -157,7 +161,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
     BengkelProfileFormRoute.name: (routeData) {
       final args = routeData.argsAs<BengkelProfileFormRouteArgs>(
           orElse: () => const BengkelProfileFormRouteArgs());
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i11.BengkelProfileFormScreen(
           key: args.key,
@@ -167,7 +171,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
     },
     CustomerServisFormRoute.name: (routeData) {
       final args = routeData.argsAs<CustomerServisFormRouteArgs>();
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i12.CustomerServisFormScreen(
           key: args.key,
@@ -180,7 +184,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       final args = routeData.argsAs<ServisBengkelDetailRouteArgs>(
           orElse: () => ServisBengkelDetailRouteArgs(
               servisId: pathParams.getString('id')));
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i13.ServisBengkelDetailScreen(
           key: args.key,
@@ -191,7 +195,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
     ServisListRoute.name: (routeData) {
       final args = routeData.argsAs<ServisListRouteArgs>(
           orElse: () => const ServisListRouteArgs());
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i14.ServisListScreen(
           key: args.key,
@@ -206,7 +210,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       final args = routeData.argsAs<ServisCustomerDetailRouteArgs>(
           orElse: () => ServisCustomerDetailRouteArgs(
               servisId: pathParams.getString('id')));
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i15.ServisCustomerDetailScreen(
           key: args.key,
@@ -215,33 +219,45 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       );
     },
     SplashRoute.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i16.SplashScreen(),
       );
     },
     RegisterRoute.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i17.RegisterScreen(),
       );
     },
     LoginRoute.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i18.LoginScreen(),
       );
     },
     AdminRouter.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i19.AdminRouterList(),
       );
     },
     AdminBengkelListRoute.name: (routeData) {
-      return _i21.AutoRoutePage<dynamic>(
+      return _i23.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i20.AdminBengkelListScreen(),
+      );
+    },
+    AdminCustomerListRoute.name: (routeData) {
+      return _i23.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i21.AdminCustomerListScreen(),
+      );
+    },
+    AdminJenisLayananListRoute.name: (routeData) {
+      return _i23.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i22.AdminJenisLayananListScreen(),
       );
     },
   };
@@ -249,11 +265,11 @@ abstract class $AppRouter extends _i21.RootStackRouter {
 
 /// generated route for
 /// [_i1.CustomerRouterScreen]
-class CustomerRouter extends _i21.PageRouteInfo<CustomerRouterArgs> {
+class CustomerRouter extends _i23.PageRouteInfo<CustomerRouterArgs> {
   CustomerRouter({
-    _i22.Key? key,
-    _i23.CustomerProfile? profile,
-    List<_i21.PageRouteInfo>? children,
+    _i24.Key? key,
+    _i25.CustomerProfile? profile,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
           CustomerRouter.name,
           args: CustomerRouterArgs(
@@ -265,8 +281,8 @@ class CustomerRouter extends _i21.PageRouteInfo<CustomerRouterArgs> {
 
   static const String name = 'CustomerRouter';
 
-  static const _i21.PageInfo<CustomerRouterArgs> page =
-      _i21.PageInfo<CustomerRouterArgs>(name);
+  static const _i23.PageInfo<CustomerRouterArgs> page =
+      _i23.PageInfo<CustomerRouterArgs>(name);
 }
 
 class CustomerRouterArgs {
@@ -275,9 +291,9 @@ class CustomerRouterArgs {
     this.profile,
   });
 
-  final _i22.Key? key;
+  final _i24.Key? key;
 
-  final _i23.CustomerProfile? profile;
+  final _i25.CustomerProfile? profile;
 
   @override
   String toString() {
@@ -287,11 +303,11 @@ class CustomerRouterArgs {
 
 /// generated route for
 /// [_i2.BengkelRouterScreen]
-class BengkelRouter extends _i21.PageRouteInfo<BengkelRouterArgs> {
+class BengkelRouter extends _i23.PageRouteInfo<BengkelRouterArgs> {
   BengkelRouter({
-    _i24.Key? key,
-    _i25.BengkelProfile? bengkelProfile,
-    List<_i21.PageRouteInfo>? children,
+    _i26.Key? key,
+    _i27.BengkelProfile? bengkelProfile,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
           BengkelRouter.name,
           args: BengkelRouterArgs(
@@ -303,8 +319,8 @@ class BengkelRouter extends _i21.PageRouteInfo<BengkelRouterArgs> {
 
   static const String name = 'BengkelRouter';
 
-  static const _i21.PageInfo<BengkelRouterArgs> page =
-      _i21.PageInfo<BengkelRouterArgs>(name);
+  static const _i23.PageInfo<BengkelRouterArgs> page =
+      _i23.PageInfo<BengkelRouterArgs>(name);
 }
 
 class BengkelRouterArgs {
@@ -313,9 +329,9 @@ class BengkelRouterArgs {
     this.bengkelProfile,
   });
 
-  final _i24.Key? key;
+  final _i26.Key? key;
 
-  final _i25.BengkelProfile? bengkelProfile;
+  final _i27.BengkelProfile? bengkelProfile;
 
   @override
   String toString() {
@@ -325,8 +341,8 @@ class BengkelRouterArgs {
 
 /// generated route for
 /// [_i3.BengkelHomeScreen]
-class BengkelHomeRoute extends _i21.PageRouteInfo<void> {
-  const BengkelHomeRoute({List<_i21.PageRouteInfo>? children})
+class BengkelHomeRoute extends _i23.PageRouteInfo<void> {
+  const BengkelHomeRoute({List<_i23.PageRouteInfo>? children})
       : super(
           BengkelHomeRoute.name,
           initialChildren: children,
@@ -334,13 +350,13 @@ class BengkelHomeRoute extends _i21.PageRouteInfo<void> {
 
   static const String name = 'BengkelHomeRoute';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i4.AdmminHomeScreen]
-class AdmminHomeRoute extends _i21.PageRouteInfo<void> {
-  const AdmminHomeRoute({List<_i21.PageRouteInfo>? children})
+class AdmminHomeRoute extends _i23.PageRouteInfo<void> {
+  const AdmminHomeRoute({List<_i23.PageRouteInfo>? children})
       : super(
           AdmminHomeRoute.name,
           initialChildren: children,
@@ -348,13 +364,13 @@ class AdmminHomeRoute extends _i21.PageRouteInfo<void> {
 
   static const String name = 'AdmminHomeRoute';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i5.CustomerHomeScreen]
-class CustomerHomeRoute extends _i21.PageRouteInfo<void> {
-  const CustomerHomeRoute({List<_i21.PageRouteInfo>? children})
+class CustomerHomeRoute extends _i23.PageRouteInfo<void> {
+  const CustomerHomeRoute({List<_i23.PageRouteInfo>? children})
       : super(
           CustomerHomeRoute.name,
           initialChildren: children,
@@ -362,13 +378,13 @@ class CustomerHomeRoute extends _i21.PageRouteInfo<void> {
 
   static const String name = 'CustomerHomeRoute';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i6.BengkelListScreen]
-class BengkelListRoute extends _i21.PageRouteInfo<void> {
-  const BengkelListRoute({List<_i21.PageRouteInfo>? children})
+class BengkelListRoute extends _i23.PageRouteInfo<void> {
+  const BengkelListRoute({List<_i23.PageRouteInfo>? children})
       : super(
           BengkelListRoute.name,
           initialChildren: children,
@@ -376,13 +392,13 @@ class BengkelListRoute extends _i21.PageRouteInfo<void> {
 
   static const String name = 'BengkelListRoute';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i7.JadwalBengkelFormScreen]
-class JadwalBengkelFormRoute extends _i21.PageRouteInfo<void> {
-  const JadwalBengkelFormRoute({List<_i21.PageRouteInfo>? children})
+class JadwalBengkelFormRoute extends _i23.PageRouteInfo<void> {
+  const JadwalBengkelFormRoute({List<_i23.PageRouteInfo>? children})
       : super(
           JadwalBengkelFormRoute.name,
           initialChildren: children,
@@ -390,16 +406,16 @@ class JadwalBengkelFormRoute extends _i21.PageRouteInfo<void> {
 
   static const String name = 'JadwalBengkelFormRoute';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i8.BengkelProfileScreen]
-class BengkelProfileRoute extends _i21.PageRouteInfo<BengkelProfileRouteArgs> {
+class BengkelProfileRoute extends _i23.PageRouteInfo<BengkelProfileRouteArgs> {
   BengkelProfileRoute({
-    _i22.Key? key,
+    _i24.Key? key,
     required String userId,
-    List<_i21.PageRouteInfo>? children,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
           BengkelProfileRoute.name,
           args: BengkelProfileRouteArgs(
@@ -412,8 +428,8 @@ class BengkelProfileRoute extends _i21.PageRouteInfo<BengkelProfileRouteArgs> {
 
   static const String name = 'BengkelProfileRoute';
 
-  static const _i21.PageInfo<BengkelProfileRouteArgs> page =
-      _i21.PageInfo<BengkelProfileRouteArgs>(name);
+  static const _i23.PageInfo<BengkelProfileRouteArgs> page =
+      _i23.PageInfo<BengkelProfileRouteArgs>(name);
 }
 
 class BengkelProfileRouteArgs {
@@ -422,7 +438,7 @@ class BengkelProfileRouteArgs {
     required this.userId,
   });
 
-  final _i22.Key? key;
+  final _i24.Key? key;
 
   final String userId;
 
@@ -435,11 +451,11 @@ class BengkelProfileRouteArgs {
 /// generated route for
 /// [_i9.CustomerProfileScreen]
 class CustomerProfileRoute
-    extends _i21.PageRouteInfo<CustomerProfileRouteArgs> {
+    extends _i23.PageRouteInfo<CustomerProfileRouteArgs> {
   CustomerProfileRoute({
-    _i22.Key? key,
+    _i24.Key? key,
     required String userId,
-    List<_i21.PageRouteInfo>? children,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
           CustomerProfileRoute.name,
           args: CustomerProfileRouteArgs(
@@ -452,8 +468,8 @@ class CustomerProfileRoute
 
   static const String name = 'CustomerProfileRoute';
 
-  static const _i21.PageInfo<CustomerProfileRouteArgs> page =
-      _i21.PageInfo<CustomerProfileRouteArgs>(name);
+  static const _i23.PageInfo<CustomerProfileRouteArgs> page =
+      _i23.PageInfo<CustomerProfileRouteArgs>(name);
 }
 
 class CustomerProfileRouteArgs {
@@ -462,7 +478,7 @@ class CustomerProfileRouteArgs {
     required this.userId,
   });
 
-  final _i22.Key? key;
+  final _i24.Key? key;
 
   final String userId;
 
@@ -475,11 +491,11 @@ class CustomerProfileRouteArgs {
 /// generated route for
 /// [_i10.CustomProfileFormScreen]
 class CustomProfileFormRoute
-    extends _i21.PageRouteInfo<CustomProfileFormRouteArgs> {
+    extends _i23.PageRouteInfo<CustomProfileFormRouteArgs> {
   CustomProfileFormRoute({
-    _i22.Key? key,
-    void Function(_i23.CustomerProfile)? onCustomerProfileCreated,
-    List<_i21.PageRouteInfo>? children,
+    _i24.Key? key,
+    void Function(_i25.CustomerProfile)? onCustomerProfileCreated,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
           CustomProfileFormRoute.name,
           args: CustomProfileFormRouteArgs(
@@ -491,8 +507,8 @@ class CustomProfileFormRoute
 
   static const String name = 'CustomProfileFormRoute';
 
-  static const _i21.PageInfo<CustomProfileFormRouteArgs> page =
-      _i21.PageInfo<CustomProfileFormRouteArgs>(name);
+  static const _i23.PageInfo<CustomProfileFormRouteArgs> page =
+      _i23.PageInfo<CustomProfileFormRouteArgs>(name);
 }
 
 class CustomProfileFormRouteArgs {
@@ -501,9 +517,9 @@ class CustomProfileFormRouteArgs {
     this.onCustomerProfileCreated,
   });
 
-  final _i22.Key? key;
+  final _i24.Key? key;
 
-  final void Function(_i23.CustomerProfile)? onCustomerProfileCreated;
+  final void Function(_i25.CustomerProfile)? onCustomerProfileCreated;
 
   @override
   String toString() {
@@ -514,11 +530,11 @@ class CustomProfileFormRouteArgs {
 /// generated route for
 /// [_i11.BengkelProfileFormScreen]
 class BengkelProfileFormRoute
-    extends _i21.PageRouteInfo<BengkelProfileFormRouteArgs> {
+    extends _i23.PageRouteInfo<BengkelProfileFormRouteArgs> {
   BengkelProfileFormRoute({
-    _i22.Key? key,
-    void Function(_i25.BengkelProfile)? onBengkelProfileCreated,
-    List<_i21.PageRouteInfo>? children,
+    _i24.Key? key,
+    void Function(_i27.BengkelProfile)? onBengkelProfileCreated,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
           BengkelProfileFormRoute.name,
           args: BengkelProfileFormRouteArgs(
@@ -530,8 +546,8 @@ class BengkelProfileFormRoute
 
   static const String name = 'BengkelProfileFormRoute';
 
-  static const _i21.PageInfo<BengkelProfileFormRouteArgs> page =
-      _i21.PageInfo<BengkelProfileFormRouteArgs>(name);
+  static const _i23.PageInfo<BengkelProfileFormRouteArgs> page =
+      _i23.PageInfo<BengkelProfileFormRouteArgs>(name);
 }
 
 class BengkelProfileFormRouteArgs {
@@ -540,9 +556,9 @@ class BengkelProfileFormRouteArgs {
     this.onBengkelProfileCreated,
   });
 
-  final _i22.Key? key;
+  final _i24.Key? key;
 
-  final void Function(_i25.BengkelProfile)? onBengkelProfileCreated;
+  final void Function(_i27.BengkelProfile)? onBengkelProfileCreated;
 
   @override
   String toString() {
@@ -553,11 +569,11 @@ class BengkelProfileFormRouteArgs {
 /// generated route for
 /// [_i12.CustomerServisFormScreen]
 class CustomerServisFormRoute
-    extends _i21.PageRouteInfo<CustomerServisFormRouteArgs> {
+    extends _i23.PageRouteInfo<CustomerServisFormRouteArgs> {
   CustomerServisFormRoute({
-    _i22.Key? key,
+    _i24.Key? key,
     required _i12.CustomerServisFormScreenMode mode,
-    List<_i21.PageRouteInfo>? children,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
           CustomerServisFormRoute.name,
           args: CustomerServisFormRouteArgs(
@@ -569,8 +585,8 @@ class CustomerServisFormRoute
 
   static const String name = 'CustomerServisFormRoute';
 
-  static const _i21.PageInfo<CustomerServisFormRouteArgs> page =
-      _i21.PageInfo<CustomerServisFormRouteArgs>(name);
+  static const _i23.PageInfo<CustomerServisFormRouteArgs> page =
+      _i23.PageInfo<CustomerServisFormRouteArgs>(name);
 }
 
 class CustomerServisFormRouteArgs {
@@ -579,7 +595,7 @@ class CustomerServisFormRouteArgs {
     required this.mode,
   });
 
-  final _i22.Key? key;
+  final _i24.Key? key;
 
   final _i12.CustomerServisFormScreenMode mode;
 
@@ -592,11 +608,11 @@ class CustomerServisFormRouteArgs {
 /// generated route for
 /// [_i13.ServisBengkelDetailScreen]
 class ServisBengkelDetailRoute
-    extends _i21.PageRouteInfo<ServisBengkelDetailRouteArgs> {
+    extends _i23.PageRouteInfo<ServisBengkelDetailRouteArgs> {
   ServisBengkelDetailRoute({
-    _i22.Key? key,
+    _i24.Key? key,
     required String servisId,
-    List<_i21.PageRouteInfo>? children,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
           ServisBengkelDetailRoute.name,
           args: ServisBengkelDetailRouteArgs(
@@ -609,8 +625,8 @@ class ServisBengkelDetailRoute
 
   static const String name = 'ServisBengkelDetailRoute';
 
-  static const _i21.PageInfo<ServisBengkelDetailRouteArgs> page =
-      _i21.PageInfo<ServisBengkelDetailRouteArgs>(name);
+  static const _i23.PageInfo<ServisBengkelDetailRouteArgs> page =
+      _i23.PageInfo<ServisBengkelDetailRouteArgs>(name);
 }
 
 class ServisBengkelDetailRouteArgs {
@@ -619,7 +635,7 @@ class ServisBengkelDetailRouteArgs {
     required this.servisId,
   });
 
-  final _i22.Key? key;
+  final _i24.Key? key;
 
   final String servisId;
 
@@ -631,16 +647,16 @@ class ServisBengkelDetailRouteArgs {
 
 /// generated route for
 /// [_i14.ServisListScreen]
-class ServisListRoute extends _i21.PageRouteInfo<ServisListRouteArgs> {
+class ServisListRoute extends _i23.PageRouteInfo<ServisListRouteArgs> {
   ServisListRoute({
-    _i22.Key? key,
-    _i26.SGDataQuery? initialQuery,
+    _i24.Key? key,
+    _i28.SGDataQuery? initialQuery,
     void Function(
-      _i27.Servis,
+      _i29.Servis,
       void Function(),
     )? onServisClick,
     _i14.ServisListType? type,
-    List<_i21.PageRouteInfo>? children,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
           ServisListRoute.name,
           args: ServisListRouteArgs(
@@ -654,8 +670,8 @@ class ServisListRoute extends _i21.PageRouteInfo<ServisListRouteArgs> {
 
   static const String name = 'ServisListRoute';
 
-  static const _i21.PageInfo<ServisListRouteArgs> page =
-      _i21.PageInfo<ServisListRouteArgs>(name);
+  static const _i23.PageInfo<ServisListRouteArgs> page =
+      _i23.PageInfo<ServisListRouteArgs>(name);
 }
 
 class ServisListRouteArgs {
@@ -666,12 +682,12 @@ class ServisListRouteArgs {
     this.type,
   });
 
-  final _i22.Key? key;
+  final _i24.Key? key;
 
-  final _i26.SGDataQuery? initialQuery;
+  final _i28.SGDataQuery? initialQuery;
 
   final void Function(
-    _i27.Servis,
+    _i29.Servis,
     void Function(),
   )? onServisClick;
 
@@ -686,11 +702,11 @@ class ServisListRouteArgs {
 /// generated route for
 /// [_i15.ServisCustomerDetailScreen]
 class ServisCustomerDetailRoute
-    extends _i21.PageRouteInfo<ServisCustomerDetailRouteArgs> {
+    extends _i23.PageRouteInfo<ServisCustomerDetailRouteArgs> {
   ServisCustomerDetailRoute({
-    _i22.Key? key,
+    _i24.Key? key,
     required String servisId,
-    List<_i21.PageRouteInfo>? children,
+    List<_i23.PageRouteInfo>? children,
   }) : super(
           ServisCustomerDetailRoute.name,
           args: ServisCustomerDetailRouteArgs(
@@ -703,8 +719,8 @@ class ServisCustomerDetailRoute
 
   static const String name = 'ServisCustomerDetailRoute';
 
-  static const _i21.PageInfo<ServisCustomerDetailRouteArgs> page =
-      _i21.PageInfo<ServisCustomerDetailRouteArgs>(name);
+  static const _i23.PageInfo<ServisCustomerDetailRouteArgs> page =
+      _i23.PageInfo<ServisCustomerDetailRouteArgs>(name);
 }
 
 class ServisCustomerDetailRouteArgs {
@@ -713,7 +729,7 @@ class ServisCustomerDetailRouteArgs {
     required this.servisId,
   });
 
-  final _i22.Key? key;
+  final _i24.Key? key;
 
   final String servisId;
 
@@ -725,8 +741,8 @@ class ServisCustomerDetailRouteArgs {
 
 /// generated route for
 /// [_i16.SplashScreen]
-class SplashRoute extends _i21.PageRouteInfo<void> {
-  const SplashRoute({List<_i21.PageRouteInfo>? children})
+class SplashRoute extends _i23.PageRouteInfo<void> {
+  const SplashRoute({List<_i23.PageRouteInfo>? children})
       : super(
           SplashRoute.name,
           initialChildren: children,
@@ -734,13 +750,13 @@ class SplashRoute extends _i21.PageRouteInfo<void> {
 
   static const String name = 'SplashRoute';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i17.RegisterScreen]
-class RegisterRoute extends _i21.PageRouteInfo<void> {
-  const RegisterRoute({List<_i21.PageRouteInfo>? children})
+class RegisterRoute extends _i23.PageRouteInfo<void> {
+  const RegisterRoute({List<_i23.PageRouteInfo>? children})
       : super(
           RegisterRoute.name,
           initialChildren: children,
@@ -748,13 +764,13 @@ class RegisterRoute extends _i21.PageRouteInfo<void> {
 
   static const String name = 'RegisterRoute';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i18.LoginScreen]
-class LoginRoute extends _i21.PageRouteInfo<void> {
-  const LoginRoute({List<_i21.PageRouteInfo>? children})
+class LoginRoute extends _i23.PageRouteInfo<void> {
+  const LoginRoute({List<_i23.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           initialChildren: children,
@@ -762,13 +778,13 @@ class LoginRoute extends _i21.PageRouteInfo<void> {
 
   static const String name = 'LoginRoute';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i19.AdminRouterList]
-class AdminRouter extends _i21.PageRouteInfo<void> {
-  const AdminRouter({List<_i21.PageRouteInfo>? children})
+class AdminRouter extends _i23.PageRouteInfo<void> {
+  const AdminRouter({List<_i23.PageRouteInfo>? children})
       : super(
           AdminRouter.name,
           initialChildren: children,
@@ -776,13 +792,13 @@ class AdminRouter extends _i21.PageRouteInfo<void> {
 
   static const String name = 'AdminRouter';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i20.AdminBengkelListScreen]
-class AdminBengkelListRoute extends _i21.PageRouteInfo<void> {
-  const AdminBengkelListRoute({List<_i21.PageRouteInfo>? children})
+class AdminBengkelListRoute extends _i23.PageRouteInfo<void> {
+  const AdminBengkelListRoute({List<_i23.PageRouteInfo>? children})
       : super(
           AdminBengkelListRoute.name,
           initialChildren: children,
@@ -790,5 +806,33 @@ class AdminBengkelListRoute extends _i21.PageRouteInfo<void> {
 
   static const String name = 'AdminBengkelListRoute';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i21.AdminCustomerListScreen]
+class AdminCustomerListRoute extends _i23.PageRouteInfo<void> {
+  const AdminCustomerListRoute({List<_i23.PageRouteInfo>? children})
+      : super(
+          AdminCustomerListRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AdminCustomerListRoute';
+
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i22.AdminJenisLayananListScreen]
+class AdminJenisLayananListRoute extends _i23.PageRouteInfo<void> {
+  const AdminJenisLayananListRoute({List<_i23.PageRouteInfo>? children})
+      : super(
+          AdminJenisLayananListRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AdminJenisLayananListRoute';
+
+  static const _i23.PageInfo<void> page = _i23.PageInfo<void>(name);
 }

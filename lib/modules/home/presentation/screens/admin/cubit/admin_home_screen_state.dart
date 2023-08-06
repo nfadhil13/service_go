@@ -13,10 +13,12 @@ class AdminHomeScreenSuccess extends AdminHomeScreenState {
   final int servisCount;
   final int customerCount;
   final int bengkelCount;
+  final int jenisLayananCout;
 
   const AdminHomeScreenSuccess(
       {required this.servisCount,
       required this.customerCount,
+      required this.jenisLayananCout,
       required this.bengkelCount});
 }
 

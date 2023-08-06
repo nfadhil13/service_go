@@ -46,6 +46,9 @@ class AdmminHomeScreen extends StatelessWidget {
                       24.verticalSpace,
                       _HomeItem(
                           title: "Data Customer",
+                          onTap: () {
+                            context.router.push(const AdminCustomerListRoute());
+                          },
                           count: state.customerCount,
                           icon: Icons.person),
                       24.verticalSpace,
@@ -59,6 +62,15 @@ class AdmminHomeScreen extends StatelessWidget {
                             }));
                           },
                           count: state.servisCount,
+                          icon: Icons.room_service),
+                      24.verticalSpace,
+                      _HomeItem(
+                          title: "Jenis Layanan",
+                          onTap: () {
+                            context.router
+                                .push(const AdminJenisLayananListRoute());
+                          },
+                          count: state.jenisLayananCout,
                           icon: Icons.room_service)
                     ],
                   ),
